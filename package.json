@@ -2,6 +2,10 @@
   "name": "mypolitic",
   "version": "1.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "15.x",
+    "yarn": "1.x"
+  },
   "scripts": {
     "client": "cd client && yarn start",
     "server": "cd server && nodemon server.js",
