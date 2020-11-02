@@ -1,7 +1,6 @@
 {
   "name": "mypolitic",
   "version": "1.0.0",
-  "license": "MIT",
   "engines": {
     "node": "15.x",
     "npm": "7.x",
@@ -14,11 +13,10 @@
     "start": "cd server && node server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "concurrently": "^4.0.1"
-  }
+  },
+  "author": "DanishDude <danishdude33@gmail.com> (Christian Hinge)",
+  "license": "MIT"
 }
