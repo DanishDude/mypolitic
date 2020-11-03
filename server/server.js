@@ -8,11 +8,11 @@ const logger = require('morgan');
 const path = require('path');
 const httpErrors = require('http-errors');
 
-const { handleError } = require('./services/error');
-const passportManager = require('./services/passport');
-const indexRouter = require('./routes/index');
-const auth = require('./routes/auth');
-const politician = require('./routes/politician');
+// const { handleError } = require('./services/error');
+// const passportManager = require('./services/passport');
+// const indexRouter = require('./routes/index');
+// const auth = require('./routes/auth');
+// const politician = require('./routes/politician');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -30,16 +30,20 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(cors());
 app.use(bearerToken());
-app.use(passportManager.initialize());
+// app.use(passportManager.initialize());
 
 // API calls
-app.use('/api', indexRouter);
-app.use('/api/auth', auth);
-app.use('/api/politician', politician);
+// app.use('/api', indexRouter);
+// app.use('/api/auth', auth);
+// app.use('/api/politician', politician);
 
 // Test API calls
 app.get("/api/hello", (req, res) => {
   res.send({ express: "Hello From Express" });
+});
+
+app.get('/api/toto', (req, res) => {
+  res.send({toto: process.env.TOTO});
 });
 
 app.post("/api/world", (req, res) => {
