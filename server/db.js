@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.DB, { 
+mongoose.connect(process.env.MONGODB_URI, { 
   useNewUrlParser: true,
   useUnifiedTopology: true
  })
@@ -8,7 +8,7 @@ mongoose.connect(process.env.DB, {
   .catch(err => console.log(`DB Connection error: ${err}`));
  
  mongoose.set('useCreateIndex', true);
- mongoose.set('useFindAndModify', false); // https://mongoosejs.com/docs/deprecations.html#findandmodify
+ mongoose.set('useFindAndModify', false);
 
 const db = mongoose.connection;
 
