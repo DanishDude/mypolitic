@@ -10,8 +10,8 @@
     "client": "cd client && yarn start",
     "server": "cd server && nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "cd server && yarn && node server.js",
-    "heroku-postbuild": "cd client && yarn && yarn build"
+    "start": "cd server && npm install && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {},
   "devDependencies": {
