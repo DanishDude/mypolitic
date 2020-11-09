@@ -26,6 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 require('./db');
+app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {
     scriptSrc: ["'self'", "https://mypolitic.herokuapp.com/"]
