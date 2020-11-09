@@ -26,7 +26,14 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 require('./db');
-// app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "script-src": ["'self'", "https://mypolitic.herokuapp.com/"],
+    },
+  })
+);
 app.use(cookieParser());
 app.use(cors());
 app.use(bearerToken());
