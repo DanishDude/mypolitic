@@ -2,7 +2,11 @@
   "name": "mypolitic",
   "version": "1.0.0",
   "private": true,
-  "masin": "server.js",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js",
+    "start": "node server.js"
+  },
   "dependencies": {
     "babel-core": "^6.25.0",
     "babel-polyfill": "^6.23.0",
@@ -25,6 +29,9 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   },
   "author": "DanishDude <danishdude33@gmail.com> (Christian Hinge)",
   "license": "MIT"

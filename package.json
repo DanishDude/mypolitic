@@ -1,6 +1,7 @@
 {
   "name": "mypolitic",
   "version": "1.0.0",
+  "description": "sample app",
   "engines": {
     "node": "15.x",
     "npm": "7.x",
@@ -10,8 +11,9 @@
     "client": "cd client && yarn start",
     "server": "cd server && nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "cd server && npm install && node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "dev:server": "cd client && yarn build && cd .. && yarn start",
+    "start": "cd server && yarn && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {},
   "devDependencies": {
