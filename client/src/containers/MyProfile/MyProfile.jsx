@@ -15,7 +15,7 @@ const MyProfile = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(fetchMyPoliticianProfile(token)), [token]);
+  useEffect(() => dispatch(fetchMyPoliticianProfile(token)), [dispatch, token]);
 
   useEffect(() => {
     if (token !== '') {
@@ -25,7 +25,7 @@ const MyProfile = () => {
         setProfileOwner(true);
       };
     }
-  }, [politicianProfile, user]);
+  }, [error, politicianProfile, token, user]);
 
   return (
     <div className="MyProfile">

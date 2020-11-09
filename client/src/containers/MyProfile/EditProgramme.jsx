@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { getFormInitialValues, getFormValues, Field, reduxForm, isValid } from 'redux-form';
+import { getFormInitialValues, getFormValues, Field, reduxForm } from 'redux-form';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
@@ -19,7 +19,7 @@ const renderField = ({ id, input, placeholder, type, meta: { touched, error } })
 );
 
 let EditProgramme = (props) => {
-  const { programmeItem, onHide, initialValues, reset, values } = props;
+  const { programmeItem, onHide } = props;
   const dispatch = useDispatch();
   const { form, user } = useSelector(state => state);
   const maxChar = 800;
@@ -35,14 +35,14 @@ let EditProgramme = (props) => {
       
       if (programmeItem.category === 'custom') setCustom(true)
     }
-  }, [programmeItem]);
+  }, [form.editProfile.values, programmeItem]);
 
   const handleSubmit = (e, toDelete = false) => {
     e.preventDefault();
     const { category, customCategory, description } = form.editProfile.values
     let updateProgramme = form.editProfile.values.programme
       ? [ ...form.editProfile.values.programme ]
-      : new Array();
+      : [];
 
     if (programmeItem) {
       updateProgramme.map(prog => {
@@ -55,6 +55,7 @@ let EditProgramme = (props) => {
                 prog.customCategory = form.editProfile.values.customCategory;
               }
         }
+        return prog;
       });
     } else {
       if (customCategory !== '') {

@@ -4,10 +4,11 @@ import { Field, reduxForm } from 'redux-form';
 
 import { urlApi } from '../../constant';
 import './AddUnregisteredMember.scss';
+import placeholder from '../../assets/profile_picture_placeholder.jpg';
+import editIcon from '../../assets/edit.svg';
 
 const validate = values => {
   const errors = {};
-  const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   return errors;
 }
@@ -25,14 +26,14 @@ const renderField = ({ input, label, placeholder, type, meta: { touched, error }
 
 
 let AddUnregisteredMember = props => {
-  const { initialValues, member, profileId, addMemberError } = props;
-  const [photoPreview, setPhotoPreview] = useState("profile_picture_placeholder.jpg");
+  const { initialValues, member, profileId } = props;
+  const [photoPreview, setPhotoPreview] = useState(placeholder);
   
   useEffect(() => {
     if (initialValues && initialValues.memberPhoto) {
       setPhotoPreview(`${urlApi}/politician/${profileId}/unregisteredTeam/${member._id}/photo`);
     };
-  }, [initialValues]);
+  }, [initialValues, member._id, profileId]);
 
   const adaptFileEventToValue = delegate => e => {
     setPhotoPreview(URL.createObjectURL(e.target.files[0]));
@@ -55,7 +56,7 @@ const FileInput = ({
         {...props}
         />
         <label for="file-input" >
-         <img src="edit.svg" alt="" />
+         <img src={editIcon} alt="" />
         </label>
       </div>
     );

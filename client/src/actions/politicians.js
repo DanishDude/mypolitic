@@ -1,5 +1,4 @@
 import { urlApi } from '../constant';
-import { successFetchSignupLogin } from './user';
 
 // -------- Search Politician -------- //
 export const startFetchPoliticians = () => ({

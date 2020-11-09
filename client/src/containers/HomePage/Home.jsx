@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import DiscoverFeatures from './DiscoverFeatures';
 import Header from './Header';
 import HowItWorks from './HowItWorks';

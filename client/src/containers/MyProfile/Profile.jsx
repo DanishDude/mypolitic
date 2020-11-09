@@ -7,12 +7,13 @@ import youtube from 'super-tiny-icons/images/svg/youtube.svg';
 import EditButton from './EditButton';
 import ProfileEdit from './EditProfile';
 import { urlApi } from '../../constant';
+import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import './Profile.scss';
 
 const Profile = props => {
   const { politicianProfile, profileOwner } = props;
   const [modalShow, setModalShow] = useState(false);
-  const [profilePhoto, setProfilePhoto] = useState('profile_picture_placeholder.jpg');
+  const [profilePhoto, setProfilePhoto] = useState(placeholder);
   const [age, setAge] = useState('');
 
   useEffect(() => {               // TODO if (already has profilePhoto) setProfilePhoto not invoked after user edit profile
@@ -58,23 +59,23 @@ const Profile = props => {
 
           <div className="contact">
             {politicianProfile.facebook
-            ? <a href={politicianProfile.facebook} target="_blank">
-                <img className="icon" src={facebook} />
+            ? <a href={politicianProfile.facebook} target="_blank" rel="noreferrer">
+                <img className="icon" src={facebook} alt=""/>
               </a> :''
             }
             {politicianProfile.instagram
-            ? <a href={politicianProfile.instagram} target="_blank">
-                <img className="icon" src={instagram} />
+            ? <a href={politicianProfile.instagram} target="_blank" rel="noreferrer">
+                <img className="icon" src={instagram} alt=""/>
               </a> : ''
             }
             {politicianProfile.linkedin
-            ? <a href={politicianProfile.linkedin} target="_blank">
-                <img className="icon" src={linkedin} />
+            ? <a href={politicianProfile.linkedin} target="_blank" rel="noreferrer">
+                <img className="icon" src={linkedin} alt=""/>
               </a> : ''
             }
             {politicianProfile.youtube
-            ? <a href={politicianProfile.youtube} target="_blank">
-                <img className="icon" src={youtube} />
+            ? <a href={politicianProfile.youtube} target="_blank" rel="noreferrer">
+                <img className="icon" src={youtube} alt=""/>
               </a> : ''
             }
           </div></Fragment>

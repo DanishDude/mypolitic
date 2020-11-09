@@ -6,6 +6,8 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import { urlApi } from '../../constant';
+import placeholder from '../../assets/profile_picture_placeholder.jpg';
+import editIcon from '../../assets/edit.svg';
 import './EditProfile.scss';
 
 const renderField = ({ input, label, placeholder, type, meta: { touched, error } }) => (
@@ -20,7 +22,7 @@ const renderField = ({ input, label, placeholder, type, meta: { touched, error }
 
 let EditProfile = (props) => {
   const { initialValues, onHide } = props;
-  const [profilePhotoPreview, setProfilePhotoPreview] = useState("profile_picture_placeholder.jpg");
+  const [profilePhotoPreview, setProfilePhotoPreview] = useState(placeholder);
   const dispatch = useDispatch();
   const { form, user } = useSelector(state => state);
 
@@ -57,7 +59,7 @@ let EditProfile = (props) => {
         {...props}
         />
         <label for="file-input" >
-         <img src="edit.svg" alt="" />
+         <img src={editIcon} alt="" />
         </label>
       </div>
     );

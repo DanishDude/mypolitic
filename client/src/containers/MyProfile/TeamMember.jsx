@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { urlApi } from '../../constant';
+import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import './TeamMember.scss';
 
 const TeamMember = props => {
   const { member, profileId } = props;
-  const [imageSrc, setImageSrc] = useState('profile_picture_placeholder.jpg');
+  const [imageSrc, setImageSrc] = useState(placeholder);
   const [hasProfile, setHasProfile] = useState(false);
 
   useEffect(() => {

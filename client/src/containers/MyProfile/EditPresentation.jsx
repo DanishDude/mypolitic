@@ -7,7 +7,6 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import './EditPresentation.scss';
-import politicianProfile from '../../reducers/politicianProfile';
 
 const renderField = ({ id, input, placeholder, type, meta: { touched, error } }) => (
   <div className="field">

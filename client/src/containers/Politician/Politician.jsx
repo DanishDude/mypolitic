@@ -10,11 +10,10 @@ import Team from '../MyProfile/Team';
 const Politician = props => {
   const { _id } = props.match.params;
   const dispatch = useDispatch();
-  const { firstname, lastname } = props.politician;
 
   useEffect(() => {
     dispatch(fetchPoliticianProfile(_id));
-  }, [_id]);
+  }, [dispatch, _id]);
 
   return (
     <div className="Politician">

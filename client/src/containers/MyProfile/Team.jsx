@@ -48,7 +48,6 @@ const Team = props => {
       <h3 className="main-title">Colistiers</h3>
 
       <ul className="members">
-        {/* TODO TeamMember OnClick => go to profile */}
         {hasTeam
           ? team.map(member =>
               <li key={member._id}>
