@@ -26,14 +26,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 require('./db');
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-      "script-src": ["'self'", "https://mypolitic.herokuapp.com/"],
-    },
-  })
-);
+// Content Security Policy: The page’s settings blocked the loading of a resource at inline (“script-src”).
+// app.use(helmet());
+
 app.use(cookieParser());
 app.use(cors());
 app.use(bearerToken());
