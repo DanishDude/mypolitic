@@ -1,0 +1,47 @@
+.Signup {
+  min-height: 195px;
+  display: flex;
+  justify-content: center;
+
+  .content {
+
+    .signup-error{
+      height: 24px;
+      width: 280px;
+      display: inline-block;
+      align-self: auto;
+      background-color: pink;
+      text-align: center;
+      border-radius: 12px;
+      color: maroon;
+    }
+
+    .no-signup-error{
+      height: 24px;
+      width: 280px;
+      display: inline-block;
+      align-self: auto;
+      text-align: center;
+      border-radius: 6px;
+    }
+
+    .item {
+      margin: 12px 0;
+      height: 35px;
+
+      input {
+        min-width: 280px;
+        border: 1px solid #ccc;
+        border-radius: 105px;
+        text-indent: 8px;
+      }
+
+      .error-line {
+        margin: -1px 0 0 5px;
+        height: 24px;
+        font-size: 12px;
+        color: red;
+      }
+    }
+  }
+}

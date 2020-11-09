@@ -1,0 +1,17 @@
+.SignupButton {
+  button {
+    width: 158px;
+    height: 38px;
+    border: 1px solid hsla(0%, 66%, 63%, 1);
+    border-radius: 22px;
+    text-align: center;
+    color: whitesmoke;
+    background-color: hsla(0%, 66%, 63%, 1);
+    transition: (0.3s ease);
+  }
+
+  button:hover {
+    background-color: whitesmoke;
+    color: rgb(90, 87, 87);
+  }
+}

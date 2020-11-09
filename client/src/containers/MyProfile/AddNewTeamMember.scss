@@ -1,0 +1,35 @@
+.AddNewTeamMember {
+
+  .modal-body {
+    padding: 0;
+    min-height: 120px;
+
+    .edit-member {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .modal-footer {
+    min-height: 71px;
+
+    .back-save-btns {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+
+      .back-btn {
+        float: left;
+      }
+
+      .save-btn {
+        margin-left: 15px;
+      }
+    }
+  }
+}

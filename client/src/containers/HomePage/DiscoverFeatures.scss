@@ -1,0 +1,100 @@
+$discriptionWidth: 50vw;
+$discriptionHeight: 500px;
+
+.DiscoverFeatures {
+  .discover {
+    padding: 40px 0;
+  }
+
+  .discription {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+
+    h2 {
+      margin: 45px 0;
+    }
+
+    .citizen {
+      width: $discriptionWidth;
+      height: $discriptionHeight;
+      background-color: #dfe6fa;
+
+      ul {
+        padding: 0 5vw;
+        list-style: none;
+        font-size: 1.5rem;
+        text-align: center;
+
+        li {
+          margin-bottom: 30px;
+          height: 72px;
+        }
+
+        .expresive-text {
+          font-weight: 800;
+          color: mediumseagreen;
+        }
+      }
+    }
+    
+    .politician {
+      width: $discriptionWidth;
+      height: $discriptionHeight;
+      background-color: #012380;
+      color: white;
+
+      ul {
+        padding: 0 5vw;
+        list-style: none;
+        font-size: 1.5rem;
+        text-align: center;
+
+        li {
+          margin-bottom: 30px;
+          height: 72px;
+        }
+
+        .expresive-text {
+          font-weight: 800;
+          color: mediumseagreen;
+        }
+      }
+    }
+  }
+  
+  @media screen and (max-width: 991px) {
+    .discover {
+      padding: 30px 0;
+      position: sticky;
+      top: 60px;
+      background-color: whitesmoke;
+      z-index: 5;
+
+      h2 {
+        font-size: 1.65rem;
+      }
+    }
+
+    .discription {
+
+      .citizen {
+        width: 100vw;
+
+        ul {
+          padding: 0 18vw;
+          font-size: 1.2rem;
+        }
+      }
+      
+      .politician {
+        width: 100vw;
+
+        ul {
+          padding: 0 18vw;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

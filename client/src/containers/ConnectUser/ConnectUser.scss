@@ -1,0 +1,42 @@
+.ConnectUser {
+  .modal-header {
+    button {
+      margin-left: 5px;
+    }
+    .modal-title {
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  .action-btns {
+    height: 38px;
+    min-width: 285px;
+    display: flex;
+    justify-content: center;
+
+    .btn-link {
+      min-width: 125px;
+      margin: 0 10px;
+    }
+
+    .submit-btn {
+      margin: 0 5px;
+      min-width: 125px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      background-color: hsla(0%, 66%, 63%, 1);
+      color: white;
+    }
+
+    .submit-btn:hover {
+      border: 1px solid rgb(172, 170, 170);
+      background-color: hsla(0%, 66%, 60%, 1);
+    }
+
+    .submit-btn:after {
+      border: 1px solid #ccc;
+      background-color: hsla(0%, 66%, 63%, 1);
+    }
+  }
+}

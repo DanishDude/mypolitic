@@ -1,0 +1,64 @@
+.NavBar {
+  width: 100%;
+  min-height: 56px;
+
+  .content {
+    margin: 0 auto;
+    padding-right: 13px;
+    width: 100%;
+    max-width: 95vw;
+  
+    .navbar-brand {
+      position: relative;
+
+      img {
+        margin-left: 10px;
+        height: 52px;
+      }
+
+      .beta {
+        position: absolute;
+        left: 165px;
+        top: 40px;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: darkslategrey;
+      }
+    }
+    
+    .menu-item {
+      padding-left: 13px;
+      font-size: 1.15rem;
+    }
+
+    .login {
+      margin-top: 3px;
+      margin-left: 13px;
+      width: 118px;
+      height: 38px;
+      border: 1px solid hsla(0%, 66%, 63%, 1);
+      border-radius: 22px;
+      text-align: center;
+      color: rgb(90, 87, 87);
+      background-color: hsla(20%, 63%, 80%, 0);
+      transition: (0.3s ease);
+    }
+
+    .login:hover {
+      background-color: hsla(0%, 66%, 63%, 1);
+      color: whitesmoke;
+    }
+
+    button {
+      margin-top: 4px;
+      height: 52px;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .login {
+      align-self: center;
+    }
+  }
+}

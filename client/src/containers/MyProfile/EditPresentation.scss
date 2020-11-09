@@ -1,0 +1,24 @@
+.EditPresentation {
+  
+  .modal-body {
+    padding: 0;
+    
+    textarea {
+      width: 100%;
+      height: 150px;
+      max-height: 55vh;
+      padding: 5px 10px 2px;
+    }
+    
+    .count-wrapper {
+      width: 100%;
+      height: 25px;
+
+      .character-count {
+        float: right;
+        margin: 0 5px 0 0;
+      }
+    }
+  }
+
+}

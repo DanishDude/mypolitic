@@ -1,0 +1,27 @@
+.Header {
+  position: relative;
+  margin-top: 3px;
+  height: 80vh;
+  min-height: 400px;
+  max-height: 80vw;
+  background: url("../../assets/freddie-marriage-muMn0QEeiiw-unsplash.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  .search-title {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: whitesmoke;
+  }
+
+  @media screen and (max-width: 500px) {
+    .search-title {
+      top: 10%;
+    }
+  }
+}

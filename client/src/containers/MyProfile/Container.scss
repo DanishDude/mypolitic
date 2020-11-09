@@ -1,0 +1,12 @@
+.Container {
+  margin: 0 auto 20px;
+  padding: 30px;
+  min-height: 100px;
+  max-width: 1158px;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+  background-color: white;
+  -moz-box-shadow:    2px 3px 2px 0px #ccc;
+  -webkit-box-shadow: 2px 3px 2px 0px #ccc;
+  box-shadow:         2px 3px 2px 0px #ccc;
+}

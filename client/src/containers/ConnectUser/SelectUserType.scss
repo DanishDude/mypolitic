@@ -1,0 +1,35 @@
+.SelectUserType {
+  min-height: 195px;
+  display: flex;
+  align-items: center;
+
+  .select {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+    button {
+      margin: 20px 10px;
+      min-width: 158px;
+      height: 38px;
+      border: 1px solid hsla(0%, 66%, 63%, 1);
+      border-radius: 22px;
+      text-align: center;
+      color: rgb(90, 87, 87);
+      background-color: hsla(20%, 63%, 80%, 0);
+      transition: (0.3s ease);
+    }
+
+    button:hover {
+      background-color: hsla(0%, 66%, 63%, 1);
+      color: whitesmoke;
+    }
+
+    button:after {
+      border: 1px solid #ccc;
+      background-color: hsla(0%, 66%, 63%, 1);
+    }
+  }
+}
