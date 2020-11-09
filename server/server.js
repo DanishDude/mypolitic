@@ -26,7 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 require('./db');
-app.use(helmet());
+// app.use(helmet());
 app.use(cookieParser());
 app.use(cors());
 app.use(bearerToken());
