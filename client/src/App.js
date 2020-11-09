@@ -15,8 +15,9 @@ class App extends Component {
     fetch('/api/hello')
       .then(res => res.json())
       .then(payload => {
-        if (res.status !== 200) {
-          throw Error(res.body.message);
+        console.log(payload);
+        if (payload.status !== 200) {
+          throw Error(payload.body.message);
         }
         this.setState({response: payload.express});
       })
