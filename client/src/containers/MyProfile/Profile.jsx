@@ -16,9 +16,17 @@ const Profile = props => {
   const [profilePhoto, setProfilePhoto] = useState(placeholder);
   const [age, setAge] = useState('');
 
-  useEffect(() => {               // TODO if (already has profilePhoto) setProfilePhoto not invoked after user edit profile
+  useEffect(() => {
     if (politicianProfile.profilePhoto) {
-      setProfilePhoto(`${urlApi}/politician/${politicianProfile._id}/profilePhoto`);
+      fetch(`${urlApi}/politician/${politicianProfile._id}/profilePhoto`)
+        .then(res => {
+          if (res.ok) {
+            setProfilePhoto(`${urlApi}/politician/${politicianProfile._id}/profilePhoto`);
+          } else {
+            setProfilePhoto (placeholder);
+          }
+        })
+        .catch(err => console.log(err));
     };
 
     if (politicianProfile.dateOfBirth) {

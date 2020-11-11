@@ -9,7 +9,7 @@ const politicianProfile = (state=initialState, action) => {
     case 'START_UPDATE_POLITICIAN_PROFILE':
       return {...state, loading: true, error: ''};
     case 'SUCCESS_UPDATE_POLITICIAN_PROFILE':
-      return {...state, loading: false, politicianProfile: action.politicianProfile, error: ''};
+      return {...state, loading: false, error: ''};
     case 'ERROR_UPDATE_POLITICIAN_PROFILE':
       return {...state, loading: false, error: action.err};
     case 'START_GET_POLITICIAN_PROFILE':

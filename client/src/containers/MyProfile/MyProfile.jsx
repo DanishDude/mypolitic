@@ -18,13 +18,10 @@ const MyProfile = () => {
   useEffect(() => dispatch(fetchMyPoliticianProfile(token)), [dispatch, token]);
 
   useEffect(() => {
-    if (token !== '') {
-      if ((user.userType === 'politician' &&
-        error === `Politician Profile not found for user ${user._id}`)
-        || (user._id === politicianProfile.user)) {
+    if ((user.userType === 'politician' && error === `Politician Profile not found for user ${user._id}`) ||
+      (user._id === politicianProfile.user)) {
         setProfileOwner(true);
-      };
-    }
+    };
   }, [error, politicianProfile, token, user]);
 
   return (

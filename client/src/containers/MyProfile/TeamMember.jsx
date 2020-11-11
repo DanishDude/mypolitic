@@ -11,9 +11,25 @@ const TeamMember = props => {
 
   useEffect(() => {
     if (member && member.profilePhoto) {
-      setImageSrc(`${urlApi}/politician/${member._id}/profilePhoto`)
+      fetch(`${urlApi}/politician/${member._id}/profilePhoto`)
+        .then(res => {
+          if (res.ok) {
+            setImageSrc(`${urlApi}/politician/${member._id}/profilePhoto`);
+          } else {
+            setImageSrc(placeholder);
+          }
+        })
+        .catch(err => console.log(err));
     } else if (member && member.photo) {
-      setImageSrc(`${urlApi}/politician/${profileId}/unregisteredTeam/${member._id}/photo`)
+      fetch(`${urlApi}/politician/${profileId}/unregisteredTeam/${member._id}/photo`)
+        .then(res => {
+          if (res.ok) {
+            setImageSrc(`${urlApi}/politician/${profileId}/unregisteredTeam/${member._id}/photo`);
+          } else {
+            setImageSrc(placeholder);
+          }
+        })
+        .catch(err => console.log(err));
     };
 
     if (member.user) {
