@@ -28,7 +28,15 @@ let EditProfile = (props) => {
 
   useEffect(() => {
     if (initialValues && initialValues.profilePhoto) {
-      setProfilePhotoPreview(`${urlApi}/politician/${initialValues._id}/profilePhoto`);
+      fetch(`${urlApi}/politician/${initialValues._id}/profilePhoto`)
+        .then(res => {
+          if (res.ok) {
+            setProfilePhotoPreview(`${urlApi}/politician/${initialValues._id}/profilePhoto`);
+          } else {
+            setProfilePhotoPreview(placeholder);
+          }
+        })
+        .catch( err => console.log(err));
     }
   }, [initialValues]);
   
