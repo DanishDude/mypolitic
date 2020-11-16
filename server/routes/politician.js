@@ -127,7 +127,7 @@ router.route('/:profileId')
 
       if (req.file) {
         // extract public_id from url
-        const public_id = profile.profilePhoto.split('/')[7].split('.')[0];
+        const public_id = profile.profilePhoto ? profile.profilePhoto.split('/')[7].split('.')[0] : null;
         const upload = await uploadFile.sendToCloud(req.file.filename, public_id);
         req.body.profilePhoto = upload.url;
       }

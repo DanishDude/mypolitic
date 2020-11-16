@@ -49,7 +49,7 @@ class uploadFile {
           console.error(error)
           return null;
         } else if (result) {
-          fs.unlink(`./public/${result.original_filename}.${result.format}`, (err) => {
+          fs.unlink(`public/${filename}`, (err) => {
             if (err) throw new Error(err);
           });
           return result;
@@ -57,7 +57,6 @@ class uploadFile {
       }
     );
   }
-
 };
 
 module.exports = new uploadFile();
