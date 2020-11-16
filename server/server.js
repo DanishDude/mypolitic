@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const logger = require('morgan');
 const path = require('path');
 const httpErrors = require('http-errors');
+require('dotenv').config();
 
 const { handleError } = require('./services/error');
 const passportManager = require('./services/passport');
@@ -21,7 +22,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
   app.use(logger('dev'));
 }
 

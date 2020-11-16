@@ -6,7 +6,6 @@ import youtube from 'super-tiny-icons/images/svg/youtube.svg';
 
 import EditButton from './EditButton';
 import ProfileEdit from './EditProfile';
-import { urlApi } from '../../constant';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import './Profile.scss';
 
@@ -18,15 +17,9 @@ const Profile = props => {
 
   useEffect(() => {
     if (politicianProfile.profilePhoto) {
-      fetch(`${urlApi}/politician/${politicianProfile._id}/profilePhoto`)
-        .then(res => {
-          if (res.ok) {
-            setProfilePhoto(`${urlApi}/politician/${politicianProfile._id}/profilePhoto`);
-          } else {
-            setProfilePhoto (placeholder);
-          }
-        })
-        .catch(err => console.log(err));
+      setProfilePhoto(politicianProfile.profilePhoto);
+    } else {
+      setProfilePhoto (placeholder);
     };
 
     if (politicianProfile.dateOfBirth) {

@@ -24,7 +24,10 @@ router.route('/')
         });
       }
 
-      if (req.file) req.body.profilePhoto = req.file.filename;
+      if (req.file) {
+        const upload = await uploadFile.sendToCloud(req.file.filename);
+        req.body.profilePhoto = upload.url;
+      }
       const newProfile = await politicianProfile.createOne(_id, req.body);
       
       return res.status(200).send({
@@ -109,19 +112,25 @@ router.route('/:profileId')
       next(err);
     }
   })
-  .put(passportManager.authenticate, uploadFile.profilePhoto, async (req, res, next) => { // TODO delete old profilePhoto
+  .put(passportManager.authenticate, uploadFile.profilePhoto, async (req, res, next) => {
     try {
-      const { profileId } = req.params;
       const { _id, userType } = req.user;
-      if (req.file) req.body.profilePhoto = req.file.filename;
+      const { profileId } = req.params;
 
       if (userType !== 'politician')
         return res.status(403).send({
           success: false,
           msg: `not allowed for userType ${userType}`
         });
-    
+
       const profile = await politicianProfile.getOneById(profileId);
+
+      if (req.file) {
+        // extract public_id from url
+        const public_id = profile.profilePhoto.split('/')[7].split('.')[0];
+        const upload = await uploadFile.sendToCloud(req.file.filename, public_id);
+        req.body.profilePhoto = upload.url;
+      }
 
       if (!profile) {
         return res.status(400).send({
@@ -165,7 +174,7 @@ router.route('/:profileId')
           msg: `Not allowed. User ${_id} is not the owner of profile ${profileId}`
         });
       } else {
-        const result = await politicianProfile.deleteOne(profileId);
+        const result = await politicianProfile.deleteOne(profileId);  // TODO delete profile photo
         res.status(200).send({
           success: true,
           msg: `Deleted profile with _id ${profileId}`,
@@ -184,7 +193,10 @@ router.route('/:profileId')
     try {
       const { profileId } = req.params;
       const { _id, userType } = req.user;
-      if (req.file) req.body.photo = req.file.filename;
+      if (req.file) {
+        const upload = await uploadFile.sendToCloud(req.file.filename);
+        req.body.photo = upload.url;
+      }
 
       if (userType !== 'politician')
         return res.status(403).send({
@@ -248,8 +260,7 @@ router.route('/:profileId')
             msg: `Not allowed. User ${_id} is not the owner of profile ${profileId}`
           });
           
-        } else if (!profile.unregisteredTeam
-          || !profile.unregisteredTeam
+        } else if (!profile.unregisteredTeam || !profile.unregisteredTeam
           .map(member => member._id.toString())
           .includes(memberId.toString())) {
             
@@ -259,7 +270,9 @@ router.route('/:profileId')
             });
             
         } else {
-          if (req.file) req.body.photo = req.file.filename;
+          if (req.file) {
+            req.body.photo = req.file.filename;
+          }
       
           const modifiedProfile = await politicianProfile
             .updateUnregisteredTeamMember(profile, { ...req.body, _id: memberId });
@@ -338,7 +351,7 @@ router.route('/:profileId')
       } else {
         const fileName = profile.profilePhoto;
         const options = {
-          root: 'public/images/',
+          root: 'public/',
           dotfiles: 'deny',
           headers: {
             'x-timestamp': Date.now(),
@@ -378,7 +391,7 @@ router.route('/:profileId')
         const fileName = profile.unregisteredTeam[index].photo;
 
         const options = {
-          root: 'public/images/',
+          root: 'public/',
           dotfiles: 'deny',
           headers: {
             'x-timestamp': Date.now(),

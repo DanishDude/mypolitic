@@ -1,9 +1,16 @@
 const { handleError } = require('./error');
+const cloudinary = require('cloudinary').v2;
+const fs = require('fs');
 const multer = require('multer');
+require('dotenv').config();
+
+if (typeof (process.env.CLOUDINARY_URL) === 'undefined') {
+  console.warn('!! cloudinary config is undefined !!');
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './public/images');
+    cb(null, './public');
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString() + file.originalname);
@@ -33,6 +40,24 @@ class uploadFile {
   unregisteredMemberPhoto(req, res, next) {
     return (upload.single('photo'))(req, res, next);
   };
+
+  async sendToCloud(filename, public_id = null) {
+    return await cloudinary.uploader.upload(`public/${filename}`,
+      { public_id },
+      (error, result) => {
+        if (error) {
+          console.error(error)
+          return null;
+        } else if (result) {
+          fs.unlink(`./public/${result.original_filename}.${result.format}`, (err) => {
+            if (err) throw new Error(err);
+          });
+          return result;
+        }
+      }
+    );
+  }
+
 };
 
 module.exports = new uploadFile();

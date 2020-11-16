@@ -5,7 +5,6 @@ import { Field, reduxForm } from 'redux-form';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
-import { urlApi } from '../../constant';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import editIcon from '../../assets/edit.svg';
 import './EditProfile.scss';
@@ -28,15 +27,9 @@ let EditProfile = (props) => {
 
   useEffect(() => {
     if (initialValues && initialValues.profilePhoto) {
-      fetch(`${urlApi}/politician/${initialValues._id}/profilePhoto`)
-        .then(res => {
-          if (res.ok) {
-            setProfilePhotoPreview(`${urlApi}/politician/${initialValues._id}/profilePhoto`);
-          } else {
-            setProfilePhotoPreview(placeholder);
-          }
-        })
-        .catch( err => console.log(err));
+      setProfilePhotoPreview(initialValues.profilePhoto);
+    } else {
+      setProfilePhotoPreview(placeholder);
     }
   }, [initialValues]);
   
