@@ -21,7 +21,7 @@ const politicianProfile = (state=initialState, action) => {
     case 'START_UPDATE_UNREGISTERED_TEAM':
       return {...state, loading: true, error: ''};
     case 'SUCCESS_UPDATE_UNREGISTERED_TEAM':
-      return {...state, loading: false, politicianProfile: action.politicianProfile, error: ''};
+      return {...state, loading: false, error: ''};
     case 'ERROR_UPDATE_UNREGISTERED_TEAM':
       return {...state, loading: false, error: action.err};
     case 'DELETE_PROFILE_DATA':

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { urlApi } from '../../constant';
-import './AddUnregisteredMember.scss';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import editIcon from '../../assets/edit.svg';
+import './AddUnregisteredMember.scss';
 
 const validate = values => {
   const errors = {};
@@ -23,17 +22,15 @@ const renderField = ({ input, label, placeholder, type, meta: { touched, error }
   </div>
 );
 
-
-
 let AddUnregisteredMember = props => {
   const { initialValues, member, profileId } = props;
   const [photoPreview, setPhotoPreview] = useState(placeholder);
   
   useEffect(() => {
     if (initialValues && initialValues.memberPhoto) {
-      setPhotoPreview(`${urlApi}/politician/${profileId}/unregisteredTeam/${member._id}/photo`);
+      setPhotoPreview(initialValues.memberPhoto);
     };
-  }, [initialValues, member._id, profileId]);
+  }, [initialValues, member, profileId]);
 
   const adaptFileEventToValue = delegate => e => {
     setPhotoPreview(URL.createObjectURL(e.target.files[0]));

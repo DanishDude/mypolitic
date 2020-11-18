@@ -1,6 +1,7 @@
 const { handleError } = require('./error');
 const cloudinary = require('cloudinary').v2;
-const fs = require('fs');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const politicianProfile = require('../services/politician');
 const multer = require('multer');
 require('dotenv').config();
 
@@ -8,13 +9,14 @@ if (typeof (process.env.CLOUDINARY_URL) === 'undefined') {
   console.warn('!! cloudinary config is undefined !!');
 }
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './public');
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    // use_filename: true,
+    // folder: 'some-folder-name',
+    // format: async (req, file) => 'png', // supports promises as well
+    // public_id: (req, file) => new Date().toISOString() + file.originalname
   },
-  filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + file.originalname);
-  }
 });
 
 const acceptableFileTypes = ['image/jpeg', 'image/png'];
@@ -41,21 +43,12 @@ class uploadFile {
     return (upload.single('photo'))(req, res, next);
   };
 
-  async sendToCloud(filename, public_id = null) {
-    return await cloudinary.uploader.upload(`public/${filename}`,
-      { public_id },
-      (error, result) => {
-        if (error) {
-          console.error(error)
-          return null;
-        } else if (result) {
-          fs.unlink(`public/${filename}`, (err) => {
-            if (err) throw new Error(err);
-          });
-          return result;
-        }
-      }
-    );
+  deleteCloudinaryResource(url) {
+    return cloudinary.api.delete_resources(this.getPublicId(url));
+  };
+
+  getPublicId(url) {
+    return url.split('/')[7].split('.')[0];
   }
 };
 

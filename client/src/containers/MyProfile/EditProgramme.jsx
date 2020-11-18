@@ -35,7 +35,7 @@ let EditProgramme = (props) => {
       
       if (programmeItem.category === 'custom') setCustom(true)
     }
-  }, [form.editProfile.values, programmeItem]);
+  }, [form.editProfile, programmeItem]);
 
   const handleSubmit = (e, toDelete = false) => {
     e.preventDefault();

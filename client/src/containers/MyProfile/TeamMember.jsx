@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { urlApi } from '../../constant';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import './TeamMember.scss';
 
@@ -11,25 +10,11 @@ const TeamMember = props => {
 
   useEffect(() => {
     if (member && member.profilePhoto) {
-      fetch(`${urlApi}/politician/${member._id}/profilePhoto`)
-        .then(res => {
-          if (res.ok) {
-            setImageSrc(`${urlApi}/politician/${member._id}/profilePhoto`);
-          } else {
-            setImageSrc(placeholder);
-          }
-        })
-        .catch(err => console.log(err));
+      setImageSrc(member.profilePhoto);
     } else if (member && member.photo) {
-      fetch(`${urlApi}/politician/${profileId}/unregisteredTeam/${member._id}/photo`)
-        .then(res => {
-          if (res.ok) {
-            setImageSrc(`${urlApi}/politician/${profileId}/unregisteredTeam/${member._id}/photo`);
-          } else {
-            setImageSrc(placeholder);
-          }
-        })
-        .catch(err => console.log(err));
+      setImageSrc(member.photo)
+    } else {
+      setImageSrc(placeholder);
     };
 
     if (member.user) {

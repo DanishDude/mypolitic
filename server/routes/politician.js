@@ -25,8 +25,7 @@ router.route('/')
       }
 
       if (req.file) {
-        const upload = await uploadFile.sendToCloud(req.file.filename);
-        req.body.profilePhoto = upload.url;
+        req.body.profilePhoto = req.file.path;
       }
       const newProfile = await politicianProfile.createOne(_id, req.body);
       
@@ -125,13 +124,6 @@ router.route('/:profileId')
 
       const profile = await politicianProfile.getOneById(profileId);
 
-      if (req.file) {
-        // extract public_id from url
-        const public_id = profile.profilePhoto ? profile.profilePhoto.split('/')[7].split('.')[0] : null;
-        const upload = await uploadFile.sendToCloud(req.file.filename, public_id);
-        req.body.profilePhoto = upload.url;
-      }
-
       if (!profile) {
         return res.status(400).send({
           success: false,
@@ -145,8 +137,15 @@ router.route('/:profileId')
         });
 
       } else {
+        if (req.file) {
+          req.body.profilePhoto = req.file.path;
+
+          if (profile.profilePhoto) {
+            uploadFile.deleteCloudinaryResource(profile.profilePhoto);
+          }
+        }
+
         const modifiedProfile = await politicianProfile.modifyOne(profile, req.body);
-        
         return res.status(200).send({
           success: true,
           msg: `Modified profile with _id ${modifiedProfile._id}`,
@@ -174,7 +173,11 @@ router.route('/:profileId')
           msg: `Not allowed. User ${_id} is not the owner of profile ${profileId}`
         });
       } else {
-        const result = await politicianProfile.deleteOne(profileId);  // TODO delete profile photo
+        if (profile.profilePhoto) {
+          uploadFile.deleteCloudinaryResource(profile.profilePhoto);
+        }
+
+        const result = await politicianProfile.deleteOne(profileId);
         res.status(200).send({
           success: true,
           msg: `Deleted profile with _id ${profileId}`,
@@ -193,10 +196,6 @@ router.route('/:profileId')
     try {
       const { profileId } = req.params;
       const { _id, userType } = req.user;
-      if (req.file) {
-        const upload = await uploadFile.sendToCloud(req.file.filename);
-        req.body.photo = upload.url;
-      }
 
       if (userType !== 'politician')
         return res.status(403).send({
@@ -219,8 +218,11 @@ router.route('/:profileId')
         });
 
       } else {
-        const modifiedProfile = await politicianProfile
-          .addUnregisteredTeamMember(profile, req.body);
+        if (req.file) {
+          req.body.photo = req.file.path;
+        }
+
+        const modifiedProfile = await politicianProfile.addUnregisteredTeamMember(profile, req.body);
         
         return res.status(200).send({
           success: true,
@@ -233,7 +235,7 @@ router.route('/:profileId')
     }
   });
 
-  router.route('/:profileId/unregisteredTeam/:memberId')      // TODO if (new photo) => delete old photo.
+  router.route('/:profileId/unregisteredTeam/:memberId')
     .put(passportManager.authenticate, uploadFile.unregisteredMemberPhoto, async (req, res, next) => {
       try {
         const { profileId, memberId } = req.params;
@@ -271,7 +273,11 @@ router.route('/:profileId')
             
         } else {
           if (req.file) {
-            req.body.photo = req.file.filename;
+            req.body.photo = req.file.path;
+            memberPhoto = profile.unregisteredTeam.filter(member => member._id.toString() === memberId.toString())[0].photo;
+            if (memberPhoto) {
+              uploadFile.deleteCloudinaryResource(memberPhoto);
+            }
           }
       
           const modifiedProfile = await politicianProfile
@@ -325,9 +331,13 @@ router.route('/:profileId')
             });
             
         } else {
-          const modifiedProfile = await politicianProfile
-            .deleteUnregisteredTeamMember(profile, memberId);
+          memberPhoto = profile.unregisteredTeam
+            .filter(member => member._id.toString() === memberId.toString())[0].photo;
+          if (memberPhoto) {
+            uploadFile.deleteCloudinaryResource(memberPhoto);
+          }
           
+          const modifiedProfile = await politicianProfile.deleteUnregisteredTeamMember(profile, memberId);
           return res.status(200).send({
             success: true,
             msg: `Modified unregistered team for profile with _id ${modifiedProfile._id}`,
@@ -337,73 +347,6 @@ router.route('/:profileId')
       } catch(err) {
         next(err);
       }
-    })
-
-  router.get('/:profileId/profilePhoto', async (req, res, next) => {
-    try {
-      const { profileId } = req.params;
-      const profile = await politicianProfile.getOneById(profileId);
-      if (!profile.profilePhoto) {
-        return res.status(400).send({
-          success: false,
-          msg: `No profilePhoto found for profile _id ${profileId}`
-        });
-      } else {
-        const fileName = profile.profilePhoto;
-        const options = {
-          root: 'public/',
-          dotfiles: 'deny',
-          headers: {
-            'x-timestamp': Date.now(),
-            'x-sent': true
-          }
-        };
-
-        return res.status(200).sendFile(fileName, options);
-      };
-    } catch (err) {
-      next(err);
-    };
-  });
-
-  router.get('/:profileId/unregisteredTeam/:memberId/photo', async (req, res, next) => {
-    try {
-      const { profileId, memberId } = req.params;
-      const profile = await politicianProfile.getOneById(profileId);
-      
-      if (!profile) {
-        return res.status(400).send({
-          success: false,
-          msg: `No profile found with _id ${profileId}`
-        });
-        
-      } else if (!profile.unregisteredTeam) {
-        return res.status(400).send({
-          success: false,
-          msg: `No unregistered team member found with _id ${memberId}`
-        });
-        
-      } else {
-        const index = profile.unregisteredTeam.findIndex(member => {
-          return memberId === member._id.toString()
-        });
-        
-        const fileName = profile.unregisteredTeam[index].photo;
-
-        const options = {
-          root: 'public/',
-          dotfiles: 'deny',
-          headers: {
-            'x-timestamp': Date.now(),
-            'x-sent': true
-          }
-        };
-
-        return res.status(200).sendFile(fileName, options);
-      };
-    } catch (err) {
-      next(err);
-    }
-  })
+    });
 
 module.exports = router;
