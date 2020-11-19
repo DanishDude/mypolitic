@@ -1,9 +1,10 @@
 const { Router } = require('express');
-
 const router = Router();
+
 const passportManager = require('../services/passport');
 const politicianProfile = require('../services/politician');
 const uploadFile = require('../services/upload');
+const user = require('../services/user');
 
 router.route('/')
   .post(passportManager.authenticate, uploadFile.profilePhoto, async (req, res, next) => {
@@ -345,6 +346,26 @@ router.route('/:profileId')
           });
         }
       } catch(err) {
+        next(err);
+      }
+    });
+
+    router.patch('/:profileId/like', passportManager.authenticate, async (req, res, next) => {
+      try {
+        const { profileId } = req.params;
+        const profile = await politicianProfile.getOneById(profileId);
+        if (!profile) {
+          res.status(400).send({ success: false, msg: `Profile ${profileId}not found` });
+        }
+
+        const liked = await user.likePolitician(req.user, profile);
+        res.status(200).send({
+          sucess: true,
+          msg: `politician ${profileId} ${liked ? 'disliked' : 'liked'}`,
+          politician: profileId,
+          liked: !liked
+        })
+      } catch (err) {
         next(err);
       }
     });

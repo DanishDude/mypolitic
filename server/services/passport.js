@@ -20,7 +20,7 @@ class passportManager {
         } else {
           done(null, false);
         }
-      }).select(['email', 'password', 'userType']);
+      });
     }));
     return passport.initialize();
   }

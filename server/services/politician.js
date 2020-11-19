@@ -5,8 +5,8 @@ const Politician = require('../models/politician');
 
 class PoliticianProfile {
   async createOne(userId, data) {
-    const newProfile = new Politician({user: userId, ...data});
-    newProfile.save(err => {
+    const profile = new Politician({user: userId, ...data});
+    profile.save(err => {
       if (err) {
         if (err.errmsg) {
           console.log(err.errmsg);
@@ -16,8 +16,7 @@ class PoliticianProfile {
       }
     });
 
-    const cleanNewProfile = validate.removeEmptyArrayValues(newProfile);
-    return cleanNewProfile;
+    return profile;
   };
 
   async getOneById(_id) {
@@ -30,8 +29,7 @@ class PoliticianProfile {
       }
     });
     
-    const cleanProfile = validate.removeEmptyArrayValues(profile);
-    return cleanProfile;
+    return profile;
   };
 
   async getOneByUserId(user) {
@@ -41,8 +39,7 @@ class PoliticianProfile {
       }
     });
 
-    const cleanProfile = profile ? validate.removeEmptyArrayValues(profile) : profile;
-    return cleanProfile;
+    return profile;
   };
 
   async getManyByUserId(users) {
@@ -93,8 +90,7 @@ class PoliticianProfile {
       }
     });
 
-    const cleanProfile = validate.removeEmptyArrayValues(profile);
-    return cleanProfile;
+    return profile;
   };
 
   async addUnregisteredTeamMember(profile, member) {
@@ -112,8 +108,7 @@ class PoliticianProfile {
       }
     });
 
-    const cleanProfile = validate.removeEmptyArrayValues(profile);
-    return cleanProfile;
+    return profile;
   }
 
   async updateUnregisteredTeamMember(profile, updatedMember) {
@@ -131,8 +126,7 @@ class PoliticianProfile {
       }
     });
 
-    const cleanProfile = validate.removeEmptyArrayValues(profile);
-    return cleanProfile;
+    return profile;
   }
 
   async deleteUnregisteredTeamMember(profile, memberId) {
@@ -150,12 +144,11 @@ class PoliticianProfile {
       }
     });
 
-    const cleanProfile = validate.removeEmptyArrayValues(profile);
-    return cleanProfile;
+    return profile;
   }
 
   async deleteOne(_id) {
-    return await Politician.findOneAndDelete(_id);
+    return await Politician.findByIdAndDelete(_id);
   };
 
   async search(name = null, city = null) {
@@ -175,7 +168,7 @@ class PoliticianProfile {
     ).select(['_id', 'user', 'firstname', 'lastname', 'city', 'party', 'profilePhoto']);
 
     if (profiles && profiles.length > 0) {
-      return profiles.map(profile => validate.removeEmptyArrayValues(profile));
+      return profiles;
     } else {
       return 'no profiles found for this query';
     }

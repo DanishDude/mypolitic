@@ -40,7 +40,8 @@ const politicianSchema = new Schema({
   instagram: {type: String, default: undefined},
   facebook: {type: String, default: undefined},
   linkedin: {type: String, default: undefined},
-  youtube: {type: String, default: undefined}
+  youtube: {type: String, default: undefined},
+  likes: {type: Number, default: 0, min: 0}
 });
 
 const Politician = mongoose.model('Politician', politicianSchema);
