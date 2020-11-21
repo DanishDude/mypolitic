@@ -151,14 +151,26 @@ class PoliticianProfile {
     return await Politician.findByIdAndDelete(_id);
   };
 
-  async search(name = null, city = null) {
-    const regexName = new RegExp(validate.escapeRegex(name), 'gi');
-    const regexCity = new RegExp(validate.escapeRegex(city), 'gi');
+  async search(query) {
+    const acceptableQueries = ['name', 'city'];
+    let badQuery = true;
+    for (let key of Object.keys(query)) {
+      if (acceptableQueries.includes(key.toLowerCase())) {
+        badQuery = false;
+      }
+    }
 
-    const profiles = await Politician.find(
+    if (badQuery) {
+      return `Bad query. Acceptable query items are: [${acceptableQueries}]`
+    }
+
+    const regexName = new RegExp(validate.escapeRegex(query.name), 'gi');
+    const regexCity = new RegExp(validate.escapeRegex(query.city), 'gi');
+
+    return await Politician.find(
       {$and: [
-        name ? {$or: [{firstname: regexName}, {lastname: regexName}]} : {},
-        city ? {city: regexCity} : {}]
+        query.name ? {$or: [{firstname: regexName}, {lastname: regexName}]} : {},
+        query.city ? {city: regexCity} : {}]
       },
       (err) => {
         if (err) {
@@ -166,12 +178,6 @@ class PoliticianProfile {
         }
       }
     ).select(['_id', 'user', 'firstname', 'lastname', 'city', 'party', 'profilePhoto']);
-
-    if (profiles && profiles.length > 0) {
-      return profiles;
-    } else {
-      return 'no profiles found for this query';
-    }
   };
 };
 

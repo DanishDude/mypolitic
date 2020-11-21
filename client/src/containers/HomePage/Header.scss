@@ -19,9 +19,21 @@
     color: whitesmoke;
   }
 
+  .search-politician {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
   @media screen and (max-width: 500px) {
     .search-title {
       top: 10%;
     }
+
+    .search-politician {
+    top: 20%;
+  }
   }
 }
