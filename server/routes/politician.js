@@ -91,7 +91,6 @@ router.get('/profile', async (req, res, next) => {
 
 router.get('/search', async (req, res, next) => {
   try {
-    // const { name, city } = req.query;
     const profiles = await politicianProfile.search(req.query);
 
     if (!profiles || typeof profiles === 'string') {

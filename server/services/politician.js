@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { handleError } = require('./error');
 const user = require('./user');
 const validate = require('./validate');
@@ -152,7 +153,7 @@ class PoliticianProfile {
   };
 
   async search(query) {
-    const acceptableQueries = ['name', 'city'];
+    const acceptableQueries = ['name', 'city', 'ids'];
     let badQuery = true;
     for (let key of Object.keys(query)) {
       if (acceptableQueries.includes(key.toLowerCase())) {
@@ -169,12 +170,13 @@ class PoliticianProfile {
 
     return await Politician.find(
       {$and: [
-        query.name ? {$or: [{firstname: regexName}, {lastname: regexName}]} : {},
-        query.city ? {city: regexCity} : {}]
-      },
+        query.name ? { $or: [{ firstname: regexName }, { lastname: regexName }] } : {},
+        query.city ? { city: regexCity } : {},
+        query.ids ? { '_id': { $in: query.ids.split(',').map(id => mongoose.Types.ObjectId(id)) } } : {}
+      ]},
       (err) => {
         if (err) {
-          console.log(err);
+          console.error(err);
         }
       }
     ).select(['_id', 'user', 'firstname', 'lastname', 'city', 'party', 'profilePhoto']);
