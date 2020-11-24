@@ -19,7 +19,7 @@ export const fetchUpdatePoliticianProfile = (politicianProfile, token) => dispat
   dispatch(startUpdatePoliticianProfile());
 
   let fd = new FormData();
-  const toStrigify = ['programme', 'team', 'unregisteredTeam'];
+  const toStrigify = ['education', 'interviews', 'programme', 'team', 'unregisteredTeam'];
 
   for (const [key, value] of Object.entries(politicianProfile)) {
     if (value) {

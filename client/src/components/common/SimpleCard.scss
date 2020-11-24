@@ -1,0 +1,29 @@
+.SimpleCard {
+  text-overflow: ellipsis;
+
+  .content {
+    min-width: 260px;
+    min-height: 210px;
+    max-width: 260px;
+    max-height: 210px;
+
+    .avatar {
+      margin: 0 auto;
+      height: 80px;
+      width: 80px;
+      font-size: 2rem;
+    }
+  }
+
+  .like {
+    color: rgb(29, 103, 242);
+  }
+
+  .like-count {
+    margin-left: -8px !important;
+  }
+
+  .actions {
+    max-height: 56px;
+  }
+}

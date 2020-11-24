@@ -15,7 +15,7 @@ let SearchPoliticianForm = props => {
       <form onSubmit={handleSubmit}>
         <div className="fields">
           <Field
-            name="politician"
+            name="name"
             component={renderField}
             type="text"
             placeholder="Qui: Jacques Dupont"

@@ -52,7 +52,7 @@ class PoliticianProfile {
   };
 
   async modifyOne(profile, data) {
-    const toParse = ['programme', 'team', 'unregisteredTeam'];
+    const toParse = ['education', 'interviews', 'programme', 'team', 'unregisteredTeam'];
 
     for (const [key, value] of Object.entries(data)) {
       if (key === 'team') {
@@ -179,8 +179,20 @@ class PoliticianProfile {
           console.error(err);
         }
       }
-    ).select(['_id', 'user', 'firstname', 'lastname', 'city', 'party', 'profilePhoto']);
+    ).select(['_id', 'user', 'firstname', 'lastname', 'city', 'party', 'profilePhoto', 'likes']);
   };
+
+  async like(profile) {
+    profile.likes = profile.likes + 1;
+    return await profile.save();
+  };
+
+  async dislike(profile) {
+    if (profile.likes > 0) {
+      profile.likes = profile.likes - 1;
+    }
+    return await profile.save();
+  }
 };
 
 module.exports = new PoliticianProfile();

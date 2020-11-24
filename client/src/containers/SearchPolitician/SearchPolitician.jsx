@@ -7,11 +7,15 @@ const SearchPolitician = () => {
   const dispatch = useDispatch();
 
   const searchPolitician = values => {
-    console.log('here');
-    console.log(values);
-    
-    
-    dispatch(fetchSearchPoliticians(values));
+    let query = '';
+    for (const key in values) {
+      if (query.length > 0) {
+        query = query + '&';
+      }
+      query = query + key + '=' + values[key];
+    }
+
+    dispatch(fetchSearchPoliticians(query));
   }
 
   return (

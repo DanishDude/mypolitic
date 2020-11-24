@@ -12,8 +12,10 @@ const PrivateRoute = ({ component: Component, token, user, ...propsRoute }) => (
       (token !=='' && user !== {})
         ? <Component {...props} />
         : <Redirect 
-            to={{ path: props.history.goBack(),
-            state: { from: props.location, msg: 'login required' } }}
+            to={{
+              path: props.history.goBack(),
+              state: { from: props.location, msg: 'login required' }
+            }}
           />
     )}
   />

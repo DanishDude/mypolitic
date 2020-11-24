@@ -76,7 +76,7 @@ export const fetchLogin = user => dispatch => {
     });
 };
 
-// -------- User Logout -------- //
+// -------- Other User Actions -------- //
 export const deleteUserData = () => ({
   type: 'DELETE_USER_DATA'
 });
@@ -86,11 +86,22 @@ export const userLogout = () => dispatch => {
   dispatch(deleteProfileData());
 }
 
-// -------- User login required -------- //
 export const loginRequired = () => ({
   type: 'LOGIN_REQUIRED'
 });
 
-// -------- Update User Profile -------- //
+export const requestLogin = () => ({
+  type: 'REQUEST_LOGIN'
+});
+
+export const likePolitician = politicianId => ({
+  type: 'LIKE_POLITICIAN',
+  politicianId
+});
+
+export const dislikePolitician = politicianId => ({
+  type: 'DISLIKE_POLITICIAN',
+  politicianId
+});
 
 // -------- Get User with token -------- //

@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 const passportManager = require('../services/passport');
+const politician = require('../services/politician');
 const politicianProfile = require('../services/politician');
 const uploadFile = require('../services/upload');
 const user = require('../services/user');
@@ -373,17 +374,23 @@ router.route('/:profileId/unregisteredTeam/:memberId')
 router.patch('/:profileId/like', passportManager.authenticate, async (req, res, next) => {
   try {
     const { profileId } = req.params;
-    const profile = await politicianProfile.getOneById(profileId);
+    let profile = await politicianProfile.getOneById(profileId);
     if (!profile) {
       res.status(400).send({ success: false, msg: `Profile ${profileId}not found` });
     }
 
     const liked = await user.likePolitician(req.user, profile);
+    if (liked) {
+      profile = await politician.dislike(profile);
+    } else {
+      profile = await politician.like(profile);
+    }
+
     res.status(200).send({
-      sucess: true,
-      msg: `politician ${profileId} ${liked ? 'disliked' : 'liked'}`,
-      politician: profileId,
-      liked: !liked
+      success: true,
+      msg: `${liked ? 'disliked' : 'liked'} politician ${profileId}`,
+      liked: !liked,
+      politician: profile
     })
   } catch (err) {
     next(err);

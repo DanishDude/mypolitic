@@ -18,7 +18,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route path='/a-propos-de-nous' component={AboutUs} />
         <Route path='/aide' component={Help} />
-        <Route path='/mes-politiciens' component={MyPoliticians} />
+        <PrivateRoute path='/mes-politiciens' component={MyPoliticians} />
         <Route path='/politicien/:_id' component={Politician} />
         <PrivateRoute path='/mon-profil' component={MyProfile} />
       </Switch>

@@ -10,7 +10,7 @@ import "./NavBar.scss";
 const NavBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { user } = useSelector(state => state);
+  const { isLoggedIn, requestLogin, user, token } = useSelector(state => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [logoutShow, setLogoutShow] = useState(false);
@@ -40,8 +40,18 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    if (user && user.token !== '') setLogoutShow(true);
-  }, [user]);
+    if (token !== '') {
+      setLogoutShow(true)
+    };
+
+    if (isLoggedIn) {
+      setModalShow(false);
+    }
+
+    if (requestLogin) {
+      setModalShow(true);
+    }
+  }, [isLoggedIn, token, user]);
   
   return (
       <Navbar className="NavBar" expand="lg" color="light" light fixed="top">
