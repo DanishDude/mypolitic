@@ -28,7 +28,7 @@ const NavBar = () => {
     toggle();
   };
 
-  const logout = () => {    // TODO clear user and citizen/politician profile in store
+  const logout = () => {
     const privateRoutes = ['/mon-profil'];
     if (privateRoutes.includes(window.location.pathname)) {
       history.push('/');
@@ -51,7 +51,7 @@ const NavBar = () => {
     if (requestLogin) {
       setModalShow(true);
     }
-  }, [isLoggedIn, token, user]);
+  }, [isLoggedIn, requestLogin, token]);
   
   return (
       <Navbar className="NavBar" expand="lg" color="light" light fixed="top">
