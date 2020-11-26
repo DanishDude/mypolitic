@@ -104,4 +104,14 @@ export const dislikePolitician = politicianId => ({
   politicianId
 });
 
+export const followPolitician = politicianId => ({
+  type: 'FOLLOW_POLITICIAN',
+  politicianId
+});
+
+export const unfollowPolitician = politicianId => ({
+  type: 'UNFOLLOW_POLITICIAN',
+  politicianId
+});
+
 // -------- Get User with token -------- //

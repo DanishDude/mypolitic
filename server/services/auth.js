@@ -7,8 +7,8 @@ function createToken(user) {
 };
 
 function createPublicUser(user) {
-  const { _id, email, userType, likes } = user;
-  return { _id, email, userType, likes }
+  const { _id, email, userType, likes, follows } = user;
+  return { _id, email, userType, likes, follows }
 }
 
 class Auth {
@@ -63,7 +63,7 @@ class Auth {
           };
         });
       };
-    }).select(['email', 'password', 'userType', 'likes']);
+    }).select(['email', 'password', 'userType', 'likes', 'follows']);
   };
 };
 

@@ -23,8 +23,8 @@ const politicians = (state = initialState, action) => {
       return { ...state, loading: false, liked: action.politicians, error: '' };
     case 'SUCCESS_FETCH_ALL_POLITICIANS':
       return { ...state, loading: false, all: action.politicians, error: '' };
-    case 'SUCCESS_LIKED_OR_DISLIKED_POLITICIAN':
-      const {  politicians, searchResults, liked, all } = state;
+    case 'UPDATE_POLITICIAN':
+      const { politicians, searchResults, liked, all } = state;
 
       if (state.politician._id === action.politician._id) {
         state.politician = action.politician;

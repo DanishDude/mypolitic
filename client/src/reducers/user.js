@@ -1,3 +1,5 @@
+import politicians from "./politicians";
+
 const initialState = {
   loading: false,
   isLoggedIn: false,
@@ -29,10 +31,20 @@ const user = (state = initialState, action) => {
     case 'REQUEST_LOGIN':
       return { ...state, requestLogin: true };
     case 'LIKE_POLITICIAN':
-      state.user.likes.push(action.politicianId);
+      if (!state.user.likes.includes(action.politicianId)) {
+        state.user.likes.push(action.politicianId);
+      }
       return { ...state };
     case 'DISLIKE_POLITICIAN':
       state.user.likes = state.user.likes.filter(like => like !== action.politicianId);
+      return { ...state };
+    case 'FOLLOW_POLITICIAN':
+      if (!state.user.follows.includes(action.politicianId)) {
+        state.user.follows.push(action.politicianId);
+      }
+      return { ...state };
+    case 'UNFOLLOW_POLITICIAN':
+      state.user.follows = state.user.follows.filter(like => like !== action.politicianId);
       return { ...state };
     default:
       return state;

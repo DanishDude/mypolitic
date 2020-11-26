@@ -1,4 +1,4 @@
-import { dislikePolitician, likePolitician } from './user';
+import { dislikePolitician, followPolitician, likePolitician, unfollowPolitician } from './user';
 import { urlApi } from '../constant';
 import { requestLogin } from './user';
 
@@ -32,8 +32,8 @@ export const successFetchAllPoliticians = politicians => ({
   politicians
 });
 
-export const successLikedOrDislikedPolitician = politician => ({
-  type: 'SUCCESS_LIKED_OR_DISLIKED_POLITICIAN',
+export const updatePolitician = politician => ({
+  type: 'UPDATE_POLITICIAN',
   politician
 });
 
@@ -131,11 +131,43 @@ export const fetchLikePolitician = (_id, token) => dispatch => {
         const { liked, success, politician } = payload;
 
         if (success & liked) {
+          dispatch(fetchFollowPolitician(_id, token));
           dispatch(likePolitician(_id));
-          dispatch(successLikedOrDislikedPolitician(politician));
+          dispatch(updatePolitician(politician));
         } else if (success & !liked) {
           dispatch(dislikePolitician(_id));
-          dispatch(successLikedOrDislikedPolitician(politician));
+          dispatch(updatePolitician(politician));
+        }
+      })
+      .catch(err => console.error(err));
+  }
+}
+
+// -------- Follow Politician -------- //
+export const fetchFollowPolitician = (_id, token) => dispatch => {
+  if (!token || token === '') {
+    dispatch(requestLogin());
+  } else {
+    const options = {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        Authorization: token,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    fetch(`${urlApi}/politician/${_id}/follow`, options)
+      .then(res => res.json())
+      .then(payload => {
+        const { follow, success, politician } = payload;
+
+        if (success & follow) {
+          dispatch(followPolitician(_id));
+          dispatch(updatePolitician(politician));
+        } else if (success & !follow) {
+          dispatch(unfollowPolitician(_id));
+          dispatch(updatePolitician(politician));
         }
       })
       .catch(err => console.error(err));
