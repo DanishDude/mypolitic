@@ -10,15 +10,6 @@ const initialState = {
 
 
 const politicians = (state = initialState, action) => {
-  const replacePolitician = politician => {
-    if (politician._id === action.politician._id) {
-      return action.politician;
-    } else {
-      return politician;
-    }
-  };
-  const {  politicians, searchResults, liked, all } = state;
-
   switch(action.type) {
     case 'START_FETCH_POLITICIAN':
       return { ...state, loading: true };
@@ -32,24 +23,21 @@ const politicians = (state = initialState, action) => {
       return { ...state, loading: false, liked: action.politicians, error: '' };
     case 'SUCCESS_FETCH_ALL_POLITICIANS':
       return { ...state, loading: false, all: action.politicians, error: '' };
-    case 'SUCCESS_LIKED_POLITICIAN':
+    case 'SUCCESS_LIKED_OR_DISLIKED_POLITICIAN':
+      const {  politicians, searchResults, liked, all } = state;
+
       if (state.politician._id === action.politician._id) {
         state.politician = action.politician;
       }
-      return {
-        ...state,
-        loading: false,
-        politicians: politicians.map(replacePolitician),
-        searchResults: searchResults.map(replacePolitician),
-        liked: liked.map(replacePolitician),
-        all: all.map(replacePolitician),
-        error: ''
+
+      const replacePolitician = politician => {
+        if (politician._id === action.politician._id) {
+          return action.politician;
+        } else {
+          return politician;
+        }
       };
-    case 'SUCCESS_DISLIKED_POLITICIAN':
-      if (state.politician._id === action.politician._id) {
-        state.politician = action.politician;
-      }
-      // const {  politicians, searchResults, liked, all } = state;
+
       return {
         ...state,
         loading: false,

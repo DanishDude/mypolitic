@@ -32,13 +32,8 @@ export const successFetchAllPoliticians = politicians => ({
   politicians
 });
 
-export const successLikedPolitician = politician => ({
-  type: 'SUCCESS_LIKED_POLITICIAN',
-  politician
-});
-
-export const successDislikedPolitician = politician => ({
-  type: 'SUCCESS_DISLIKED_POLITICIAN',
+export const successLikedOrDislikedPolitician = politician => ({
+  type: 'SUCCESS_LIKED_OR_DISLIKED_POLITICIAN',
   politician
 });
 
@@ -137,10 +132,10 @@ export const fetchLikePolitician = (_id, token) => dispatch => {
 
         if (success & liked) {
           dispatch(likePolitician(_id));
-          dispatch(successLikedPolitician(politician));
+          dispatch(successLikedOrDislikedPolitician(politician));
         } else if (success & !liked) {
           dispatch(dislikePolitician(_id));
-          dispatch(successDislikedPolitician(politician));
+          dispatch(successLikedOrDislikedPolitician(politician));
         }
       })
       .catch(err => console.error(err));
