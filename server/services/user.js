@@ -16,13 +16,26 @@ class UserClass {
     const liked = await user.likes.includes(politicianProfile._id.toString());
       
     if (liked) {
-      user.likes = user.likes.filter((likeId) => likeId.toString() != politicianProfile._id.toString());
+      user.likes = user.likes.filter(likeId => likeId.toString() != politicianProfile._id.toString());
     } else {
       user.likes.push(politicianProfile._id);
     }
 
     user.save();
     return liked;
+  };
+
+  async followPolitician(user, politicianProfile) {
+    const followed = await user.follows.includes(politicianProfile._id.toString());
+      
+    if (followed) {
+      user.follows = user.follows.filter(followId => followId.toString() != politicianProfile._id.toString());
+    } else {
+      user.follows.push(politicianProfile._id);
+    }
+
+    user.save();
+    return followed;
   };
 }
 

@@ -193,6 +193,18 @@ class PoliticianProfile {
     }
     return await profile.save();
   }
+
+  async follow(profile) {
+    profile.followers = profile.followers + 1;
+    return await profile.save();
+  };
+
+  async unfollow(profile) {
+    if (profile.followers > 0) {
+      profile.followers = profile.followers - 1;
+    }
+    return await profile.save();
+  }
 };
 
 module.exports = new PoliticianProfile();

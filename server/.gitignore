@@ -6,7 +6,9 @@
 .pnp.js
 
 # testing
+config.json
 /coverage
+/seeders
 
 # production
 /build

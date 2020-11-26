@@ -17,7 +17,8 @@ const userSchema = new Schema({
     enum: ['politician', 'assistant', 'citizen', 'admin', 'superadmin'],
     required: true
   },
-  likes: [{type: Schema.Types.ObjectId, ref: 'Politician', unique: true, default: undefined}]
+  likes: [{type: Schema.Types.ObjectId, ref: 'Politician', unique: true, default: undefined}],
+  follows: [{type: Schema.Types.ObjectId, ref: 'Politician', unique: true, default: undefined}]
 });
 
 userSchema.pre('save', function (next) {
