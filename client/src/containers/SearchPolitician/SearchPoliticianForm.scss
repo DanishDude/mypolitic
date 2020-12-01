@@ -1,17 +1,11 @@
 $border-radius: 18px;
 
 .SearchPoliticianForm {
-  position: absolute;
-  // top: 40%;
-  left: 0;
-  right: 0;
-  margin: auto;
 
   .fields {
     display: flex;
     flex-flow: wrap;
     justify-content: center;
-    margin-top: 55px;
 
     input {
       border: 1px solid #ccc;
@@ -25,24 +19,22 @@ $border-radius: 18px;
     }
 
     .search {
-      margin-top: 20px;
-      width: 100%;
-      
-      button {
-        width: 180px;
-        border-radius: $border-radius;
-        background-color: hsla(0%, 66%, 63%, 1);
-
-      }
-
-      button:hover {
-        background-color: hsla(0%, 66%, 60%, 1);
-
-      }
+      margin-left: auto;
+      margin-right: auto;
     }
   }
+  
+  button {
+    margin: 5px auto;
+    width: 180px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto ;
+    border-radius: $border-radius;
+    background-color: hsla(0%, 66%, 63%, 1);
+  }
 
-  @media screen and (max-width: 500px) {
-    top: 20%;
+  button:hover {
+    background-color: hsla(0%, 66%, 60%, 1);
   }
 }

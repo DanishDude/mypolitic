@@ -1,88 +1,66 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import AddButton from './AddButton';
-import EditButton from './EditButton';
-import TeamMember from './TeamMember';
+import SimpleCard from '../../components/common/SimpleCard';
+import AddTeamMember from './AddTeamMember';
+import DeleteTeamMember from './DeleteTeamMember';
 import './Container.scss';
 import './Team.scss';
-import AddNewTeamMember from './AddNewTeamMember';
 
 const Team = props => {
   const { politicianProfile, profileOwner } = props;
-  const { team, unregisteredTeam } = politicianProfile;
+  const { team } = politicianProfile;
+  const { teamInfo } = useSelector(state => state.politicianProfile);
   const [modalShow, setModalShow] = useState(false);
+  const [modalShowDelete, setModalShowDelete] = useState(false);
   const [hasTeam, setHasTeam] = useState(false);
-  const [hasUnregisteredTeam, setHasUnregisteredTeam] = useState(false);
-  const [editMember, setEditMember] = useState(null);
+  const [deleteMember, setDeleteMember] = useState(undefined);
 
   useEffect(() => {
     if (!team && !Array.isArray(team)) {
       setHasTeam(false);
-    } else if (team.length === 0) {
+    } else if (!team.length || !teamInfo.length) {
       setHasTeam(false);
     } else {
       setHasTeam(true);
     };
-    
-    if (!unregisteredTeam && !Array.isArray(unregisteredTeam)) {
-      setHasUnregisteredTeam(false)
-    } else if (unregisteredTeam.length === 0) {
-      setHasUnregisteredTeam(false);
-    } else {
-      setHasUnregisteredTeam(true);
-    };
-  }, [team, unregisteredTeam]);
+  }, [team, teamInfo]);
   
   return (
     <div className="Container Team">
       {profileOwner ? <AddButton add={() => setModalShow(true)} /> : ''}
-
-      <AddNewTeamMember
+      <AddTeamMember
         show={modalShow}
-        onHide={() => {
-          setModalShow(false);
-          setEditMember(null)}}
-        politicianProfile={politicianProfile}
-        member={editMember}
+        onHide={() => setModalShow(false)}
+      />
+      <DeleteTeamMember
+        show={modalShowDelete}
+        onHide={() => setModalShowDelete(false)}
+        member={deleteMember}
       />
       <h3 className="main-title">Colistiers</h3>
 
       <ul className="members">
         {hasTeam
-          ? team.map(member =>
+          ? teamInfo.map(member =>
               <li key={member._id}>
-
                 {profileOwner
-                ? <EditButton 
-                    altStyle={{ 'margin-top': '-8px' }}
-                    edit={() => {
-                      setEditMember(member);
-                      setModalShow(true);
-                    }} />
-                : ''}
-
-                <TeamMember member={member} />
-              </li>)
-          : ''}
-        
-        {hasUnregisteredTeam
-          ? unregisteredTeam.map(member =>
-              <li key={member._id}>
-
-                {profileOwner
-                ? <EditButton 
-                    altStyle={{ 'margin-top': '-8px' }}
-                    edit={() => {
-                      setEditMember(member);
-                      setModalShow(true);
-                    }} />
-                : ''}
-
-                <TeamMember member={member} profileId={politicianProfile._id} />
+                  ?  <HighlightOffIcon
+                      color="error"
+                      className="delete"
+                      onClick={() => {
+                        setDeleteMember(member);
+                        setModalShowDelete(true);
+                      }}
+                    />
+                  : ''}
+                <SimpleCard profile={member} />
               </li>)
           : ''}
 
-        {!hasTeam && !hasUnregisteredTeam ? <p style={{'color': 'red'}}>No Team Members</p> : ''}
+        {!hasTeam ? <p style={{'color': 'red'}}>No Team Members</p> : ''}
       </ul>
     </div>
   );

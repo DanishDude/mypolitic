@@ -1,0 +1,26 @@
+.ListCard {
+  text-overflow: ellipsis;
+  margin: 3px;
+  min-width: 320px;
+  max-width: 420px;
+  min-height: 36px;
+  max-height: 36px;
+
+  .content {
+    padding: 3px;
+    display: flex;
+    justify-content: flex-start;
+
+    .avatar {
+      height: 30px;
+      width: 30px;
+      font-size: 1rem;
+    }
+
+    .text {
+      margin-left: 3px;
+      max-width: 80%;
+    }
+  }
+
+}

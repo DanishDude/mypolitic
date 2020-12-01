@@ -24,12 +24,6 @@ const politicianSchema = new Schema({
     description: {type: String},
   }],
   team: [{type: Schema.Types.ObjectId, ref: 'User', unique: true, default: undefined}],
-  unregisteredTeam: [{
-    firstname: {type: String},
-    lastname: {type: String},
-    party: {type: String},
-    photo: {type: String}
-  }],
   interviews: [{
     title: {type: String},
     date: {type: Date},

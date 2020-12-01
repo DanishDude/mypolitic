@@ -21,15 +21,13 @@ let SearchPoliticianForm = props => {
             placeholder="Qui: Jacques Dupont"
           />
           <Field
-            name="location"
+            name="city"
             component={renderField}
             type="text"
             placeholder="Ou: Paris, Pau, Mérignac, ..."
           />
-          <div className="search">
-            <Button type="submit" disabled={pristine || submitting}>Chercher</Button>
-          </div>
         </div>
+        <Button type="submit" disabled={pristine || submitting}>Chercher</Button>
       </form>
     </div>
   );

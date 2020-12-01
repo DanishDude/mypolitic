@@ -11,5 +11,24 @@
     justify-content: flex-start;
     padding: 0;
     list-style-type: none;
+
+    li {
+      margin: 7px;
+      position: relative;
+
+      .delete {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        opacity: 0;
+        z-index: 2;
+      }
+    }
+
+    li:hover {
+      .delete {
+        opacity: 1;
+      }
+    }
   }
 }

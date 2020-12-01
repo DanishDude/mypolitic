@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 import { fetchFollowPolitician } from '../../actions/politicians';
 import './Follow.scss';
@@ -14,8 +15,24 @@ const Follow = props => {
   return (
     <span className="Follow">
       {user.follows.includes(profileId)
-        ? <Button className="following" variant="outlined" color="default" onClick={() => follow()}>Suivi</Button>
-        : <Button variant="outlined" color="primary" onClick={() => follow()}>Suivre</Button>}
+        ? <Button
+            className="following"
+            size="small"
+            variant="outlined"
+            color="default"
+            onClick={() => follow()}
+          >
+            Suivi
+          </Button>
+        : <Button
+            className="follow"
+            variant="outlined"
+            size="small"
+            color="primary"
+            onClick={() => follow()}
+          >
+            <AddIcon className="plus" fontSize="small" /> Suivre
+          </Button>}
     </span>
   );
 };

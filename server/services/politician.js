@@ -44,10 +44,11 @@ class PoliticianProfile {
   };
 
   async getManyByUserId(users) {
+    console.log('USERS: ', users);
     const profiles = await Politician.find({'user': {$in : users}}, err => {
       if (err) console.log(err);
     }).select(['_id', 'user', 'firstname', 'lastname', 'profilePhoto', 'party']);
-    
+    console.log('PROFILES: ', profiles);
     return profiles;
   };
 
@@ -55,7 +56,7 @@ class PoliticianProfile {
     const toParse = ['education', 'interviews', 'programme', 'team', 'unregisteredTeam'];
 
     for (const [key, value] of Object.entries(data)) {
-      if (key === 'team') {
+      /* if (key === 'team') {
         let team = JSON.parse(value);
         let updatedTeam = [];
 
@@ -74,7 +75,7 @@ class PoliticianProfile {
         
         profile[key] = updatedTeam;
        
-      } else if (toParse.includes(key)) {
+      } else */ if (toParse.includes(key)) {
         profile[key] = JSON.parse(value);
       } else {
         profile[key] = value;
@@ -179,7 +180,7 @@ class PoliticianProfile {
           console.error(err);
         }
       }
-    ).select(['_id', 'user', 'firstname', 'lastname', 'city', 'party', 'profilePhoto', 'likes']);
+    );
   };
 
   async like(profile) {

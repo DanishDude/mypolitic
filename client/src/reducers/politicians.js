@@ -47,6 +47,8 @@ const politicians = (state = initialState, action) => {
         all: all.map(replacePolitician),
         error: ''
       };
+    case 'CLEAR_POLITICIAN_SEARCH_RESULTS':
+      return { ...state, searchResults: [] }
     case 'ERROR_FETCH_POLITICIAN':
       return { ...state, loading: false, error: action.err };
     default:

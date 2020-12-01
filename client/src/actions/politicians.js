@@ -59,6 +59,11 @@ export const fetchSearchPoliticians = query => dispatch => {
     .catch(err => console.error(err))
 };
 
+export const clearPoliticianSearchResults = () => ({
+  type: 'CLEAR_POLITICIAN_SEARCH_RESULTS'
+});
+
+// -------- Like/Follow Politician -------- //
 export const fetchLikedPoliticians = ids => dispatch => {
   dispatch(startFetchPoliticians());
 

@@ -60,10 +60,7 @@ router.route('/')
           msg: `Politician Profile not found for user ${_id}`,
         });
       };
-      
-      const teamInfo = await politicianProfile.getManyByUserId(profile.team);
-      if (teamInfo.length > 0) profile['_doc'].team = teamInfo;
-      
+
       return res.status(200).send({
         success: true,
         msg: `Politician Profile for user ${_id}`,

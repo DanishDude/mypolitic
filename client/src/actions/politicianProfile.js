@@ -50,85 +50,10 @@ export const fetchUpdatePoliticianProfile = (politicianProfile, token) => dispat
         dispatch(errorUpdatePoliticianProfile(msg));
       } else {
         dispatch(successUpdatePoliticianProfile(profile));
+        dispatch(fetchMyPoliticianProfile(token));
       }
     })
-    .then(() => dispatch(fetchMyPoliticianProfile(token)))
     .catch(err => dispatch(errorUpdatePoliticianProfile(err)));
-};
-
-// -------- Update Unregistered Team -------- //
-export const startUpdateUnregisteredTeam = () => ({
-  type: 'START_UPDATE_UNREGISTERED_TEAM'
-});
-
-export const successUpdateUnregisteredTeam = politicianProfile => ({
-  type: 'SUCCESS_UPDATE_UNREGISTERED_TEAM',
-  politicianProfile
-});
-
-export const errorUpdateUnregisteredTeam = err => ({
-  type: 'ERROR_UPDATE_UNREGISTERED_TEAM',
-  err
-});
-
-export const fetchUpdateUnregisteredTeam = (member, token, profileId) => dispatch => {
-  dispatch(startUpdateUnregisteredTeam());
-
-  let fd = new FormData();
-
-  for (const [key, value] of Object.entries(member)) {
-    if (value) {
-      if (key === 'photo') {
-        if (value && typeof value !== 'string') fd.append('photo', value, value.name);
-      } else {
-        fd.append(key, value);
-      } ;
-    };
-  };
-
-  const options = {
-    method: member._id ? 'PUT' : 'POST',
-    headers: { Authorization : token },
-    body: fd
-  };
-
-  fetch(`${urlApi}/politician/${profileId}/unregisteredTeam${member._id ? '/' + member._id : ''}`,
-    options)
-    .then(res => res.json())
-    .then(payload => {
-      const { success, msg, profile } = payload;
-
-      if (!success) {
-        dispatch(errorUpdateUnregisteredTeam(msg));
-      } else {
-        dispatch(successUpdateUnregisteredTeam(profile));
-      }
-    })
-    .then(() => dispatch(fetchMyPoliticianProfile(token)))
-    .catch(err => dispatch(errorUpdateUnregisteredTeam(err)));
-};
-
-export const fetchDeleteUnregisteredTeamMember = (profileId, memberId, token) => dispatch => {
-  dispatch(startUpdateUnregisteredTeam());
-
-  const options = {
-    method: 'DELETE',
-    headers: { Authorization : token },
-  };
-
-  fetch(`${urlApi}/politician/${profileId}/unregisteredTeam/${memberId}`, options)
-    .then(res => res.json())
-    .then(payload => {
-      const { success, msg, profile } = payload;
-
-      if (!success) {
-        dispatch(errorUpdateUnregisteredTeam(msg));
-      } else {
-        dispatch(successUpdateUnregisteredTeam(profile));
-      }
-    })
-    .then(() => dispatch(fetchMyPoliticianProfile(token)))
-    .catch(err => dispatch(errorUpdateUnregisteredTeam(err)));
 };
 
 // -------- Get My Politician Profile -------- //
@@ -167,12 +92,41 @@ export const fetchMyPoliticianProfile = (token) => dispatch => {
         dispatch(errorGetPoliticianProfile(msg));
       } else {
         dispatch(successGetPoliticianProfile(profile));
+        if (profile.team && profile.team.length) {
+          dispatch(fetchTeamDetails(profile.team));
+        }
       }
     })
     .catch(err => dispatch(errorGetPoliticianProfile(err)));
 };
 
-// -------- Get My Politician Profile -------- //
+// -------- Politician Profile Team Details -------- //
+export const startFetchTeamDetails = () => ({
+  type: 'START_FETCH_TEAM_DETAILS'
+});
+
+export const successFetchTeamDetails = team => ({
+  type: 'SUCCESS_FETCH_TEAM_DETAILS',
+  team
+});
+
+export const fetchTeamDetails = ids => dispatch => {
+  startFetchTeamDetails();
+  fetch(`${urlApi}/politician/search?ids=${ids.join(',')}`)
+    .then(res => res.json())
+    .then(payload => {
+      const {success, profiles} = payload;
+
+      if (!success) {
+        dispatch(errorGetPoliticianProfile('Error loading Team Details'));
+      } else {
+        dispatch(successFetchTeamDetails(profiles));
+      }
+    })
+    .catch(err => console.error(err))
+}
+
+// -------- Delete My Politician Profile -------- //
 export const deleteProfileData = () => ({
   type: 'DELETE_PROFILE_DATA'
 });
