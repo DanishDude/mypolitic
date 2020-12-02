@@ -11,7 +11,7 @@ const Presentation = props => {
   const [modalShow, setModalShow] = useState(false);
   
   return (
-    <div className="Container Presentation">
+    <div className="Container Presentation" >
       {profileOwner
         ? <Fragment>
             {politicianProfile && politicianProfile.presentation
@@ -19,7 +19,6 @@ const Presentation = props => {
               : <AddButton add={() => setModalShow(true)} />}
           </Fragment>
         : ''}
-      
 
       <EditPresentation onHide={() => setModalShow(false)} show={modalShow} />
       

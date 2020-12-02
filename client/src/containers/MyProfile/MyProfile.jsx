@@ -12,8 +12,9 @@ const MyProfile = () => {
   const { user, token } = useSelector(state => state.user);
   const { error, politicianProfile } = useSelector(state => state.politicianProfile); // TODO handle loading
   const [profileOwner, setProfileOwner] = useState(false);
-
+  const [hasProfile, setHasProfile] = useState(false)
   const dispatch = useDispatch();
+  const faded = hasProfile ? '' : 'faded';
 
   useEffect(() => dispatch(fetchMyPoliticianProfile(token)), [dispatch, token]);
 
@@ -22,16 +23,29 @@ const MyProfile = () => {
       (user._id === politicianProfile.user)) {
         setProfileOwner(true);
     };
+
+    if (politicianProfile._id) {
+      setHasProfile(true);
+    };
+
   }, [error, politicianProfile, token, user]);
+
+  console.log(hasProfile);
 
   return (
     <div className="MyProfile">
       {politicianProfile ?
         <Fragment>
           <Profile politicianProfile={politicianProfile} profileOwner={profileOwner} />
-          <Presentation politicianProfile={politicianProfile} profileOwner={profileOwner} />
-          <Programme politicianProfile={politicianProfile} profileOwner={profileOwner} />
-          <Team politicianProfile={politicianProfile} profileOwner={profileOwner} />
+          <div className={faded}>
+            <Presentation politicianProfile={politicianProfile} profileOwner={profileOwner} />
+          </div>
+          <div className={faded}>
+            <Programme politicianProfile={politicianProfile} profileOwner={profileOwner} />
+          </div>
+          <div className={faded}>
+            <Team politicianProfile={politicianProfile} profileOwner={profileOwner} />
+          </div>
         </Fragment>
         : ''}
     </div>
