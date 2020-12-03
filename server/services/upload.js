@@ -38,10 +38,6 @@ class uploadFile {
   profilePhoto(req, res, next) {
     return (upload.single('profilePhoto'))(req, res, next);
   };
-  
-  unregisteredMemberPhoto(req, res, next) {
-    return (upload.single('photo'))(req, res, next);
-  };
 
   deleteCloudinaryResource(url) {
     return cloudinary.api.delete_resources(this.getPublicId(url));

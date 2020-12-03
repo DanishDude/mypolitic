@@ -53,29 +53,10 @@ class PoliticianProfile {
   };
 
   async modifyOne(profile, data) {
-    const toParse = ['education', 'interviews', 'programme', 'team', 'unregisteredTeam'];
+    const toParse = ['education', 'interviews', 'programme', 'team'];
 
     for (const [key, value] of Object.entries(data)) {
-      /* if (key === 'team') {
-        let team = JSON.parse(value);
-        let updatedTeam = [];
-
-        for (let i=0; i < team.length; i++) {
-          if (typeof team[i] === 'string') {
-            const memberUser = await user.getOneByEmail(team[i]);
-            if (memberUser
-              && profile.user !== memberUser._id
-              && memberUser.userType === 'politician') {
-              updatedTeam.push(memberUser._id);
-            }
-          } else {
-            updatedTeam.push(team[i].user);
-          };
-        };
-        
-        profile[key] = updatedTeam;
-       
-      } else */ if (toParse.includes(key)) {
+      if (toParse.includes(key)) {
         profile[key] = JSON.parse(value);
       } else {
         profile[key] = value;
@@ -94,60 +75,6 @@ class PoliticianProfile {
 
     return profile;
   };
-
-  async addUnregisteredTeamMember(profile, member) {
-    profile.unregisteredTeam = profile.unregisteredTeam
-      ? [ ...profile.unregisteredTeam, member ]
-      : [member];
-
-    await profile.save(err => {
-      if (err) {
-        if (err.errmsg) {
-          console.log(err.errmsg);
-        } else {
-          console.log(err);
-        }
-      }
-    });
-
-    return profile;
-  }
-
-  async updateUnregisteredTeamMember(profile, updatedMember) {
-    profile.unregisteredTeam = [ ...profile.unregisteredTeam.filter(member => {
-      return member._id.toString() !== updatedMember._id;
-    }), updatedMember ];
-
-    await profile.save(err => {
-      if (err) {
-        if (err.errmsg) {
-          console.log(err.errmsg);
-        } else {
-          console.log(err);
-        }
-      }
-    });
-
-    return profile;
-  }
-
-  async deleteUnregisteredTeamMember(profile, memberId) {
-    profile.unregisteredTeam = profile.unregisteredTeam.filter(member => {
-      return member._id.toString() !== memberId;
-    });
-
-    await profile.save(err => {
-      if (err) {
-        if (err.errmsg) {
-          console.log(err.errmsg);
-        } else {
-          console.log(err);
-        }
-      }
-    });
-
-    return profile;
-  }
 
   async deleteOne(_id) {
     return await Politician.findByIdAndDelete(_id);
