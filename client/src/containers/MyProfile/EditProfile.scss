@@ -1,18 +1,12 @@
 .EditProfile {
-
   .modal-body {
     padding: 0;
   }
 
   .header {
     height: 120px;
-    background: rgb(6,33,144);
-    background: linear-gradient(
-      90deg,
-      rgba(6,33,144,1) 0%,
-      rgba(245,245,245,1) 50%,
-      rgba(217,60,63,1) 100%
-    );
+    background: rgb(6, 33, 144);
+    background: linear-gradient(90deg, rgba(6, 33, 144, 1) 0%, rgba(245, 245, 245, 1) 50%, rgba(217, 60, 63, 1) 100%);
   }
 
   #file-input {
@@ -22,7 +16,7 @@
   .avatar {
     margin: -90px auto;
     width: 150px;
-    
+
     .avatar-picture {
       margin: 0 auto;
       margin-left: 10px;
@@ -37,29 +31,27 @@
       margin: -15px 0 0 100px;
       width: 30px;
 
-      [type="file"] {
+      [type='file'] {
         height: 0;
         width: 0;
         overflow: hidden;
       }
-  
-      [type="file"] + label {
-        
+
+      [type='file'] + label {
         img {
           height: 27px;
           width: 27px;
-          border: 1.5px solid #1877F2;
+          border: 1.5px solid #1877f2;
           border-radius: 15px;
           transition: background-color 0.4s ease;
         }
-    
+
         img:hover {
           background-color: rgb(209, 229, 255);
           cursor: pointer;
         }
       }
     }
-
   }
 
   .form-fields {
@@ -68,6 +60,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    position: relative;
 
     .field {
       width: 373px;
@@ -90,6 +83,15 @@
         border-radius: 16px;
         text-indent: 8px;
       }
+    }
+
+    .cities {
+      position: absolute;
+      top: 142px;
+      left: 30px;
+      height: 235px;
+      overflow: scroll;
+      background-color: whitesmoke;
     }
   }
 }

@@ -1,0 +1,12 @@
+.SearchResults {
+  list-style-type: none;
+  font-size: 0.85rem;
+  padding: 0 5px;
+  display: inline;
+  text-overflow: clip;
+
+  .result:hover {
+    cursor: pointer;
+    background-color: white;
+  }
+}

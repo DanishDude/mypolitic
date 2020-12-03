@@ -5,36 +5,35 @@ import { fetchMyPoliticianProfile } from '../../actions/politicianProfile';
 import Presentation from './Presentation';
 import Profile from './Profile';
 import Programme from './Programme';
-import Team from './Team'
+import Team from './Team';
 import './MyProfile.scss';
 
 const MyProfile = () => {
-  const { user, token } = useSelector(state => state.user);
-  const { error, politicianProfile } = useSelector(state => state.politicianProfile); // TODO handle loading
+  const { user, token } = useSelector((state) => state.user);
+  const { error, politicianProfile } = useSelector((state) => state.politicianProfile); // TODO handle loading
   const [profileOwner, setProfileOwner] = useState(false);
-  const [hasProfile, setHasProfile] = useState(false)
+  const [hasProfile, setHasProfile] = useState(false);
   const dispatch = useDispatch();
   const faded = hasProfile ? '' : 'faded';
 
   useEffect(() => dispatch(fetchMyPoliticianProfile(token)), [dispatch, token]);
 
   useEffect(() => {
-    if ((user.userType === 'politician' && error === `Politician Profile not found for user ${user._id}`) ||
-      (user._id === politicianProfile.user)) {
-        setProfileOwner(true);
-    };
+    if (
+      (user.userType === 'politician' && error === `Politician Profile not found for user ${user._id}`) ||
+      user._id === politicianProfile.user
+    ) {
+      setProfileOwner(true);
+    }
 
     if (politicianProfile._id) {
       setHasProfile(true);
-    };
-
+    }
   }, [error, politicianProfile, token, user]);
-
-  console.log(hasProfile);
 
   return (
     <div className="MyProfile">
-      {politicianProfile ?
+      {politicianProfile ? (
         <Fragment>
           <Profile politicianProfile={politicianProfile} profileOwner={profileOwner} />
           <div className={faded}>
@@ -47,7 +46,9 @@ const MyProfile = () => {
             <Team politicianProfile={politicianProfile} profileOwner={profileOwner} />
           </div>
         </Fragment>
-        : ''}
+      ) : (
+        ''
+      )}
     </div>
   );
 };
