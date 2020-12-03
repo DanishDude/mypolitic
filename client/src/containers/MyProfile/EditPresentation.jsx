@@ -5,8 +5,11 @@ import Modal from 'react-bootstrap/Modal';
 import { Field, reduxForm } from 'redux-form';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
+import { required, maxLength } from '../../formValidation';
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import './EditPresentation.scss';
+
+const maxLength2000 = maxLength(2000);
 
 const renderField = ({ id, input, placeholder, type, meta: { touched, error } }) => (
   <div className="field">
@@ -18,7 +21,7 @@ const renderField = ({ id, input, placeholder, type, meta: { touched, error } })
 );
 
 let EditPresentation = (props) => {
-  const { initialValues, onHide } = props;
+  const { initialValues, pristine, onHide, submitting } = props;
   const dispatch = useDispatch();
   const { form, user } = useSelector(state => state);
   const maxChar = 2000;
@@ -66,6 +69,7 @@ let EditPresentation = (props) => {
           type="textarea"
           placeholder="Présentez-vous..."
           normalize={maxCharacters}
+          validate={[required, maxLength2000]}
         />
         <div className="count-wrapper">
           <p className="character-count">{count}/{maxChar}</p>
@@ -73,7 +77,7 @@ let EditPresentation = (props) => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button type="submit">Sauvegarder</Button>
+        <Button type="submit" disabled={pristine || submitting || form.editProfile.syncErrors}>Sauvegarder</Button>
       </Modal.Footer>
 
       </form>

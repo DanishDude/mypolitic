@@ -5,22 +5,27 @@ import { Field, reduxForm } from 'redux-form';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
+import { required, maxLength } from '../../formValidation';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import editIcon from '../../assets/edit.svg';
 import './EditProfile.scss';
 
-const renderField = ({ input, label, placeholder, type, meta: { touched, error } }) => (
+const maxLength22 = maxLength(22);
+
+const renderField = ({ input, label, placeholder, type, meta: { touched, error, warning } }) => (
   <div className="field">
     <label>{label}</label>
     <input {...input} placeholder={placeholder} type={type} />
     <div className="error-line">
-      {touched && (error && <span className="error">{error}</span>)}
+      {touched &&
+        (error && <span className="error">{error}</span>) ||
+          (warning && <span>{warning}</span>)}
     </div>
   </div>
 );
 
 let EditProfile = (props) => {
-  const { initialValues, onHide } = props;
+  const { initialValues, pristine, onHide, submitting } = props;
   const [profilePhotoPreview, setProfilePhotoPreview] = useState(placeholder);
   const dispatch = useDispatch();
   const { form, user } = useSelector(state => state);
@@ -35,8 +40,11 @@ let EditProfile = (props) => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token));
-    onHide();
+    if (!form.editProfile.syncErrors) {
+      dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token));
+      onHide();
+    }
+    return;
   };
 
   const adaptFileEventToValue = delegate => e => {
@@ -95,10 +103,22 @@ let EditProfile = (props) => {
         
         <div className="form-fields">
           <Field name="_id" component="input" type="hidden" />
-          <Field name="firstname" component={renderField} type="text" label="Prénom" />
-          <Field name="lastname" component={renderField} type="text" label="Nom" />
-          <Field name="city" component={renderField} type="text" label="Ville" />
-          <Field name="party" component={renderField} type="text" label="Parti Politique" />
+          <Field
+            name="firstname"
+            component={renderField}
+            type="text"
+            label="Prénom*"
+            validate={[required, maxLength22]}
+          />
+          <Field name="lastname" component={renderField} type="text" label="Nom*" validate={[required, maxLength22]} />
+          <Field name="city" component={renderField} type="text" label="Ville*" validate={required} />
+          <Field
+            name="party"
+            component={renderField}
+            type="text"
+            label="Parti Politique*"
+            validate={[required, maxLength22]}
+          />
           <Field name="profession" component={renderField} type="text" label="Profession" />
           <Field
             name="dateOfBirth"
@@ -115,7 +135,7 @@ let EditProfile = (props) => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button type="submit">Sauvegarder</Button>
+        <Button type="submit" disabled={pristine || submitting || form.editProfile.syncErrors}>Sauvegarder</Button>
       </Modal.Footer>
 
       </form>

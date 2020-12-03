@@ -5,7 +5,7 @@ import linkedin from 'super-tiny-icons/images/svg/linkedin.svg';
 import youtube from 'super-tiny-icons/images/svg/youtube.svg';
 
 import EditButton from './EditButton';
-import ProfileEdit from './EditProfile';
+import EditProfile from './EditProfile';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import './Profile.scss';
 
@@ -42,7 +42,7 @@ const Profile = props => {
           {profileOwner
           ? <div className="edit-btn">
               <EditButton edit={() => setModalShow(true)}/>
-              <ProfileEdit onHide={() => setModalShow(false)} show={modalShow} />
+              <EditProfile onHide={() => setModalShow(false)} show={modalShow} />
             </div> : ''}
 
           <div className="profile">

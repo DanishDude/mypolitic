@@ -4,8 +4,12 @@ import Modal from 'react-bootstrap/Modal';
 import { getFormInitialValues, getFormValues, Field, reduxForm } from 'redux-form';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
+import { required, maxLength } from '../../formValidation';
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import './EditProgramme.scss';
+
+const maxLength800 = maxLength(800);
+const maxLength22 = maxLength(22);
 
 const renderField = ({ id, input, placeholder, type, meta: { touched, error } }) => (
   <div className="field">
@@ -19,7 +23,7 @@ const renderField = ({ id, input, placeholder, type, meta: { touched, error } })
 );
 
 let EditProgramme = (props) => {
-  const { programmeItem, onHide } = props;
+  const { onHide, pristine, programmeItem, submitting } = props;
   const dispatch = useDispatch();
   const { form, user } = useSelector(state => state);
   const maxChar = 800;
@@ -126,7 +130,7 @@ let EditProgramme = (props) => {
         <div className="category-wrapper">
           <div className="category-select">
             <label>Catégorie</label>
-            <Field name="category" component="select" onChange={(e) => isCustom(e)}>
+            <Field name="category" component="select" onChange={(e) => isCustom(e)} validate={required}>
               <option />
               <option value="Centre Ville">Centre Ville</option>
               <option value="Ecologie">Ecologie</option>
@@ -150,7 +154,7 @@ let EditProgramme = (props) => {
                   component={renderField}
                   type="text"
                   placeholder="Projet Centre Ville"
-                  normalize={maxCharacters}
+                  validate={required, maxLength22}
                 />
               </div>
             : <div className="no-custom"></div>}
@@ -163,6 +167,7 @@ let EditProgramme = (props) => {
           type="textarea"
           placeholder="Décrivez votre programme..."
           normalize={maxCharacters}
+          validate={[required, maxLength800]}
         />
         <div className="count-wrapper">
           <p className="character-count">{count}/{maxChar}</p>
@@ -176,7 +181,7 @@ let EditProgramme = (props) => {
               Supprimer
             </Button>
           : ''}
-        <Button type="submit">Sauvegarder</Button>
+        <Button type="submit" disabled={pristine || submitting || form.editProfile.syncErrors}>Sauvegarder</Button>
       </Modal.Footer>
 
       </form>
