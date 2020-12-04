@@ -60,7 +60,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    position: relative;
 
     .field {
       width: 373px;
@@ -84,14 +83,37 @@
         text-indent: 8px;
       }
     }
+    .top-limit {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
 
-    .cities {
-      position: absolute;
-      top: 142px;
-      left: 30px;
-      height: 235px;
-      overflow: scroll;
-      background-color: whitesmoke;
+      .cities {
+        top: -5px;
+        right: 2px;
+        width: 370px;
+        max-width: 90vw;
+        height: 216px;
+        padding: 0;
+        position: absolute;
+        overflow: scroll;
+        background-color: whitesmoke;
+        border-radius: 5px;
+      }
+
+      @media screen and (max-width: 991px) {
+        .cities {
+          width: 410px;
+        }
+      }
+
+      @media screen and (max-width: 575px) {
+        .cities {
+          margin-left: 8px;
+          width: 438px;
+        }
+      }
     }
   }
 }

@@ -57,6 +57,7 @@ let EditProfile = (props) => {
             return `${name}, ${region[1]}(${region[0]}), ${region[2]}`;
           });
           setCities(cityList);
+          setShowCities(true);
         }
       })
       .catch((err) => console.error(err));
@@ -129,34 +130,40 @@ let EditProfile = (props) => {
               validate={[required, maxLength22]}
             />
             <Field
-              name="city"
-              component={renderField}
-              type="text"
-              label="Ville*"
-              validate={required}
-              onChange={(event, newValue) => citySearch(newValue)}
-              onFocus={() => setShowCities(true)}
-            />
-            {showCities ? (
-              <div className="cities">
-                <SearchResults results={cities} select={(city) => selectCity(city)} />
-              </div>
-            ) : (
-              ''
-            )}
-            <Field
               name="party"
               component={renderField}
               type="text"
               label="Parti Politique*"
               validate={[required, maxLength22]}
             />
-            <Field name="profession" component={renderField} type="text" label="Profession" />
-            <Field name="dateOfBirth" component={renderField} type="date" label="Date de naissance" />
-            <Field name="facebook" component={renderField} type="text" label="Lien Profil Facebook" />
-            <Field name="instagram" component={renderField} type="text" label="Lien Profil Instagram" />
-            <Field name="linkedid" component={renderField} type="text" label="Lien Profil LinkedIn" />
-            <Field name="youtube" component={renderField} type="text" label="Lien Profil Youtube" />
+            <Field
+              name="city"
+              component={renderField}
+              type="text"
+              label="Ville*"
+              validate={required}
+              onChange={(event, newValue) => citySearch(newValue)}
+              onFocus={() => {
+                if (cities.length) {
+                  setShowCities(true);
+                }
+              }}
+            />
+            <div className="top-limit">
+              {showCities ? (
+                <div className="cities">
+                  <SearchResults results={cities} select={(city) => selectCity(city)} />
+                </div>
+              ) : (
+                ''
+              )}
+              <Field name="profession" component={renderField} type="text" label="Profession" />
+              <Field name="dateOfBirth" component={renderField} type="date" label="Date de naissance" />
+              <Field name="facebook" component={renderField} type="text" label="Lien Profil Facebook" />
+              <Field name="instagram" component={renderField} type="text" label="Lien Profil Instagram" />
+              <Field name="linkedid" component={renderField} type="text" label="Lien Profil LinkedIn" />
+              <Field name="youtube" component={renderField} type="text" label="Lien Profil Youtube" />
+            </div>
           </div>
         </Modal.Body>
 

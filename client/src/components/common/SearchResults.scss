@@ -1,9 +1,17 @@
 .SearchResults {
   list-style-type: none;
   font-size: 0.85rem;
-  padding: 0 5px;
+  margin: 0;
   display: inline;
-  text-overflow: clip;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  top: -25px;
+
+  .result {
+    padding: 0 5px;
+  }
 
   .result:hover {
     cursor: pointer;

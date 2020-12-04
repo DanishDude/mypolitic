@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './SearchResults.scss';
 
 const SearchResults = (props) => {
@@ -9,7 +9,7 @@ const SearchResults = (props) => {
     select(x);
   };
   return (
-    <div>
+    <Fragment>
       {results.length ? (
         <ul className="SearchResults">
           {results.map((result, index) => (
@@ -21,7 +21,7 @@ const SearchResults = (props) => {
       ) : (
         ''
       )}
-    </div>
+    </Fragment>
   );
 };
 
