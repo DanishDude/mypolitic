@@ -92,7 +92,7 @@ export const fetchMyPoliticianProfile = (token) => (dispatch) => {
                 dispatch(errorGetPoliticianProfile(msg));
             } else {
                 dispatch(successGetPoliticianProfile(profile));
-                if (profile.team && profile.team.length) {
+                if (profile.team.length) {
                     dispatch(fetchTeamDetails(profile.team));
                 } else if (!profile.team.length) {
                     dispatch(successFetchTeamDetails([]));

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
@@ -12,10 +12,12 @@ import './Team.scss';
 
 const Team = (props) => {
     const { profileOwner } = props;
-    const { teamInfo } = useSelector((state) => state.politicianProfile);
     const [modalShow, setModalShow] = useState(false);
     const [modalShowDelete, setModalShowDelete] = useState(false);
-    const [deleteMember, setDeleteMember] = useState(undefined);
+    const [deleteMember, setDeleteMember] = useState(null);
+    const myTeam = useSelector((state) => state.politicianProfile.teamInfo);
+    const anotherTeam = useSelector((state) => state.politicians.politician.teamInfo);
+    const teamInfo = profileOwner ? [...myTeam] : [...anotherTeam];
 
     return (
         <div className="Container Team">
