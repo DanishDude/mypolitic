@@ -37,13 +37,25 @@ const MyProfile = () => {
                 <Fragment>
                     <Profile politicianProfile={politicianProfile} profileOwner={profileOwner} />
                     <div className={faded}>
-                        <Presentation politicianProfile={politicianProfile} profileOwner={profileOwner} />
+                        <Presentation
+                            politicianProfile={politicianProfile}
+                            profileOwner={profileOwner}
+                            hasProfile={hasProfile}
+                        />
                     </div>
                     <div className={faded}>
-                        <Programme politicianProfile={politicianProfile} profileOwner={profileOwner} />
+                        <Programme
+                            politicianProfile={politicianProfile}
+                            profileOwner={profileOwner}
+                            hasProfile={hasProfile}
+                        />
                     </div>
                     <div className={faded}>
-                        <Team politicianProfile={politicianProfile} profileOwner={profileOwner} />
+                        <Team
+                            politicianProfile={politicianProfile}
+                            profileOwner={profileOwner}
+                            hasProfile={hasProfile}
+                        />
                     </div>
                 </Fragment>
             ) : (

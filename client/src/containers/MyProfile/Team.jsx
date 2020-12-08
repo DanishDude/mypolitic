@@ -11,7 +11,7 @@ import './Container.scss';
 import './Team.scss';
 
 const Team = (props) => {
-    const { profileOwner } = props;
+    const { hasProfile, profileOwner } = props;
     const [modalShow, setModalShow] = useState(false);
     const [modalShowDelete, setModalShowDelete] = useState(false);
     const [deleteMember, setDeleteMember] = useState(null);
@@ -21,7 +21,7 @@ const Team = (props) => {
 
     return (
         <div className="Container Team">
-            {profileOwner ? <AddButton add={() => setModalShow(true)} /> : ''}
+            {hasProfile && profileOwner ? <AddButton add={() => setModalShow(true)} /> : ''}
             <AddTeamMember show={modalShow} onHide={() => setModalShow(false)} />
             <DeleteTeamMember show={modalShowDelete} onHide={() => setModalShowDelete(false)} member={deleteMember} />
             <h3 className="main-title">Colistiers</h3>

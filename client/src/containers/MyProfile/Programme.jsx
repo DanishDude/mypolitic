@@ -8,7 +8,7 @@ import './Container.scss';
 import './Programme.scss';
 
 const Programme = (props) => {
-    const { politicianProfile, profileOwner } = props;
+    const { hasProfile, politicianProfile, profileOwner } = props;
     const [modalShow, setModalShow] = useState(false);
     const [programme, setProgramme] = useState(undefined);
 
@@ -21,7 +21,7 @@ const Programme = (props) => {
 
     return (
         <div className="Container Programme">
-            {profileOwner ? <AddButton add={() => setModalShow(true)} /> : ''}
+            {hasProfile && profileOwner ? <AddButton add={() => setModalShow(true)} /> : ''}
             <EditProgramme
                 programmeItem={programme}
                 onHide={() => {

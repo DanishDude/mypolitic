@@ -8,12 +8,12 @@ import './Container.scss';
 import './Presentation.scss';
 
 const Presentation = (props) => {
-    const { politicianProfile, profileOwner } = props;
+    const { hasProfile, politicianProfile, profileOwner } = props;
     const [modalShow, setModalShow] = useState(false);
 
     return (
         <div className="Container Presentation">
-            {profileOwner ? (
+            {hasProfile && profileOwner ? (
                 <Fragment>
                     {politicianProfile && politicianProfile.presentation ? (
                         <EditButton edit={() => setModalShow(true)} />
