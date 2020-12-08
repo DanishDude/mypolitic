@@ -1,25 +1,25 @@
 {
-  "name": "mypolitic",
-  "version": "1.0.0",
-  "description": "sample app",
-  "engines": {
-    "node": "15.x",
-    "npm": "7.x",
-    "yarn": "1.x"
-  },
-  "scripts": {
-    "client": "cd client && yarn start",
-    "server": "cd server && nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "dev:server": "cd client && yarn build && cd .. && yarn start",
-    "start": "cd server && yarn && node server.js",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "concurrently": "^4.0.1",
-    "prettier": "2.2.1"
-  },
-  "author": "DanishDude <danishdude33@gmail.com> (Christian Hinge)",
-  "license": "MIT"
+    "name": "mypolitic",
+    "version": "1.5.1",
+    "description": "communication app for municipal politiicians",
+    "engines": {
+        "node": "15.x",
+        "npm": "7.x",
+        "yarn": "1.x"
+    },
+    "scripts": {
+        "client": "cd client && yarn start",
+        "server": "cd server && nodemon server.js",
+        "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+        "dev:server": "cd client && yarn build && cd .. && yarn start",
+        "start": "cd server && yarn && node server.js",
+        "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "concurrently": "^4.0.1",
+        "prettier": "2.2.1"
+    },
+    "author": "DanishDude <danishdude33@gmail.com> (Christian Hinge)",
+    "license": "MIT"
 }
