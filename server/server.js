@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const logger = require('morgan');
 const path = require('path');
 const httpErrors = require('http-errors');
@@ -11,8 +11,9 @@ require('dotenv').config();
 
 const { handleError } = require('./services/error');
 const passportManager = require('./services/passport');
-const indexRouter = require('./routes/index');
 const auth = require('./routes/auth');
+const email = require('./routes/email');
+const indexRouter = require('./routes/index');
 const politician = require('./routes/politician');
 
 const app = express();
@@ -22,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV !== 'production') {
-  app.use(logger('dev'));
+    app.use(logger('dev'));
 }
 
 require('./db');
@@ -37,38 +38,22 @@ app.use(passportManager.initialize());
 // API calls
 app.use('/api', indexRouter);
 app.use('/api/auth', auth);
+app.use('/api/email', email);
 app.use('/api/politician', politician);
 
-// Test API calls
-app.get("/api/hello", (req, res) => {
-  res.send({ express: "Hello From Express" });
-});
-
-app.get('/api/toto', (req, res) => {
-  console.log('TOTO');
-  res.send({toto: process.env.TOTO});
-});
-
-app.post("/api/world", (req, res) => {
-  console.log(req.body);
-  res.send(
-    `I received your POST request. This is what you sent me: ${req.body.post}`
-  );
-});
-
 if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, '../client/build')));
+    // Serve any static files
+    app.use(express.static(path.join(__dirname, '../client/build')));
 
-  // Handle React routing, return all requests to React app
-  app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
+    // Handle React routing, return all requests to React app
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    });
 }
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  next(httpErrors(404));
+    next(httpErrors(404));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
