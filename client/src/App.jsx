@@ -11,19 +11,20 @@ import NavBar from './components/NavBar';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <NavBar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/a-propos-de-nous" component={AboutUs} />
-        <Route path="/aide" component={Help} />
-        <PrivateRoute path="/mes-politiciens" component={MyPoliticians} />
-        <Route path="/politicien/:_id" component={Politician} />
-        <PrivateRoute path="/mon-profil" component={MyProfile} />
-      </Switch>
-    </div>
-  );
+    const privateRoutes = ['/mes-politiciens', '/mon-profil'];
+    return (
+        <div className="App">
+            <NavBar privateRoutes={privateRoutes} />
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/a-propos-de-nous" component={AboutUs} />
+                <Route path="/aide" component={Help} />
+                <PrivateRoute path="/mes-politiciens" component={MyPoliticians} />
+                <Route path="/politicien/:_id" component={Politician} />
+                <PrivateRoute path="/mon-profil" component={MyProfile} />
+            </Switch>
+        </div>
+    );
 }
 
 export default App;

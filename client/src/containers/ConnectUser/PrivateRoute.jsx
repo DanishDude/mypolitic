@@ -1,34 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { loginRequired } from '../../actions/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestLogin } from '../../actions/user';
 
-const PrivateRoute = ({ component: Component, token, user, ...propsRoute }) => (
-  
-  <Route
-    {...propsRoute}
-    render={props => (
-      (token !=='' && user !== {})
-        ? <Component {...props} />
-        : <Redirect 
-            to={{
-              path: props.history.goBack(),
-              state: { from: props.location, msg: 'login required' }
-            }}
-          />
-    )}
-  />
-);
+const PrivateRoute = ({ component: Component, ...propsRoute }) => {
+    const { user } = useSelector((state) => state);
+    const dispatch = useDispatch();
 
-const mstp = state => {
-  return {
-    token: state.user.token,
-    user: state.user.user,
-    error: state.user.error
-  };
+    useEffect(() => {
+        if (!user.isLoggedIn) {
+            dispatch(requestLogin());
+        }
+    }, [user]);
+
+    return (
+        <Route
+            {...propsRoute}
+            render={(props) =>
+                user.isLoggedIn ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect to={{ path: props.history.goBack(), state: { from: props.location } }} />
+                )
+            }
+        />
+    );
 };
 
-const mdtp = dispatch => bindActionCreators({ loginRequired }, dispatch);
-
-export default connect(mstp, mdtp)(PrivateRoute);
+export default PrivateRoute;
