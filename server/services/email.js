@@ -1,7 +1,7 @@
 const mailjet = require('node-mailjet').connect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE);
 
 class email {
-    async clientContact({ body, email, senderEmail, subject, userType, _id, source }) {
+    async clientContact({ body, email, name, senderEmail, source, subject, userType, _id }) {
         if (!senderEmail && (!body || !subject)) {
             return false;
         }
@@ -14,8 +14,10 @@ User ID: ${_id}`
             : '';
 
         const text = `
+Message:
+${body}
 Sender email: ${senderEmail}
-Message: ${body}
+Name: ${name}
 Source: ${source}
 ${userInfo}`;
 
@@ -26,7 +28,7 @@ ${userInfo}`;
                     {
                         From: {
                             Email: 'client@onkelananas.com',
-                            Name: 'My Politic',
+                            Name: `[MP] ${name}`,
                         },
                         To: [
                             {
@@ -54,7 +56,6 @@ ${userInfo}`;
             .catch((err) => {
                 next(err);
             });
-
         return result;
     }
 }
