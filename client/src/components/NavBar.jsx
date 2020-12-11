@@ -84,8 +84,8 @@ const NavBar = (props) => {
                         </NavItem>
 
                         <NavItem className="menu-item">
-                            <NavLink tag={Link} to="/aide" onClick={toggle}>
-                                Aide
+                            <NavLink tag={Link} to="/contact" onClick={toggle}>
+                                Nous Contacter
                             </NavLink>
                         </NavItem>
 

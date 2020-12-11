@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AboutUs from './containers/AboutUs/AboutUs';
-import Help from './containers/Help/Help';
+import Contact from './containers/Contact/Contact';
 import Home from './containers/HomePage/Home';
 import MyPoliticians from './containers/MyPoliticiansPage/MyPoliticians';
 import MyProfile from './containers/MyProfile/MyProfile';
@@ -9,7 +9,7 @@ import NavBar from './components/NavBar';
 import Politician from './containers/Politician/Politician';
 import PrivateRoute from './containers/ConnectUser/PrivateRoute';
 import ScrollToTop from './components/ScrollToTop';
-import './App.css';
+import './App.scss';
 
 function App() {
     const privateRoutes = ['/mes-politiciens', '/mon-profil'];
@@ -18,12 +18,12 @@ function App() {
             <NavBar privateRoutes={privateRoutes} />
             <ScrollToTop />
             <Switch>
+                <PrivateRoute path="/mes-politiciens" component={MyPoliticians} />
+                <PrivateRoute path="/mon-profil" component={MyProfile} />
                 <Route exact path="/" component={Home} />
                 <Route path="/a-propos-de-nous" component={AboutUs} />
-                <Route path="/aide" component={Help} />
-                <PrivateRoute path="/mes-politiciens" component={MyPoliticians} />
+                <Route path="/contact" component={Contact} />
                 <Route path="/politicien/:_id" component={Politician} />
-                <PrivateRoute path="/mon-profil" component={MyProfile} />
             </Switch>
         </div>
     );

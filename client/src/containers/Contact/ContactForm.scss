@@ -1,0 +1,15 @@
+.ContactForm {
+    form {
+        padding: 20px;
+
+        .field {
+            margin: 30px;
+        }
+    }
+
+    @media screen and (max-width: 575px) {
+        form {
+            padding: 0;
+        }
+    }
+}

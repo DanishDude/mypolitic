@@ -12,7 +12,7 @@ require('dotenv').config();
 const { handleError } = require('./services/error');
 const passportManager = require('./services/passport');
 const auth = require('./routes/auth');
-const email = require('./routes/email');
+const messsage = require('./routes/message');
 const indexRouter = require('./routes/index');
 const politician = require('./routes/politician');
 
@@ -38,7 +38,7 @@ app.use(passportManager.initialize());
 // API calls
 app.use('/api', indexRouter);
 app.use('/api/auth', auth);
-app.use('/api/email', email);
+app.use('/api/message', messsage);
 app.use('/api/politician', politician);
 
 if (process.env.NODE_ENV === 'production') {
