@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
-// import { ToastContainer, toast } from 'react-toastify';      // TODO implement toast on success
+import { ToastContainer, toast } from 'react-toastify'; // TODO implement toast on success
 import 'react-toastify/dist/ReactToastify.min.css';
 import { email, required } from '../../components/forms/formValidation';
 import { clearMessageData, sendInfoMessage } from '../../actions/message';
@@ -13,7 +13,7 @@ const ContactForm = (props) => {
     const { initialize, invalid, pristine, submitting } = props;
     const { user, token } = useSelector((state) => state.user);
     const { politicianProfile } = useSelector((state) => state.politicianProfile);
-    // const { error, loading, msg } = useSelector((state) => state.message);
+    const { error, msg } = useSelector((state) => state.message);
     const { form } = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -28,23 +28,23 @@ const ContactForm = (props) => {
         };
         initialize(initialValues);
 
-        // if (error) {
-        //     toast.warn("erreur d'envoi du message", {
-        //         position: toast.POSITION.BOTTOM_CENTER,
-        //         autoClose: 15000,
-        //         pauseOnFocusLoss: true,
-        //     });
-        // }
-        // if (msg === 'Email sent') {
-        //     toast.success('Message envoyé', {
-        //         position: toast.POSITION.BOTTOM_CENTER,
-        //         autoClose: 15000,
-        //         pauseOnFocusLoss: true,
-        //     });
-        // }
+        if (error) {
+            toast.warn("erreur d'envoi du message", {
+                position: toast.POSITION.BOTTOM_CENTER,
+                autoClose: 15000,
+                pauseOnFocusLoss: true,
+            });
+        }
+        if (msg === 'Email sent') {
+            toast.info('Message envoyé', {
+                position: toast.POSITION.BOTTOM_CENTER,
+                autoClose: 10000,
+                pauseOnFocusLoss: true,
+            });
+        }
 
         return () => dispatch(clearMessageData());
-    }, [dispatch, initialize, user, politicianProfile]);
+    }, [dispatch, error, initialize, msg, user, politicianProfile]);
 
     const handleSubmit = (e) => {
         dispatch(sendInfoMessage(form.contact.values, token));
@@ -58,7 +58,6 @@ const ContactForm = (props) => {
                     <Field
                         name="name"
                         component={renderText}
-                        autoFocus={true}
                         fullWidth={true}
                         type="text"
                         label="Nom"
@@ -113,7 +112,7 @@ const ContactForm = (props) => {
                     >
                         Envoyer
                     </Button>
-                    {/* <ToastContainer /> */}
+                    <ToastContainer />
                 </div>
             </form>
         </div>
