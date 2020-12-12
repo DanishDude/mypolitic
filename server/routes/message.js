@@ -8,7 +8,6 @@ router.route('/info').post(async (req, res, next) => {
         const user = await userService.getOneByEmail(req.body.senderEmail);
         const userInfo = typeof user !== 'string' ? user : {};
         const result = await email.clientContact({ ...req.body, ...userInfo['_doc'] });
-
         if (result) {
             res.status(200).send({ success: true, msg: 'Email sent' });
         } else {

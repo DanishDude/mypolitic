@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Field, reduxForm } from 'redux-form';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
-import { required, maxLength } from '../../formValidation';
+import { required, maxLength } from '../../components/forms/formValidation';
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import './EditPresentation.scss';
 

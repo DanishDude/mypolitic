@@ -27,12 +27,12 @@ ${userInfo}`;
                 Messages: [
                     {
                         From: {
-                            Email: 'client@onkelananas.com',
+                            Email: process.env.CLIENT_EMAIL_SENDER,
                             Name: `[MP] ${name}`,
                         },
                         To: [
                             {
-                                Email: 'client@onkelananas.com',
+                                Email: process.env.CLIENT_EMAIL_RECEIVER,
                             },
                         ],
                         Subject: `${subject}`,

@@ -15,7 +15,7 @@ export const errorSendingMessage = (err) => ({
 });
 
 export const sendInfoMessage = (data, token = '') => (dispatch) => {
-    dispatch(startSendingMessage);
+    dispatch(startSendingMessage());
 
     const options = {
         method: 'POST',
