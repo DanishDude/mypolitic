@@ -44,7 +44,7 @@ const ContactForm = (props) => {
         // }
 
         return () => dispatch(clearMessageData());
-    }, [initialize, user, politicianProfile]);
+    }, [dispatch, initialize, user, politicianProfile]);
 
     const handleSubmit = (e) => {
         dispatch(sendInfoMessage(form.contact.values, token));
