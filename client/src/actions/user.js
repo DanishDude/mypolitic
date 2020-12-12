@@ -1,5 +1,5 @@
 import { urlApi } from '../constant';
-import { deleteProfileData } from './politicianProfile';
+import { deleteProfileData, fetchMyPoliticianProfile } from './politicianProfile';
 
 // -------- User Signup-Login -------- //
 export const startFetchSignupLogin = () => ({
@@ -68,6 +68,9 @@ export const fetchLogin = (user) => (dispatch) => {
                 dispatch(errorFetchSignupLogin(msg));
             } else {
                 dispatch(successFetchSignupLogin(user, token));
+                if (user.userType === 'politician') {
+                    dispatch(fetchMyPoliticianProfile(token));
+                }
             }
         })
         .catch((err) => {
