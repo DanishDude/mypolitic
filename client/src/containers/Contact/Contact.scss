@@ -1,4 +1,11 @@
 .Contact {
+    .subtitle {
+        margin-top: 3rem;
+
+        h4 {
+            margin-top: 1rem;
+        }
+    }
     .content {
         min-height: 91vh;
         display: flex;
@@ -15,6 +22,12 @@
             .MuiPaper-root {
                 padding: 0;
             }
+        }
+    }
+
+    @media screen and(max-width:575px) {
+        .subtitle {
+            margin-top: 1rem;
         }
     }
 }
