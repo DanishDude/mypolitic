@@ -4,12 +4,9 @@ import Modal from 'react-bootstrap/Modal';
 import { getFormInitialValues, getFormValues, Field, reduxForm } from 'redux-form';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
-import { required, maxLength } from '../../components/forms/formValidation';
+import { required, maxLength22, maxLength800 } from '../../components/forms/formValidation';
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import './EditProgramme.scss';
-
-const maxLength800 = maxLength(800);
-const maxLength22 = maxLength(22);
 
 const renderField = ({ id, input, placeholder, type, meta: { touched, error } }) => (
     <div className="field">

@@ -5,13 +5,11 @@ import { Field, reduxForm } from 'redux-form';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
-import { required, maxLength } from '../../components/forms/formValidation';
+import { required, maxLength22 } from '../../components/forms/formValidation';
 import SearchResults from '../../components/common/SearchResults';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import editIcon from '../../assets/edit.svg';
 import './EditProfile.scss';
-
-const maxLength22 = maxLength(22);
 
 const renderField = ({ input, label, placeholder, type, meta: { touched, error, warning } }) => {
     return (
