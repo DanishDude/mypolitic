@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import { ToastContainer, toast } from 'react-toastify'; // TODO implement toast on success
 import 'react-toastify/dist/ReactToastify.min.css';
 import { email, required } from '../../components/forms/formValidation';
@@ -13,7 +13,7 @@ const ContactForm = (props) => {
     const { initialize, invalid, pristine, submitting } = props;
     const { user, token } = useSelector((state) => state.user);
     const { politicianProfile } = useSelector((state) => state.politicianProfile);
-    const { error, msg } = useSelector((state) => state.message);
+    const { error, loading, msg } = useSelector((state) => state.message);
     const { form } = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -110,7 +110,7 @@ const ContactForm = (props) => {
                         fullWidth
                         disabled={invalid || pristine || submitting}
                     >
-                        Envoyer
+                        {loading ? <CircularProgress size="1rem" /> : 'Envoyer'}
                     </Button>
                     <ToastContainer />
                 </div>
