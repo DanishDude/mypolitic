@@ -8,7 +8,7 @@ import { renderText, textArea } from '../../components/forms/Input';
 import './ContactForm.scss';
 
 const ContactForm = (props) => {
-    const { initialize, isInvalid, pristine, submitting } = props;
+    const { initialize, invalid, pristine, submitting, syncErrors } = props;
     const { user, token } = useSelector((state) => state.user);
     const { politicianProfile } = useSelector((state) => state.politicianProfile);
     const { form } = useSelector((state) => state);
@@ -45,7 +45,7 @@ const ContactForm = (props) => {
                 <Field name="subject" component={renderText} type="text" label="Sujet" validate={required} />
                 <Field name="body" component={textArea} type="textarea" label="Message" validate={required} />
                 <Field name="source" component="input" type="hidden" />
-                <Button color="primary" type="submit">
+                <Button color="primary" type="submit" disabled={invalid || pristine || submitting}>
                     Envoyer
                 </Button>
             </form>

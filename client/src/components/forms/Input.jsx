@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 
-export const renderText = ({ input, label, type, meta: { error, invalid, touched, warning } }) => {
+export const renderText = ({ input, label, type, meta: { error, invalid, touched } }) => {
     return (
         <div className="field">
             <TextField
@@ -12,8 +12,7 @@ export const renderText = ({ input, label, type, meta: { error, invalid, touched
                 fullWidth
                 variant="outlined"
                 error={touched && invalid}
-                warning={touched && warning != ''}
-                helperText={touched && (error || warning)}
+                helperText={touched && error}
             />
         </div>
     );
@@ -32,12 +31,8 @@ export const textArea = ({ input, label, type, meta: { error, invalid, touched, 
                 fullWidth
                 variant="outlined"
                 error={touched && invalid}
-                warning={touched && warning != ''}
-                helperText={touched && (error || warning)}
+                helperText={touched && error}
             />
-            {/* <div className="error-line">
-                {touched && ((error && <span className="error">{error}</span>) || (warning && <span>{warning}</span>))}
-            </div> */}
         </div>
     );
 };
