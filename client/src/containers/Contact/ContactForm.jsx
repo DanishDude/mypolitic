@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@material-ui/core';
+// import { ToastContainer, toast } from 'react-toastify';      // TODO implement toast on success
+import 'react-toastify/dist/ReactToastify.min.css';
 import { email, required } from '../../components/forms/formValidation';
-import { sendInfoMessage } from '../../actions/message';
+import { clearMessageData, sendInfoMessage } from '../../actions/message';
 import { renderText } from '../../components/forms/Input';
 import './ContactForm.scss';
 
@@ -11,6 +13,7 @@ const ContactForm = (props) => {
     const { initialize, invalid, pristine, submitting } = props;
     const { user, token } = useSelector((state) => state.user);
     const { politicianProfile } = useSelector((state) => state.politicianProfile);
+    // const { error, loading, msg } = useSelector((state) => state.message);
     const { form } = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -24,6 +27,23 @@ const ContactForm = (props) => {
             source: 'MyPolitic Contact Form',
         };
         initialize(initialValues);
+
+        // if (error) {
+        //     toast.warn("erreur d'envoi du message", {
+        //         position: toast.POSITION.BOTTOM_CENTER,
+        //         autoClose: 15000,
+        //         pauseOnFocusLoss: true,
+        //     });
+        // }
+        // if (msg === 'Email sent') {
+        //     toast.success('Message envoyé', {
+        //         position: toast.POSITION.BOTTOM_CENTER,
+        //         autoClose: 15000,
+        //         pauseOnFocusLoss: true,
+        //     });
+        // }
+
+        return () => dispatch(clearMessageData());
     }, [initialize, user, politicianProfile]);
 
     const handleSubmit = (e) => {
@@ -93,6 +113,7 @@ const ContactForm = (props) => {
                     >
                         Envoyer
                     </Button>
+                    {/* <ToastContainer /> */}
                 </div>
             </form>
         </div>

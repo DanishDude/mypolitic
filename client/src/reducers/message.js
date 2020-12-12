@@ -12,6 +12,8 @@ const message = (state = initialState, action) => {
             return { ...state, loading: false, msg: action.msg, error: '' };
         case 'ERROR_SENDING_MESSAGE':
             return { ...state, loading: false, error: action.err };
+        case 'CLEAR_MESSAGE_DATA':
+            return initialState;
         default:
             return state;
     }

@@ -40,3 +40,7 @@ export const sendInfoMessage = (data, token = '') => (dispatch) => {
         })
         .catch((error) => dispatch(errorSendingMessage(error)));
 };
+
+export const clearMessageData = () => ({
+    type: 'CLEAR_MESSAGE_DATA',
+});
