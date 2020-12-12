@@ -83,9 +83,17 @@ const ContactForm = (props) => {
                     />
                 </div>
                 <Field name="source" component="input" type="hidden" />
-                <Button color="primary" type="submit" disabled={invalid || pristine || submitting}>
-                    Envoyer
-                </Button>
+                <div className="field">
+                    <Button
+                        color="primary"
+                        type="submit"
+                        variant="outlined"
+                        fullWidth
+                        disabled={invalid || pristine || submitting}
+                    >
+                        Envoyer
+                    </Button>
+                </div>
             </form>
         </div>
     );
