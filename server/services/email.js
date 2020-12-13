@@ -14,8 +14,8 @@ User ID: ${_id}`
             : '';
 
         const text = `
-Message:
 ${body}
+
 Sender email: ${senderEmail}
 Name: ${name}
 Source: ${source}
