@@ -1,13 +1,14 @@
 .Contact {
+    min-height: 100vh;
     .subtitle {
         margin-top: 3rem;
 
         h4 {
-            margin-top: 1rem;
+            margin-top: 1rem 0;
         }
     }
     .content {
-        min-height: 91vh;
+        margin: 3rem 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -26,8 +27,8 @@
     }
 
     @media screen and(max-width:575px) {
-        .subtitle {
-            margin-top: 1rem;
+        .subtitle.content {
+            margin-top: 1rem 0;
         }
     }
 }
