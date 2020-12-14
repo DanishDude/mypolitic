@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 
 import { fetchAllPoliticians, fetchLikedPoliticians } from '../../actions/politicians';
+import ProfileGrid from '../../components/common/layout/ProfileGrid';
 import SimpleCard from '../../components/common/cards/SimpleCard';
 import './MyPoliticians.scss';
 
@@ -24,30 +25,9 @@ const MyPoliticians = () => {
     return (
         <div className="MyPoliticians">
             <h1 className="title">Mes Politiciens</h1>
-            <Container maxWidth="lg">
-                <Grid className={'content'} container direction="row" justify="flex-start" spacing={4} wrap="wrap">
-                    {liked.length > 0
-                        ? liked.map((profile) => {
-                              return (
-                                  <Grid key={profile._id} item lg={'auto'}>
-                                      <SimpleCard profile={profile} />
-                                  </Grid>
-                              );
-                          })
-                        : 'No profile liked'}
-                </Grid>
-
-                <h2 className="title">Toute Profiles</h2>
-                <Grid className={'content'} container direction="row" justify="flex-start" spacing={4} wrap="wrap">
-                    {all.map((profile) => {
-                        return (
-                            <Grid key={profile._id} item lg={'auto'}>
-                                <SimpleCard profile={profile} />
-                            </Grid>
-                        );
-                    })}
-                </Grid>
-            </Container>
+            {liked.length > 0 ? <ProfileGrid profiles={liked} /> : 'No profile liked'}
+            <h2 className="title">Toute Profiles</h2>
+            <ProfileGrid profiles={all} />
         </div>
     );
 };
