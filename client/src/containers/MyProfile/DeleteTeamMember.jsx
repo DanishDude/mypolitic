@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
-import NonClicableCard from '../../components/common/NonClicableCard';
+import NonClicableCard from '../../components/common/cards/NonClicableCard';
 
 const DeleteTeamMember = (props) => {
     const { onHide, member } = props;

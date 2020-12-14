@@ -6,7 +6,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import { required, maxLength22 } from '../../components/forms/formValidation';
-import SearchResults from '../../components/common/search/SearchResults';
+import CitySearchResults from '../../components/common/search/CitySearchResults';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import editIcon from '../../assets/edit.svg';
 import './EditProfile.scss';
@@ -156,7 +156,7 @@ let EditProfile = (props) => {
                         <div className="top-limit">
                             {showCities ? (
                                 <div className="cities">
-                                    <SearchResults results={cities} select={(city) => selectCity(city)} />
+                                    <CitySearchResults results={cities} select={(city) => selectCity(city)} />
                                 </div>
                             ) : (
                                 ''

@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import { clearPoliticianSearchResults } from '../../actions/politicians';
-import ListCard from '../../components/common/ListCard';
-import NonClicableCard from '../../components/common/NonClicableCard';
-import SearchPolitician from '../SearchPolitician/SearchPolitician';
+import ListCard from '../../components/common/cards/ListCard';
+import NonClicableCard from '../../components/common/cards/NonClicableCard';
+import SearchPolitician from '../../components/common/search/SearchPolitician';
 import './AddTeamMember.scss';
 
 const AddTeamMember = (props) => {

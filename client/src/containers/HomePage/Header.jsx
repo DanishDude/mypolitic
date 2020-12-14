@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchPolitician from '../SearchPolitician/SearchPolitician';
+import SearchPolitician from '../../components/common/search/SearchPolitician';
 import './Header.scss';
 
 const Header = () => {

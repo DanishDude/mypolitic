@@ -2,8 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Avatar, Card, CardActionArea, CardActions, CardContent, Typography } from '@material-ui/core';
 
-import Follow from './Follow';
-import LikeIcon from './LikeIcon';
+import Follow from '../Follow';
+import LikeIcon from '../LikeIcon';
 import './SimpleCard.scss';
 
 const SimpleCard = (props) => {

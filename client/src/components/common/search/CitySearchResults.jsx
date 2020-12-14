@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import './SearchResults.scss';
+import './CitySearchResults.scss';
 
-const SearchResults = (props) => {
+const CitySearchResults = (props) => {
     const { results, select } = props;
 
     const handleOnClick = (x) => select(x);
@@ -9,7 +9,7 @@ const SearchResults = (props) => {
     return (
         <Fragment>
             {results.length ? (
-                <ul className="SearchResults">
+                <ul className="CitySearchResults">
                     {results.map((result, index) => (
                         <li key={index} className="result" onClick={() => handleOnClick(result)}>
                             {result}
@@ -23,4 +23,4 @@ const SearchResults = (props) => {
     );
 };
 
-export default SearchResults;
+export default CitySearchResults;

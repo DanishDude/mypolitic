@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import AddButton from './AddButton';
-import SimpleCard from '../../components/common/SimpleCard';
+import SimpleCard from '../../components/common/cards/SimpleCard';
 import AddTeamMember from './AddTeamMember';
 import DeleteTeamMember from './DeleteTeamMember';
 import ProfilePlaceholder from './ProfilePlaceholder';
