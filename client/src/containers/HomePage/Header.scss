@@ -1,39 +1,39 @@
 .Header {
-  position: relative;
-  margin-top: 3px;
-  height: 80vh;
-  min-height: 400px;
-  max-height: 80vw;
-  background: url("../../assets/freddie-marriage-muMn0QEeiiw-unsplash.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    position: relative;
+    margin-top: 3px;
+    height: 80vh;
+    min-height: 65vh;
+    max-height: 80vw;
+    background: url('../../assets/landscape.jpg') no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
-  .search-title {
-    position: absolute;
-    top: 30%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    color: whitesmoke;
-  }
-
-  .search-politician {
-    position: absolute;
-    top: 40%;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-
-  @media screen and (max-width: 500px) {
     .search-title {
-      top: 10%;
+        position: absolute;
+        top: 30%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        color: whitesmoke;
     }
 
     .search-politician {
-    top: 20%;
-  }
-  }
+        position: absolute;
+        top: 40%;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    @media screen and (max-width: 575px) {
+        .search-title {
+            top: 28%;
+        }
+
+        .search-politician {
+            top: 40vh;
+        }
+    }
 }

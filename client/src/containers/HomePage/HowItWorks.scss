@@ -1,89 +1,85 @@
 .HowItWorks {
-  
-  .title {
-    padding: 40px 0;
-    position: sticky;
-    top: 60px;
-    background-color: whitesmoke;
-    z-index: 5;
-  }
-
-  .content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    img {
-      width: 50vw;
-      max-height: 700px;
-      object-fit: cover;
-    }
-
-    .text-box {
-      width: 50vw;
-      padding: 0 3vw;
-
-      h4 {
-        margin: 45px auto;
-        padding: 10px;
-        width: 450px;
-        min-width: 300px;
-        max-width: 90%;
-        text-align: center;
-        border: 0.5px groove black;
-        border-radius: 0.25rem;
-        background-color: whitesmoke;
-      }
-
-      .text {
-        text-align: start;
-        font-size: 1.2rem;
-        margin-bottom: 50px;
-
-        ul {
-          list-style-type: square;
-
-          li {
-            height: 87px;
-            margin-bottom: 25px;
-          }
-        }
-
-        .signup-btn {
-          margin: 0 auto;
-          width: 100%;
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 991px) {
     .title {
-      padding: 30px 0;
-
-      h2 {
-        font-size: 1.65rem;
-      }
+        padding: 40px 0;
+        position: sticky;
+        top: 60px;
+        background-color: whitesmoke;
+        z-index: 5;
     }
+
     .content {
-      position: relative;
-      margin-bottom: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
 
-      .text-box {
-        position: absolute;
-        width: 100%;
-        z-index: 2;
-      }
+        img {
+            width: 50vw;
+            max-height: 700px;
+            object-fit: cover;
+        }
 
-      img {
-        width: 100%;
+        .text-box {
+            width: 50vw;
+            padding: 0 3vw;
 
-        min-height: 700px;
-        opacity: 0.3;
-      }
+            h4 {
+                margin: 45px auto;
+                padding: 10px;
+                width: 450px;
+                min-width: 300px;
+                max-width: 90%;
+                text-align: center;
+                border: 0.5px groove black;
+                border-radius: 0.25rem;
+                background-color: whitesmoke;
+            }
+
+            .text {
+                text-align: start;
+                font-size: 1.2rem;
+                margin-bottom: 50px;
+
+                ul {
+                    list-style-type: square;
+
+                    li {
+                        height: 87px;
+                        margin-bottom: 25px;
+                    }
+                }
+
+                .signup-btn {
+                    margin: 0 auto;
+                    width: 100%;
+                }
+            }
+        }
     }
 
+    @media screen and (max-width: 991px) {
+        .title {
+            padding: 30px 0;
 
+            h2 {
+                font-size: 1.65rem;
+            }
+        }
+        .content {
+            position: relative;
+            margin-bottom: 15px;
 
-  }
+            .text-box {
+                position: absolute;
+                width: 100%;
+                z-index: 2;
+            }
+
+            img {
+                width: 100%;
+
+                min-height: 700px;
+                opacity: 0.3;
+            }
+        }
+    }
 }
