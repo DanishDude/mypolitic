@@ -6,6 +6,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import { required, maxLength22 } from '../../components/forms/formValidation';
+import { citySearch } from '../../components/common/search/citySearch';
 import CitySearchResults from '../../components/common/search/CitySearchResults';
 import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import editIcon from '../../assets/edit.svg';
@@ -43,23 +44,18 @@ let EditProfile = (props) => {
         }
     }, [initialValues]);
 
-    const citySearch = (city) => {
-        const query = city.split(' ').join('+');
-        fetch(`https://api-adresse.data.gouv.fr/search/?q=${query}&type=municipality&limit=25`)
-            .then((res) => res.json())
-            .then((payload) => {
-                if (payload.features && payload.features.length) {
-                    const cityList = payload.features.map((result) => {
-                        const { name, context } = result.properties;
-                        const region = context.split(', ');
-                        return `${name}, ${region[1]}(${region[0]}), ${region[2]}`;
-                    });
-                    setCities(cityList);
-                    setShowCities(true);
-                }
-            })
-            .catch((err) => console.error(err));
-    };
+    async function getCities(city) {
+        const cityList = await citySearch(city);
+        if (cityList.length) {
+            const formattedCityList = cityList.map((result) => {
+                const { name, context } = result.properties;
+                const region = context.split(', ');
+                return `${name}, ${region[1]}(${region[0]}), ${region[2]}`;
+            });
+            setCities(formattedCityList);
+            setShowCities(true);
+        }
+    }
 
     const selectCity = (city) => {
         form.editProfile.values.city = city.split(', ')[0];
@@ -146,7 +142,7 @@ let EditProfile = (props) => {
                             type="text"
                             label="Ville*"
                             validate={required}
-                            onChange={(event, newValue) => citySearch(newValue)}
+                            onChange={(event, newValue) => getCities(newValue)}
                             onFocus={() => {
                                 if (cities.length) {
                                     setShowCities(true);

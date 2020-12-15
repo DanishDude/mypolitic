@@ -1,40 +1,74 @@
 $border-radius: 18px;
 
 .SearchPoliticianForm {
+    .fields {
+        display: flex;
+        flex-flow: wrap;
+        justify-content: center;
 
-  .fields {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
+        input {
+            border: 1px solid #ccc;
+            -moz-border-radius: $border-radius;
+            -webkit-border-radius: $border-radius;
+            border-radius: $border-radius;
+            margin: 5px 8px;
+            width: 300px;
+            height: 36px;
+            text-indent: 8px;
+        }
 
-    input {
-      border: 1px solid #ccc;
-      -moz-border-radius: $border-radius;
-      -webkit-border-radius: $border-radius;
-      border-radius: $border-radius;
-      margin: 5px 8px;
-      width: 300px;
-      height: 36px;
-      text-indent: 8px;
+        .top-limit {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            z-index: 2;
+
+            .cities {
+                top: 43px;
+                right: -60px;
+                width: 370px;
+                max-width: 90vw;
+                max-height: 216px;
+                padding: 0;
+                position: absolute;
+                overflow: scroll;
+                background-color: white;
+                border-radius: 5px;
+                text-align: start;
+
+                li:hover {
+                    background-color: whitesmoke;
+                }
+            }
+
+            @media screen and (max-width: 775px) {
+                .cities {
+                    right: -80px;
+                    width: 438px;
+                }
+            }
+
+            @media screen and (max-width: 487px) {
+                .cities {
+                    right: 0px;
+                    width: 320px;
+                }
+            }
+        }
     }
 
-    .search {
-      margin-left: auto;
-      margin-right: auto;
+    button {
+        margin: 5px auto;
+        width: 180px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: $border-radius;
+        background-color: hsla(0%, 66%, 63%, 1);
     }
-  }
-  
-  button {
-    margin: 5px auto;
-    width: 180px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto ;
-    border-radius: $border-radius;
-    background-color: hsla(0%, 66%, 63%, 1);
-  }
 
-  button:hover {
-    background-color: hsla(0%, 66%, 60%, 1);
-  }
+    button:hover {
+        background-color: hsla(0%, 66%, 60%, 1);
+    }
 }
