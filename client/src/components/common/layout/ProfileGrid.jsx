@@ -10,10 +10,9 @@ const ProfileGrid = (props) => {
             container
             direction="row"
             justify="center"
-            alight
+            alignContent="flex-start"
             spacing={4}
             wrap="wrap"
-            zeroMinWidth={true}
         >
             {props.profiles.map((profile) => {
                 return (

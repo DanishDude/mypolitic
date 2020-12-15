@@ -93,9 +93,10 @@ router.get('/search', async (req, res, next) => {
         const profiles = await politicianProfile.search(req.query);
 
         if (!profiles.length || typeof profiles === 'string') {
-            res.status(400).send({
-                success: false,
+            res.status(200).send({
+                success: true,
                 msg: 'No profiles found for this query',
+                profiles: [],
                 query: req.query,
             });
         } else {

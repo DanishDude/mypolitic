@@ -56,6 +56,8 @@ export const fetchSearchPoliticians = (query) => (dispatch) => {
 
             if (!success) {
                 dispatch(errorFetchPoliticians(msg));
+            } else if (msg === 'No profiles found for this query') {
+                dispatch(errorFetchPoliticians(msg));
             } else {
                 dispatch(successFetchSearchResultsPoliticians(profiles));
             }

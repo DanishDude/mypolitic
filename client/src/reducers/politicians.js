@@ -18,7 +18,7 @@ const politicians = (state = initialState, action) => {
             state.politician.teamInfo = action.teamInfo;
             return { ...state, loading: false, error: '' };
         case 'START_FETCH_POLITICIANS':
-            return { ...state, loading: true };
+            return { ...state, loading: true, searchResults: [] };
         case 'SUCCESS_FETCH_POLITICIANS':
             return { ...state, loading: false, politicians: action.politicians, error: '' };
         case 'SUCCESS_FETCH_SEARCH_RESULTS_POLITICIANS':

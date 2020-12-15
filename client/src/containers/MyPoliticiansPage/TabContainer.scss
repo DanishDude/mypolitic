@@ -1,0 +1,25 @@
+.TabContainer {
+    .MuiAppBar-root {
+        top: 75px;
+    }
+
+    .search {
+        position: sticky;
+        top: 123px;
+        padding: 25px 0;
+        margin: 0 !important;
+        width: 100%;
+        background-color: whitesmoke;
+        z-index: 2;
+    }
+
+    .subtitle {
+        margin: 20px 0;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .search {
+            position: static;
+        }
+    }
+}

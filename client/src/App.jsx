@@ -12,13 +12,13 @@ import ScrollToTop from './components/ScrollToTop';
 import './App.scss';
 
 function App() {
-    const privateRoutes = ['/mes-politiciens', '/mon-profil'];
+    const privateRoutes = ['/mon-profil'];
     return (
         <div className="App">
             <NavBar privateRoutes={privateRoutes} />
             <ScrollToTop />
             <Switch>
-                <PrivateRoute path="/mes-politiciens" component={MyPoliticians} />
+                <Route path="/politiciens" component={MyPoliticians} />
                 <PrivateRoute path="/mon-profil" component={MyProfile} />
                 <Route exact path="/" component={Home} />
                 <Route path="/a-propos-de-nous" component={AboutUs} />

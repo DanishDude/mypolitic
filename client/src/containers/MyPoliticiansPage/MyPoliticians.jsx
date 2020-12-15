@@ -5,6 +5,7 @@ import { Container, Grid } from '@material-ui/core';
 import { fetchAllPoliticians, fetchLikedPoliticians } from '../../actions/politicians';
 import ProfileGrid from '../../components/common/layout/ProfileGrid';
 import SimpleCard from '../../components/common/cards/SimpleCard';
+import TabContainer from './TabContainer';
 import './MyPoliticians.scss';
 
 const MyPoliticians = () => {
@@ -17,17 +18,18 @@ const MyPoliticians = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (likes.length > 0) {
+        if (likes?.length > 0) {
             dispatch(fetchLikedPoliticians(likes));
         }
     }, [dispatch, likes]);
 
     return (
         <div className="MyPoliticians">
-            <h1 className="title">Mes Politiciens</h1>
-            {liked.length > 0 ? <ProfileGrid profiles={liked} /> : 'No profile liked'}
+            <TabContainer />
+            {/* <h1 className="title">Mes Politiciens</h1>
+            {liked?.length > 0 ? <ProfileGrid profiles={liked} /> : 'No profile liked'}
             <h2 className="title">Toute Profiles</h2>
-            <ProfileGrid profiles={all} />
+            <ProfileGrid profiles={all} /> */}
         </div>
     );
 };

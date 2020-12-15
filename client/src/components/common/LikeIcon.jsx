@@ -19,7 +19,7 @@ const LikeIcon = (props) => {
                 {user.likes && user.likes.includes(profileId) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </IconButton>
             {likeCount ? (
-                <Typography variant="p" className={'like-count'}>
+                <Typography variant="inherit" className={'like-count'}>
                     {likeCount}
                 </Typography>
             ) : (

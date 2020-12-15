@@ -66,8 +66,8 @@ const NavBar = (props) => {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto menu-list" navbar>
                         <NavItem className="menu-item">
-                            <NavLink tag={Link} to="/mes-politiciens" onClick={toggle}>
-                                Mes Politiciens
+                            <NavLink tag={Link} to="/politiciens" onClick={toggle}>
+                                Politiciens
                             </NavLink>
                         </NavItem>
 
