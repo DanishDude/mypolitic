@@ -135,6 +135,12 @@ class PoliticianProfile {
         }
         return await profile.save();
     }
+
+    async likeAndFollow(profile) {
+        profile.likes = profile.likes + 1;
+        profile.followers = profile.followers + 1;
+        return await profile.save();
+    }
 }
 
 module.exports = new PoliticianProfile();

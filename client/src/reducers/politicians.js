@@ -37,7 +37,7 @@ const politicians = (state = initialState, action) => {
                 state.politician = action.politician;
             }
 
-            const replacePolitician = (politician) => {
+            const updatePolitician = (politician) => {
                 if (politician._id === action.politician._id) {
                     return action.politician;
                 } else {
@@ -48,11 +48,11 @@ const politicians = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                politicians: politicians.map(replacePolitician),
-                searchResults: searchResults.map(replacePolitician),
-                liked: liked.map(replacePolitician),
-                follow: follow.map(replacePolitician),
-                all: all.map(replacePolitician),
+                politicians: politicians.map(updatePolitician),
+                searchResults: searchResults.map(updatePolitician),
+                liked: liked.map(updatePolitician),
+                follow: follow.map(updatePolitician),
+                all: all.map(updatePolitician),
                 error: '',
             };
         case 'CLEAR_POLITICIAN_SEARCH_RESULTS':

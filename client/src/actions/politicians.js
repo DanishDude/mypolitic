@@ -189,14 +189,20 @@ export const fetchLikePolitician = (_id, token) => (dispatch) => {
         fetch(`${urlApi}/politician/${_id}/like`, options)
             .then((res) => res.json())
             .then((payload) => {
-                const { liked, success, politician } = payload;
+                const { followed, liked, success, politician } = payload;
 
-                if (success & liked) {
-                    dispatch(fetchFollowPolitician(_id, token));
-                    dispatch(likePolitician(_id));
-                    dispatch(updatePolitician(politician));
-                } else if (success & !liked) {
-                    dispatch(dislikePolitician(_id));
+                if (success) {
+                    if (followed) {
+                        dispatch(followPolitician(_id));
+                    }
+                    if (liked) {
+                        // dispatch(fetchFollowPolitician(_id, token));
+                        dispatch(likePolitician(_id));
+                        // dispatch(updatePolitician(politician));
+                    }
+                    if (!liked) {
+                        dispatch(dislikePolitician(_id));
+                    }
                     dispatch(updatePolitician(politician));
                 }
             })

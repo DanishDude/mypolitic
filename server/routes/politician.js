@@ -218,8 +218,11 @@ router.patch('/:profileId/like', passportManager.authenticate, async (req, res, 
             res.status(400).send({ success: false, msg: `Profile ${profileId}not found` });
         }
 
-        const liked = await user.likePolitician(req.user, profile);
-        if (liked) {
+        const result = await user.likePolitician(req.user, profile);
+        if (!result?.followed && !result?.liked) {
+            profile = await politician.likeAndFollow(profile);
+        }
+        if (result?.liked) {
             profile = await politician.dislike(profile);
         } else {
             profile = await politician.like(profile);
@@ -227,8 +230,9 @@ router.patch('/:profileId/like', passportManager.authenticate, async (req, res, 
 
         res.status(200).send({
             success: true,
-            msg: `${liked ? 'disliked' : 'liked'} politician ${profileId}`,
-            liked: !liked,
+            msg: `${result.liked ? 'disliked' : 'liked'} politician ${profileId}`,
+            liked: !result.liked,
+            followed: !result.followed,
             politician: profile,
         });
     } catch (err) {
