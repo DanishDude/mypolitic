@@ -6,86 +6,91 @@ import Login from './Login';
 import SelectUserType from './SelectUserType';
 import Signup from './Signup';
 import { fetchLogin, fetchSignup } from '../../actions/user';
-import './ConnectUser.scss'
+import './ConnectUser.scss';
 
-const ConnectUser = props => {
-  const { onHide, showSignup, user } = props;
-  const dispatch = useDispatch();
-  const { form } = useSelector(state => state);
-  const [loginShow, setLoginShow] = useState(true);
-  const [userType, setUserType] = useState('');
-  const initialValues = {userType};
-  let disabled = true;
+const ConnectUser = (props) => {
+    const { onHide, showSignup, user } = props;
+    const dispatch = useDispatch();
+    const { form } = useSelector((state) => state);
+    const [loginShow, setLoginShow] = useState(true);
+    const [userType, setUserType] = useState('');
+    const initialValues = { userType };
+    let disabled = true;
 
-  useEffect(() => {
-    if (showSignup) setLoginShow(false);
-  }, [showSignup]);
-  
-  if (form && form.login && !form.login.syncErrors) {
-    disabled = false;
-  } else if (form && form.signup && !form.signup.syncErrors) {
-    disabled = false;
-  } else {
-    disabled = true;
-  };
+    useEffect(() => {
+        if (showSignup) setLoginShow(false);
+    }, [showSignup]);
 
-  const switchLoginSignup = () => {
-    setLoginShow(!loginShow);
-    setUserType('');
-    user.error = '';
-  };
+    if (form && form.login && !form.login.syncErrors) {
+        disabled = false;
+    } else if (form && form.signup && !form.signup.syncErrors) {
+        disabled = false;
+    } else {
+        disabled = true;
+    }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    const switchLoginSignup = () => {
+        setLoginShow(!loginShow);
+        setUserType('');
+        user.error = '';
+    };
 
-    loginShow ?
-      dispatch(fetchLogin(form.login.values)) :
-      dispatch(fetchSignup(form.signup.values));
-  };
-  
-  if (user.token) onHide();
+    const handleSubmit = (e) => {
+        loginShow ? dispatch(fetchLogin(form.login.values)) : dispatch(fetchSignup(form.signup.values));
+        e.preventDefault();
+    };
 
-  return (
-    <Modal
-      {...props}
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      dialogClassName="ConnectUser"
-    >
-      <form>
-        <Modal.Header closeButton dialogClassName="modal-header">
-          <Modal.Title dialogClassName="modal-title" id="contained-modal-title-vcenter">
-            {loginShow ? `Se Connecter` : `S'inscrire en tant que 
-              ${userType === '' ? `...` :`  
-                ${userType === 'citizen' ? 'Citoyen(ne)' : 'Politicien(ne)'}`}`}
-          </Modal.Title>
-        </Modal.Header>
+    if (user.token) onHide();
 
-        <Modal.Body>
-          {loginShow ?
-            <Login loginError={user.error} />  :
-              userType === '' ?
-              <SelectUserType setUserType={setUserType} /> :
-              <Signup signupError={user.error} initialValues={initialValues} />
-          }
-          
-          <div className="action-btns">
-            <Button className="link-btn" variant="link" onClick={switchLoginSignup} >
-              {loginShow ? <p>S'inscrire</p> : <p>Se Connecter</p>}
-            </Button>
+    return (
+        <Modal
+            {...props}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            dialogClassName="ConnectUser"
+        >
+            <form>
+                <Modal.Header closeButton dialogClassName="modal-header">
+                    <Modal.Title dialogClassName="modal-title" id="contained-modal-title-vcenter">
+                        {loginShow
+                            ? `Se Connecter`
+                            : `S'inscrire en tant que 
+              ${
+                  userType === ''
+                      ? `...`
+                      : `  
+                ${userType === 'citizen' ? 'Citoyen(ne)' : 'Politicien(ne)'}`
+              }`}
+                    </Modal.Title>
+                </Modal.Header>
 
-            {userType === '' && !loginShow ? '' :
-            <button onClick={handleSubmit} className="submit-btn" disabled={disabled}>
-              {!loginShow ? `S'inscrire` : `Connecter`}
-            </button>
-            }
+                <Modal.Body>
+                    {loginShow ? (
+                        <Login loginError={user.error} />
+                    ) : userType === '' ? (
+                        <SelectUserType setUserType={setUserType} />
+                    ) : (
+                        <Signup signupError={user.error} initialValues={initialValues} />
+                    )}
 
-          </div>
-        </Modal.Body>
-      </form>
-    </Modal>
-  );
+                    <div className="action-btns">
+                        <Button className="link-btn" variant="link" onClick={switchLoginSignup}>
+                            {loginShow ? <p>S'inscrire</p> : <p>Se Connecter</p>}
+                        </Button>
+
+                        {userType === '' && !loginShow ? (
+                            ''
+                        ) : (
+                            <button onClick={handleSubmit} className="submit-btn" disabled={disabled}>
+                                {!loginShow ? `S'inscrire` : `Connecter`}
+                            </button>
+                        )}
+                    </div>
+                </Modal.Body>
+            </form>
+        </Modal>
+    );
 };
 
 export default ConnectUser;

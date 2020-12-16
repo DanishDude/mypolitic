@@ -49,7 +49,7 @@ const Team = (props) => {
                     })}
                 </ul>
             ) : (
-                <ProfilePlaceholder placeholder="Ajouter vous Colistiers" />
+                <ProfilePlaceholder placeholder="Ajouter vous Colistiers" edit={() => setModalShow(true)} />
             )}
         </div>
     );

@@ -2,9 +2,9 @@ import React from 'react';
 import './ProfilePlaceholder.scss';
 
 const ProfilePlaceholder = (props) => {
-    const { placeholder } = props;
+    const { edit, placeholder } = props;
     return (
-        <div className="ProfilePlaceholder">
+        <div className="ProfilePlaceholder" onClick={edit}>
             <h2>{placeholder}</h2>
         </div>
     );

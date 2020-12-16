@@ -32,7 +32,7 @@ const Presentation = (props) => {
                 {politicianProfile.presentation ? (
                     <p>{politicianProfile.presentation}</p>
                 ) : (
-                    <ProfilePlaceholder placeholder="Présentez votre profil" />
+                    <ProfilePlaceholder placeholder="Présentez votre profil" edit={() => setModalShow(true)} />
                 )}
             </div>
         </div>

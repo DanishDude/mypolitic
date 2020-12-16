@@ -60,7 +60,7 @@ const Programme = (props) => {
                     ))}
                 </ul>
             ) : (
-                <ProfilePlaceholder placeholder="Ajoutez votre programme" />
+                <ProfilePlaceholder placeholder="Ajoutez votre programme" edit={() => setModalShow(true)} />
             )}
         </div>
     );
