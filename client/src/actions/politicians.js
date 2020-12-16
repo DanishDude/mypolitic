@@ -31,6 +31,11 @@ export const successFetchLikedPoliticians = (politicians) => ({
     politicians,
 });
 
+export const successFetchFollowedPoliticians = (politicians) => ({
+    type: 'SUCCESS_FETCH_FOLLOWED_POLITICIANS',
+    politicians,
+});
+
 export const successFetchAllPoliticians = (politicians) => ({
     type: 'SUCCESS_FETCH_ALL_POLITICIANS',
     politicians,
@@ -87,8 +92,24 @@ export const fetchLikedPoliticians = (ids) => (dispatch) => {
         .catch((err) => console.error(err));
 };
 
+export const fetchFollowedPoliticians = (ids) => (dispatch) => {
+    dispatch(startFetchPoliticians());
+
+    fetch(`${urlApi}/politician/search?ids=${ids.join(',')}`)
+        .then((res) => res.json())
+        .then((payload) => {
+            const { success, msg, profiles } = payload;
+
+            if (!success) {
+                dispatch(errorFetchPoliticians(msg));
+            } else {
+                dispatch(successFetchFollowedPoliticians(profiles));
+            }
+        })
+        .catch((err) => console.error(err));
+};
+
 export const fetchAllPoliticians = () => (dispatch) => {
-    // - - - - - - TODO remove - - - - - - - //
     dispatch(startFetchPoliticians());
 
     fetch(`${urlApi}/politician/search?ids=`)

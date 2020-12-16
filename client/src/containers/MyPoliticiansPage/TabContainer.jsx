@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { AppBar, Container, Paper, Tab, Tabs } from '@material-ui/core';
+import { AppBar, Paper, Tab, Tabs } from '@material-ui/core';
 import ProfileGrid from '../../components/common/layout/ProfileGrid';
 import { requestLogin } from '../../actions/user';
 import SearchPolitician from '../../components/common/search/SearchPolitician';
@@ -37,8 +37,8 @@ function a11yProps(index) {
 }
 
 const TabContainer = (props) => {
-    const { token } = useSelector((state) => state.user);
-    const { all, error, searchResults } = useSelector((state) => state.politicians);
+    const { user, token } = useSelector((state) => state.user);
+    const { all, error, follow, liked, searchResults } = useSelector((state) => state.politicians);
     const [value, setValue] = useState(0);
     const [elevation, setElevation] = useState(0);
     const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const TabContainer = (props) => {
             setElevation(3);
         }
         return () => setElevation(0);
-    });
+    }, [user]);
 
     const handleChange = (event, newValue) => {
         if (token && newValue === 1) {
@@ -99,7 +99,27 @@ const TabContainer = (props) => {
                 )}
             </TabPanel>
             <TabPanel value={value} index={1}>
-                MyPoliticians PAGE
+                {liked?.length ? (
+                    <div>
+                        <h4 className="subtitle">Des profils qui ont votre soutien</h4>
+                        <ProfileGrid profiles={liked} />
+                    </div>
+                ) : (
+                    ''
+                )}
+                {follow?.length ? (
+                    <div>
+                        <h4 className="subtitle">Profils que vous suivez</h4>
+                        <ProfileGrid profiles={follow} />
+                    </div>
+                ) : (
+                    ''
+                )}
+                {!liked?.length && !follow?.length ? (
+                    <h4 className="subtitle">Les profils que vous soutenez ou suivez seront affichés ici</h4>
+                ) : (
+                    ''
+                )}
             </TabPanel>
         </div>
     );

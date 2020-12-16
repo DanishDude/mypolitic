@@ -3,6 +3,7 @@ const initialState = {
     politician: { teamInfo: [] },
     politicians: [],
     liked: [],
+    follow: [],
     all: [],
     searchResults: [],
     error: '',
@@ -25,10 +26,12 @@ const politicians = (state = initialState, action) => {
             return { ...state, loading: false, searchResults: action.politicians, error: '' };
         case 'SUCCESS_FETCH_LIKED_POLITICIANS':
             return { ...state, loading: false, liked: action.politicians, error: '' };
+        case 'SUCCESS_FETCH_FOLLOWED_POLITICIANS':
+            return { ...state, loading: false, follow: action.politicians, error: '' };
         case 'SUCCESS_FETCH_ALL_POLITICIANS':
             return { ...state, loading: false, all: action.politicians, error: '' };
         case 'UPDATE_POLITICIAN':
-            const { politicians, searchResults, liked, all } = state;
+            const { all, follow, liked, politicians, searchResults } = state;
 
             if (state.politician._id === action.politician._id) {
                 state.politician = action.politician;
@@ -48,6 +51,7 @@ const politicians = (state = initialState, action) => {
                 politicians: politicians.map(replacePolitician),
                 searchResults: searchResults.map(replacePolitician),
                 liked: liked.map(replacePolitician),
+                follow: follow.map(replacePolitician),
                 all: all.map(replacePolitician),
                 error: '',
             };

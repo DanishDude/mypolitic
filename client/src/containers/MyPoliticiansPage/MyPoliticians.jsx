@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchAllPoliticians, fetchLikedPoliticians } from '../../actions/politicians';
+import { fetchAllPoliticians, fetchFollowedPoliticians, fetchLikedPoliticians } from '../../actions/politicians';
 import TabContainer from './TabContainer';
 import './MyPoliticians.scss';
 
 const MyPoliticians = (props) => {
-    const { state } = { toto: 'loco' };
-    const { likes } = useSelector((state) => state.user.user);
+    const { follows, likes } = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,7 +17,10 @@ const MyPoliticians = (props) => {
         if (likes?.length > 0) {
             dispatch(fetchLikedPoliticians(likes));
         }
-    }, [dispatch, likes]);
+        if (follows?.length > 0) {
+            dispatch(fetchFollowedPoliticians(follows));
+        }
+    }, [dispatch, follows, likes]);
 
     return (
         <div className="MyPoliticians">
