@@ -2,9 +2,9 @@ const initialState = {
     loading: false,
     politician: { teamInfo: [] },
     politicians: [],
-    searchResults: [],
     liked: [],
     all: [],
+    searchResults: [],
     error: '',
 };
 

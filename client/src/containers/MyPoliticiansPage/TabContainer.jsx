@@ -36,7 +36,8 @@ function a11yProps(index) {
     };
 }
 
-const TabContainer = () => {
+const TabContainer = (props) => {
+    const { state } = props;
     const { user } = useSelector((state) => state.user);
     const { all, error, searchResults } = useSelector((state) => state.politicians);
     const [value, setValue] = useState(0);

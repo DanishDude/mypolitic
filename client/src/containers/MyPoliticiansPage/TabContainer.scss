@@ -1,6 +1,7 @@
 .TabContainer {
     .MuiAppBar-root {
         top: 75px;
+        z-index: 1000;
     }
 
     .search {

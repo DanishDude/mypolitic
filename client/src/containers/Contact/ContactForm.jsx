@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, CircularProgress } from '@material-ui/core';
-import { ToastContainer, toast } from 'react-toastify'; // TODO implement toast on success
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { email, required } from '../../components/forms/formValidation';
 import { clearMessageData, sendInfoMessage } from '../../actions/message';
