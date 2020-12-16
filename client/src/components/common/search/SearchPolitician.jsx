@@ -34,6 +34,10 @@ let SearchPolitician = (props) => {
     }, [initialize]);
 
     async function getCities(city) {
+        if (!city.length) {
+            return setShowCities(false);
+        }
+
         const cityList = await citySearch(city);
         if (cityList.length) {
             const formattedCityList = cityList.map((result) => {
