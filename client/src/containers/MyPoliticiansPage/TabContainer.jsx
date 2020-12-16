@@ -37,8 +37,7 @@ function a11yProps(index) {
 }
 
 const TabContainer = (props) => {
-    const { state } = props;
-    const { user } = useSelector((state) => state.user);
+    const { token } = useSelector((state) => state.user);
     const { all, error, searchResults } = useSelector((state) => state.politicians);
     const [value, setValue] = useState(0);
     const [elevation, setElevation] = useState(0);
@@ -52,14 +51,13 @@ const TabContainer = (props) => {
     });
 
     const handleChange = (event, newValue) => {
-        console.log(newValue);
-        // if (user._id && newValue === 1) {
-        console.log('1');
-        setValue(newValue);
-        // } else {
-        //     console.log('2');
-        //     dispatch(requestLogin());
-        // }
+        if (token && newValue === 1) {
+            setValue(newValue);
+        } else if (newValue === 1) {
+            dispatch(requestLogin());
+        } else {
+            setValue(newValue);
+        }
 
         event.preventDefault();
     };
