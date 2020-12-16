@@ -196,9 +196,7 @@ export const fetchLikePolitician = (_id, token) => (dispatch) => {
                         dispatch(followPolitician(_id));
                     }
                     if (liked) {
-                        // dispatch(fetchFollowPolitician(_id, token));
                         dispatch(likePolitician(_id));
-                        // dispatch(updatePolitician(politician));
                     }
                     if (!liked) {
                         dispatch(dislikePolitician(_id));
