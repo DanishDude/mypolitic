@@ -9,7 +9,7 @@ const Contact = () => {
             <h1>Contacter Nous</h1>
             <div className="subtitle">
                 <h4>Voulez-vous donner un commentaire?</h4>
-                <h4>Ou contactez l'équipe My Political, écrivez-nous</h4>
+                <h4>Ou contactez l'équipe My Politic, écrivez-nous</h4>
             </div>
             <div className="content">
                 <Paper className="paper" elevation={3}>

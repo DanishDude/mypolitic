@@ -8,8 +8,8 @@ const AboutUs = () => {
     return (
         <div className="AboutUs">
             <div className="header">
-                <img src={image} alt="landscape" />
-                <h1>Engagez-vous avec les politiciens autour de vous</h1>
+                <img className="bg-image" src={image} alt="landscape" />
+                <h1>LA POLITIQUE N'ATTENDS QUE VOUS</h1>
             </div>
             <DiscoverFeatures />
             <HowItWorks />

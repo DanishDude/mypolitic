@@ -4,7 +4,7 @@ import { Collapse, Navbar, NavbarToggler, Nav, NavItem, NavbarBrand, NavLink } f
 import { Link, useHistory } from 'react-router-dom';
 import ConnectUser from '../containers/ConnectUser/ConnectUser';
 import { userLogout, denyLoginRequest } from '../actions/user';
-import logo from '../assets/logo_transparent.png';
+import logo from '../assets/logo.png';
 import './NavBar.scss';
 
 const NavBar = (props) => {
@@ -59,7 +59,6 @@ const NavBar = (props) => {
             <span className="row content">
                 <NavbarBrand tag={Link} to="/" className="mr-auto">
                     <img src={logo} alt="" />
-                    <p className="beta">BETA</p>
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle} className="mr-2" />
 

@@ -1,7 +1,7 @@
 .AboutUs {
     .header {
         position: relative;
-        img {
+        .bg-image {
             width: 100vw;
             max-height: 80vh;
             object-fit: cover;
@@ -9,11 +9,11 @@
 
         h1 {
             position: absolute;
-            top: 50%;
+            top: 40%;
             left: 0;
             right: 0;
-            color: whitesmoke;
-            font-size: 3rem;
+            color: white;
+            font-size: 4rem;
         }
 
         @media screen and (max-width: 575px) {
