@@ -61,7 +61,6 @@ const ContactForm = (props) => {
                         fullWidth={true}
                         type="text"
                         label="Nom"
-                        validate={required}
                         variant="outlined"
                     />
                 </div>
@@ -83,7 +82,6 @@ const ContactForm = (props) => {
                         fullWidth={true}
                         type="text"
                         label="Sujet"
-                        validate={required}
                         variant="outlined"
                     />
                 </div>
