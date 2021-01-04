@@ -10,6 +10,16 @@
     -o-background-size: cover;
     background-size: cover;
 
+    img {
+        margin: auto;
+        position: absolute;
+        width: 50vw;
+        min-width: 640;
+        top: 5%;
+        left: 0;
+        right: 0;
+    }
+
     .search-politician {
         margin: auto;
         position: absolute;
@@ -20,6 +30,9 @@
     }
 
     @media screen and (max-width: 575px) {
+        img {
+            min-width: 95vw;
+        }
         .search-politician {
             top: 24vh;
 

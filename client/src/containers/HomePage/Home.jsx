@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import DiscoverFeatures from './DiscoverFeatures';
 import Header from './Header';
 import HowItWorks from './HowItWorks';
-import slogan from '../../assets/logoSlogan.png';
 import './Home.scss';
 
 const Home = (props) => {
@@ -13,9 +12,6 @@ const Home = (props) => {
     return (
         <div className="Home">
             <Header />
-            <div>
-                <img src={slogan} alt="slogan" />
-            </div>
             <DiscoverFeatures />
             <HowItWorks />
         </div>
