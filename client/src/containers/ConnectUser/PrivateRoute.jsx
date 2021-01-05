@@ -11,7 +11,7 @@ const PrivateRoute = ({ component: Component, ...propsRoute }) => {
         if (!user.isLoggedIn) {
             dispatch(requestLogin());
         }
-    }, [user]);
+    }, [dispatch, user]);
 
     return (
         <Route
