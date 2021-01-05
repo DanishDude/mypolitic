@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AboutUs from './containers/AboutUs/AboutUs';
+import Admin from './containers/Admin/Admin';
 import Contact from './containers/Contact/Contact';
 import Home from './containers/HomePage/Home';
 import MyPoliticians from './containers/MyPoliticiansPage/MyPoliticians';
@@ -20,6 +21,7 @@ function App() {
             <Switch>
                 <Route path="/politiciens" component={MyPoliticians} />
                 <PrivateRoute path="/mon-profil" component={MyProfile} />
+                <PrivateRoute path="/admin" component={Admin} />
                 <Route exact path="/" component={Home} />
                 <Route path="/a-propos-de-nous" component={AboutUs} />
                 <Route path="/contact" component={Contact} />

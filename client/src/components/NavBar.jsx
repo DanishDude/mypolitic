@@ -64,17 +64,31 @@ const NavBar = (props) => {
 
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto menu-list" navbar>
+                        {user?.userType === 'admin' || user?.userType === 'superAdmin' ? (
+                            <NavItem className="menu-item">
+                                <NavLink tag={Link} to="/admin" onClick={toggle}>
+                                    Admin
+                                </NavLink>
+                            </NavItem>
+                        ) : (
+                            ''
+                        )}
+
                         <NavItem className="menu-item">
                             <NavLink tag={Link} to="/politiciens" onClick={toggle}>
                                 Politiciens
                             </NavLink>
                         </NavItem>
 
-                        <NavItem className="menu-item">
-                            <NavLink tag={Link} to="/mon-profil" onClick={toggle}>
-                                Mon Profil
-                            </NavLink>
-                        </NavItem>
+                        {user?.userType === 'politician' ? (
+                            <NavItem className="menu-item">
+                                <NavLink tag={Link} to="/mon-profil" onClick={toggle}>
+                                    Mon Profil
+                                </NavLink>
+                            </NavItem>
+                        ) : (
+                            ''
+                        )}
 
                         <NavItem className="menu-item">
                             <NavLink tag={Link} to="/a-propos-de-nous" onClick={toggle}>
