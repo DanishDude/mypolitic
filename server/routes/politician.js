@@ -7,6 +7,7 @@ const politician = require('../services/politician');
 const politicianProfile = require('../services/politician');
 const uploadFile = require('../services/upload');
 const user = require('../services/user');
+const allowedUsers = ['admin', 'politician', 'superAdmin'];
 
 router
     .route('/')
@@ -14,14 +15,14 @@ router
         try {
             const { _id, userType } = req.user;
 
-            if (userType !== 'politician')
+            if (!allowedUsers.includes(userType))
                 return res.status(403).send({
                     success: false,
                     msg: `not allowed for userType ${userType}`,
                 });
 
             const hasProfile = await politicianProfile.getOneByUserId(_id);
-            if (hasProfile) {
+            if (hasProfile && userType === 'politician') {
                 return res.status(400).send({
                     success: false,
                     msg: `user ${_id} already has a profile with _id ${hasProfile._id}`,
@@ -31,7 +32,7 @@ router
             if (req.file) {
                 req.body.profilePhoto = req.file.path;
             }
-            const newProfile = await politicianProfile.createOne(_id, req.body);
+            const newProfile = await politicianProfile.createOne(userType === 'politician' ? _id : null, req.body);
 
             return res.status(200).send({
                 success: true,
@@ -139,7 +140,7 @@ router
             const { _id, userType } = req.user;
             const { profileId } = req.params;
 
-            if (userType !== 'politician')
+            if (!allowedUsers.includes(userType))
                 return res.status(403).send({
                     success: false,
                     msg: `not allowed for userType ${userType}`,
@@ -152,7 +153,7 @@ router
                     success: false,
                     msg: `Profile not found with _id ${profileId}`,
                 });
-            } else if (profile.user.toString() !== _id.toString()) {
+            } else if (userType === 'politician' && profile.user.toString() !== _id.toString()) {
                 return res.status(403).send({
                     success: false,
                     msg: `Not allowed. User ${_id} is not the owner of profile ${profileId}`,
@@ -188,7 +189,7 @@ router
                     success: false,
                     msg: `Profile not found with _id ${profileId}`,
                 });
-            } else if (profile.user.toString() !== _id.toString()) {
+            } else if (userType === 'politician' && profile.user.toString() !== _id.toString()) {
                 return res.status(403).send({
                     success: false,
                     msg: `Not allowed. User ${_id} is not the owner of profile ${profileId}`,

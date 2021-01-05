@@ -5,7 +5,7 @@ const validate = require('./validate');
 const Politician = require('../models/politician');
 
 class PoliticianProfile {
-    async createOne(userId, data) {
+    async createOne(userId = null, data) {
         const profile = new Politician({ user: userId, ...data });
         profile.save((err) => {
             if (err) {

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 mongoose.set('useCreateIndex', true);
 
 const politicianSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'User', unique: true, required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User', unique: true, required: false },
     firstname: { type: String },
     lastname: { type: String },
     profilePhoto: { type: String, default: undefined },
