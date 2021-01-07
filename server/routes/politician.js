@@ -7,6 +7,7 @@ const politician = require('../services/politician');
 const politicianProfile = require('../services/politician');
 const uploadFile = require('../services/upload');
 const user = require('../services/user');
+
 const allowedUsers = ['admin', 'politician', 'superAdmin'];
 
 router
@@ -50,8 +51,7 @@ router
             if (userType !== 'politician')
                 return res.status(403).send({
                     success: false,
-                    msg: `not allowed for userType ${userType}. 
-          Use route "/api/${userType}" to get a profile`,
+                    msg: `not allowed for userType "${userType}"`,
                 });
 
             const profile = await politicianProfile.getOneByUserId(_id);
