@@ -1,3 +1,5 @@
+import politicians from './politicians';
+
 const initialState = {
     loading: false,
     isLoggedIn: false,

@@ -31,7 +31,7 @@ let SearchPolitician = (props) => {
             city: location.state?.values?.city ? location.state.values.city : '',
         };
         initialize(initialValues);
-    }, [initialize, location.state?.values]);
+    }, [initialize]);
 
     async function getCities(city) {
         if (!city.length) {
