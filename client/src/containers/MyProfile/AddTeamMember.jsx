@@ -11,16 +11,23 @@ import SearchPolitician from '../../components/common/search/SearchPolitician';
 import './AddTeamMember.scss';
 
 const AddTeamMember = (props) => {
-    const { onHide } = props;
+    const { isAdmin, onHide } = props;
     const { politicianProfile } = useSelector((state) => state.politicianProfile);
-    const { searchResults } = useSelector((state) => state.politicians);
+    const { politician, searchResults } = useSelector((state) => state.politicians);
     const { token } = useSelector((state) => state.user);
+    const [profile, setProfile] = useState(undefined);
     const [member, setMember] = useState(null);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(clearPoliticianSearchResults());
-    }, [dispatch]);
+        if (isAdmin) {
+            setProfile(politician);
+        } else {
+            setProfile(politicianProfile);
+        }
+        return () => setProfile(undefined);
+    }, [dispatch, isAdmin, politician, politicianProfile]);
 
     const clearMember = () => setMember(null);
 
@@ -30,8 +37,8 @@ const AddTeamMember = (props) => {
     };
 
     const addTeamMember = () => {
-        politicianProfile.team.push(member._id);
-        dispatch(fetchUpdatePoliticianProfile(politicianProfile, token));
+        profile.team.push(member._id);
+        dispatch(fetchUpdatePoliticianProfile(profile, token, isAdmin));
         closeModal();
     };
 
@@ -49,10 +56,10 @@ const AddTeamMember = (props) => {
                         <SearchPolitician />
                         {searchResults.length ? (
                             <ul className="search-results">
-                                {searchResults.map((politcian) => {
+                                {searchResults.map((p) => {
                                     return (
-                                        <li key={politcian._id}>
-                                            <ListCard select={() => setMember(politcian)} profile={politcian} />
+                                        <li key={p._id}>
+                                            <ListCard select={() => setMember(p)} profile={p} />
                                         </li>
                                     );
                                 })}

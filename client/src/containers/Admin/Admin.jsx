@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 
 import { fetchAllPoliticians } from '../../actions/politicians';
-import ListCard from '../../components/common/cards/ListCard';
+import './Admin.scss';
 
 const Admin = (props) => {
     const profiles = useSelector((state) => state.politicians.all);
     const dispatch = useDispatch();
+    const history = useHistory();
+    const viewPolitician = (_id) => history.push({ pathname: `/politicien/${_id}` });
 
     useEffect(() => {
         dispatch(fetchAllPoliticians());
@@ -21,15 +24,16 @@ const Admin = (props) => {
                     <Table size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Party</TableCell>
-                                <TableCell>City</TableCell>
+                                <TableCell>Nom</TableCell>
+                                <TableCell>Partie</TableCell>
+                                <TableCell>Ville</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {profiles?.length
                                 ? profiles.map((profile) => (
-                                      <TableRow key={profile._id}>
+                                      <TableRow key={profile._id} onClick={() => viewPolitician(profile._id)}>
                                           <TableCell>
                                               {profile.firstname} {profile.lastname}
                                           </TableCell>

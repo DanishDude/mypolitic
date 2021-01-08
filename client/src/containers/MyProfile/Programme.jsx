@@ -8,7 +8,7 @@ import './Container.scss';
 import './Programme.scss';
 
 const Programme = (props) => {
-    const { hasProfile, politicianProfile, profileOwner } = props;
+    const { hasProfile, isAdmin, politicianProfile, profileOwner } = props;
     const [modalShow, setModalShow] = useState(false);
     const [programme, setProgramme] = useState(undefined);
 
@@ -21,13 +21,14 @@ const Programme = (props) => {
 
     return (
         <div className="Container Programme">
-            {hasProfile && profileOwner ? <AddButton add={() => setModalShow(true)} /> : ''}
+            {(hasProfile && profileOwner) || isAdmin ? <AddButton add={() => setModalShow(true)} /> : ''}
             <EditProgramme
-                programmeItem={programme}
+                isAdmin={isAdmin}
                 onHide={() => {
                     setModalShow(false);
                     setProgramme(undefined);
                 }}
+                programmeItem={programme}
                 show={modalShow}
             />
 
@@ -39,7 +40,7 @@ const Programme = (props) => {
                 <ul>
                     {politicianProfile.programme.map((prog) => (
                         <li key={prog._id}>
-                            {profileOwner ? (
+                            {profileOwner || isAdmin ? (
                                 <EditButton
                                     altStyle={altStyle}
                                     edit={() => {

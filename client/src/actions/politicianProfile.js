@@ -1,4 +1,5 @@
 import { urlApi } from '../constant';
+import { fetchPoliticianProfile } from './politicians';
 
 // -------- Update Politician Profile -------- //
 export const startUpdatePoliticianProfile = () => ({
@@ -15,7 +16,7 @@ export const errorUpdatePoliticianProfile = (err) => ({
     err,
 });
 
-export const fetchUpdatePoliticianProfile = (politicianProfile, token) => (dispatch) => {
+export const fetchUpdatePoliticianProfile = (politicianProfile, token, isAdmin = false) => (dispatch) => {
     dispatch(startUpdatePoliticianProfile());
 
     let fd = new FormData();
@@ -48,12 +49,14 @@ export const fetchUpdatePoliticianProfile = (politicianProfile, token) => (dispa
 
             if (!success) {
                 dispatch(errorUpdatePoliticianProfile(msg));
+            } else if (success && isAdmin) {
+                dispatch(fetchPoliticianProfile(profile._id));
             } else {
                 dispatch(successUpdatePoliticianProfile(profile));
                 dispatch(fetchMyPoliticianProfile(token));
             }
         })
-        .catch((err) => dispatch(errorUpdatePoliticianProfile(err)));
+        .catch((err) => dispatch(errorUpdatePoliticianProfile('Error updating politician profile')));
 };
 
 // -------- Get My Politician Profile -------- //

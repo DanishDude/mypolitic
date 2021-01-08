@@ -171,7 +171,7 @@ router
                 return res.status(200).send({
                     success: true,
                     msg: `Modified profile with _id ${modifiedProfile._id}`,
-                    modifiedProfile,
+                    profile: modifiedProfile,
                 });
             }
         } catch (err) {
