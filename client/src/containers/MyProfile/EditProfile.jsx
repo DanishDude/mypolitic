@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Field, reduxForm } from 'redux-form';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import { required, maxLength22 } from '../../components/forms/formValidation';
@@ -29,7 +29,7 @@ const renderField = ({ input, label, placeholder, type, meta: { touched, error, 
 };
 
 let EditProfile = (props) => {
-    const { initialValues, pristine, onHide, submitting } = props;
+    const { initialize, isAdmin, pristine, profile, onHide, submitting } = props;
     const [profilePhotoPreview, setProfilePhotoPreview] = useState(placeholder);
     const [cities, setCities] = useState([]);
     const [showCities, setShowCities] = useState(false);
@@ -37,12 +37,17 @@ let EditProfile = (props) => {
     const { form, user } = useSelector((state) => state);
 
     useEffect(() => {
-        if (initialValues && initialValues.profilePhoto) {
-            setProfilePhotoPreview(initialValues.profilePhoto);
+        const initialValues = profile ? profile : {};
+        initialize(initialValues);
+    }, [initialize, profile]);
+
+    useEffect(() => {
+        if (profile?.profilePhoto) {
+            setProfilePhotoPreview(profile.profilePhoto);
         } else {
             setProfilePhotoPreview(placeholder);
         }
-    }, [initialValues]);
+    }, [profile.profilePhoto]);
 
     async function getCities(city) {
         const cityList = await citySearch(city);
@@ -65,7 +70,7 @@ let EditProfile = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!form.editProfile.syncErrors) {
-            dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token));
+            dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token, isAdmin));
             onHide();
         }
         return;
@@ -177,15 +182,6 @@ let EditProfile = (props) => {
     );
 };
 
-const mstp = (state) => {
-    return { initialValues: state.politicianProfile.politicianProfile };
-};
-
-EditProfile = reduxForm({
+export default reduxForm({
     form: 'editProfile',
-    enableReinitialize: true,
 })(EditProfile);
-
-EditProfile = connect(mstp, null)(EditProfile);
-
-export default EditProfile;

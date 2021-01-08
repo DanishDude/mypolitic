@@ -20,7 +20,7 @@ const renderField = ({ id, input, placeholder, type, meta: { touched, error } })
 );
 
 let EditProgramme = (props) => {
-    const { onHide, pristine, programmeItem, submitting } = props;
+    const { isAdmin, onHide, pristine, programmeItem, submitting } = props;
     const dispatch = useDispatch();
     const { form, user } = useSelector((state) => state);
     const maxChar = 800;
@@ -39,7 +39,7 @@ let EditProgramme = (props) => {
         }
     }, [form.editProfile, programmeItem]);
 
-    const handleSubmit = (e, toDelete = false) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const { category, customCategory, description } = form.editProfile.values;
         let updateProgramme = form.editProfile.values.programme ? [...form.editProfile.values.programme] : [];
@@ -69,7 +69,7 @@ let EditProgramme = (props) => {
         delete form.editProfile.values.description;
 
         form.editProfile.values.programme = updateProgramme;
-        dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token));
+        dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token, isAdmin));
         setCustom(false);
         onHide();
     };
@@ -83,7 +83,7 @@ let EditProgramme = (props) => {
         delete form.editProfile.values.description;
 
         form.editProfile.values.programme = updateProgramme;
-        dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token));
+        dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token, isAdmin));
         setCustom(false);
         onHide();
     };

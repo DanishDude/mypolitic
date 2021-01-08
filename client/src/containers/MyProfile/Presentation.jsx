@@ -8,12 +8,12 @@ import './Container.scss';
 import './Presentation.scss';
 
 const Presentation = (props) => {
-    const { hasProfile, politicianProfile, profileOwner } = props;
+    const { hasProfile, isAdmin, politicianProfile, profileOwner } = props;
     const [modalShow, setModalShow] = useState(false);
 
     return (
         <div className="Container Presentation">
-            {hasProfile && profileOwner ? (
+            {(hasProfile && profileOwner) || isAdmin ? (
                 <Fragment>
                     {politicianProfile && politicianProfile.presentation ? (
                         <EditButton edit={() => setModalShow(true)} />
@@ -25,7 +25,12 @@ const Presentation = (props) => {
                 ''
             )}
 
-            <EditPresentation onHide={() => setModalShow(false)} show={modalShow} />
+            <EditPresentation
+                onHide={() => setModalShow(false)}
+                isAdmin={isAdmin}
+                profile={politicianProfile}
+                show={modalShow}
+            />
 
             <h3 className="title">Présentation</h3>
             <div className="text">

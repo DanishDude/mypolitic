@@ -7,6 +7,7 @@ const politician = require('../services/politician');
 const politicianProfile = require('../services/politician');
 const uploadFile = require('../services/upload');
 const user = require('../services/user');
+
 const allowedUsers = ['admin', 'politician', 'superAdmin'];
 
 router
@@ -32,7 +33,11 @@ router
             if (req.file) {
                 req.body.profilePhoto = req.file.path;
             }
-            const newProfile = await politicianProfile.createOne(userType === 'politician' ? _id : null, req.body);
+
+            if (userType === 'politician') {
+                req.body.user = _id;
+            }
+            const newProfile = await politicianProfile.createOne(req.body);
 
             return res.status(200).send({
                 success: true,
@@ -50,8 +55,7 @@ router
             if (userType !== 'politician')
                 return res.status(403).send({
                     success: false,
-                    msg: `not allowed for userType ${userType}. 
-          Use route "/api/${userType}" to get a profile`,
+                    msg: `not allowed for userType "${userType}"`,
                 });
 
             const profile = await politicianProfile.getOneByUserId(_id);
@@ -171,7 +175,7 @@ router
                 return res.status(200).send({
                     success: true,
                     msg: `Modified profile with _id ${modifiedProfile._id}`,
-                    modifiedProfile,
+                    profile: modifiedProfile,
                 });
             }
         } catch (err) {

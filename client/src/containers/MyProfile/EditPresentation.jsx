@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Field, reduxForm } from 'redux-form';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { required, maxLength2000 } from '../../components/forms/formValidation';
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
@@ -16,21 +16,24 @@ const renderField = ({ id, input, placeholder, type, meta: { touched, error } })
 );
 
 let EditPresentation = (props) => {
-    const { initialValues, pristine, onHide, submitting } = props;
+    const { initialize, isAdmin, profile, pristine, onHide, submitting } = props;
     const dispatch = useDispatch();
     const { form, user } = useSelector((state) => state);
     const maxChar = 2000;
     const [count, setCount] = useState(maxChar);
 
     useEffect(() => {
-        if (initialValues && initialValues.presentation) {
-            setCount(maxChar - initialValues.presentation.length);
+        const initialValues = profile ? profile : {};
+        initialize(initialValues);
+
+        if (initialValues?.presentation?.length) {
+            setCount(maxChar - initialValues.presentation.length || 0);
         }
-    }, [initialValues]);
+    }, [initialize, profile]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token));
+        dispatch(fetchUpdatePoliticianProfile(form.editProfile.values, user.token, isAdmin));
         onHide();
     };
 
@@ -80,15 +83,6 @@ let EditPresentation = (props) => {
     );
 };
 
-const mstp = (state) => {
-    return { initialValues: state.politicianProfile.politicianProfile };
-};
-
-EditPresentation = reduxForm({
+export default reduxForm({
     form: 'editProfile',
-    enableReinitialize: true,
 })(EditPresentation);
-
-EditPresentation = connect(mstp, null)(EditPresentation);
-
-export default EditPresentation;

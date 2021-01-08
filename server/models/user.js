@@ -3,23 +3,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 mongoose.set('useCreateIndex', true);
 
-const userSchema = new Schema({
-    email: {
-        type: String,
-        unique: true,
-        lowercase: true,
-        required: true,
-        match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'is invalid'],
+const userSchema = new Schema(
+    {
+        email: {
+            type: String,
+            unique: true,
+            lowercase: true,
+            required: true,
+            match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'is invalid'],
+        },
+        password: { type: String, required: true, select: false },
+        userType: {
+            type: String,
+            enum: ['politician', 'assistant', 'citizen', 'admin', 'superAdmin'],
+            required: true,
+        },
+        likes: [{ type: Schema.Types.ObjectId, ref: 'Politician', unique: true, default: undefined }],
+        follows: [{ type: Schema.Types.ObjectId, ref: 'Politician', unique: true, default: undefined }],
     },
-    password: { type: String, required: true, select: false },
-    userType: {
-        type: String,
-        enum: ['politician', 'assistant', 'citizen', 'admin', 'superAdmin'],
-        required: true,
-    },
-    likes: [{ type: Schema.Types.ObjectId, ref: 'Politician', unique: true, default: undefined }],
-    follows: [{ type: Schema.Types.ObjectId, ref: 'Politician', unique: true, default: undefined }],
-});
+    { timestamps: { createdAt: 'created_at' } }
+);
 
 userSchema.pre('save', function (next) {
     const user = this;

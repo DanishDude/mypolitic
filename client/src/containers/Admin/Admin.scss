@@ -1,0 +1,12 @@
+.Admin {
+    .MuiTableContainer-root {
+        margin: 0 auto;
+        width: 80vw;
+        min-width: 360px;
+
+        .MuiTableRow-root:hover {
+            cursor: pointer;
+            background-color: whitesmoke;
+        }
+    }
+}

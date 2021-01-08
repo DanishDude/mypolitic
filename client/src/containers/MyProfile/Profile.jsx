@@ -10,7 +10,7 @@ import placeholder from '../../assets/profile_picture_placeholder.jpg';
 import './Profile.scss';
 
 const Profile = (props) => {
-    const { politicianProfile, profileOwner } = props;
+    const { isAdmin, politicianProfile, profileOwner } = props;
     const [modalShow, setModalShow] = useState(false);
     const [profilePhoto, setProfilePhoto] = useState(placeholder);
     const [age, setAge] = useState('');
@@ -38,10 +38,15 @@ const Profile = (props) => {
                     <div className="bg-image"></div>
                     <img className="avatar" src={profilePhoto} alt="" />
 
-                    {profileOwner ? (
+                    {profileOwner || isAdmin ? (
                         <div className="edit-btn">
                             <EditButton edit={() => setModalShow(true)} />
-                            <EditProfile onHide={() => setModalShow(false)} show={modalShow} />
+                            <EditProfile
+                                isAdmin={isAdmin}
+                                onHide={() => setModalShow(false)}
+                                profile={politicianProfile}
+                                show={modalShow}
+                            />
                         </div>
                     ) : (
                         ''

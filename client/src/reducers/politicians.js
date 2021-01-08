@@ -48,6 +48,7 @@ const politicians = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                politician: action.politician,
                 politicians: politicians.map(updatePolitician),
                 searchResults: searchResults.map(updatePolitician),
                 liked: liked.map(updatePolitician),

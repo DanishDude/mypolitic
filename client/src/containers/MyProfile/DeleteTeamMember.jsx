@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@material-ui/core';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,17 +7,26 @@ import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
 import NonClicableCard from '../../components/common/cards/NonClicableCard';
 
 const DeleteTeamMember = (props) => {
-    const { onHide, member } = props;
+    const { isAdmin, onHide, member } = props;
+    const { politician } = useSelector((state) => state.politicians);
     const { politicianProfile } = useSelector((state) => state.politicianProfile);
     const { token } = useSelector((state) => state.user);
+    const [profile, setProfile] = useState(undefined);
     const dispatch = useDispatch();
 
-    const closeModal = () => onHide();
+    useEffect(() => {
+        if (isAdmin) {
+            setProfile(politician);
+        } else {
+            setProfile(politicianProfile);
+        }
+        return () => setProfile(undefined);
+    }, [isAdmin, politician, politicianProfile]);
 
     const deleteTeamMember = () => {
-        politicianProfile.team = politicianProfile.team.filter((id) => id !== member._id);
-        dispatch(fetchUpdatePoliticianProfile(politicianProfile, token));
-        closeModal();
+        profile.team = profile.team.filter((id) => id !== member._id);
+        dispatch(fetchUpdatePoliticianProfile(profile, token, isAdmin));
+        onHide();
     };
 
     return (
@@ -40,7 +49,7 @@ const DeleteTeamMember = (props) => {
 
             <Modal.Footer>
                 <div>
-                    <Button color="default" onClick={() => closeModal()}>
+                    <Button color="default" onClick={() => onHide()}>
                         Annuler
                     </Button>
                     <Button color="secondary" onClick={() => deleteTeamMember()}>
