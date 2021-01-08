@@ -27,7 +27,6 @@ const Admin = (props) => {
                                 <TableCell>Nom</TableCell>
                                 <TableCell>Partie</TableCell>
                                 <TableCell>Ville</TableCell>
-                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

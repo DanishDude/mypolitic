@@ -33,7 +33,11 @@ router
             if (req.file) {
                 req.body.profilePhoto = req.file.path;
             }
-            const newProfile = await politicianProfile.createOne(userType === 'politician' ? _id : null, req.body);
+
+            if (userType === 'politician') {
+                req.body.user = _id;
+            }
+            const newProfile = await politicianProfile.createOne(req.body);
 
             return res.status(200).send({
                 success: true,
