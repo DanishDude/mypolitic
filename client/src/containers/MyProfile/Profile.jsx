@@ -12,20 +12,15 @@ import './Profile.scss';
 const Profile = (props) => {
     const { isAdmin, politicianProfile, profileOwner } = props;
     const [modalShow, setModalShow] = useState(false);
-    const [profilePhoto, setProfilePhoto] = useState(placeholder);
     const [age, setAge] = useState('');
 
     useEffect(() => {
-        if (politicianProfile.profilePhoto) {
-            setProfilePhoto(politicianProfile.profilePhoto);
-        } else {
-            setProfilePhoto(placeholder);
-        }
-
-        if (politicianProfile.dateOfBirth) {
+        if (politicianProfile?.dateOfBirth) {
             setAge(getAge(politicianProfile.dateOfBirth));
+        } else {
+            setAge('');
         }
-    }, [politicianProfile]);
+    }, [politicianProfile?.dateOfBirth]);
 
     const getAge = (birthDate) => {
         return Math.floor((new Date() - new Date(birthDate.substring(0, 10)).getTime()) / 3.15576e10);
@@ -36,7 +31,7 @@ const Profile = (props) => {
             {politicianProfile ? (
                 <Fragment>
                     <div className="bg-image"></div>
-                    <img className="avatar" src={profilePhoto} alt="" />
+                    <img className="avatar" src={politicianProfile?.profilePhoto || placeholder} alt="" />
 
                     {profileOwner || isAdmin ? (
                         <div className="edit-btn">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Field, reduxForm } from 'redux-form';
@@ -16,20 +16,11 @@ const renderField = ({ id, input, placeholder, type, meta: { touched, error } })
 );
 
 let EditPresentation = (props) => {
-    const { initialize, isAdmin, profile, pristine, onHide, submitting } = props;
+    const { isAdmin, pristine, onHide, submitting } = props;
     const dispatch = useDispatch();
     const { form, user } = useSelector((state) => state);
     const maxChar = 2000;
     const [count, setCount] = useState(maxChar);
-
-    useEffect(() => {
-        const initialValues = profile ? profile : {};
-        initialize(initialValues);
-
-        if (initialValues?.presentation?.length) {
-            setCount(maxChar - initialValues.presentation.length || 0);
-        }
-    }, [initialize, profile]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

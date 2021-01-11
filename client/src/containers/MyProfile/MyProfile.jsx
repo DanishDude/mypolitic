@@ -14,9 +14,10 @@ const MyProfile = () => {
     const [profileOwner, setProfileOwner] = useState(false);
     const [hasProfile, setHasProfile] = useState(false);
     const dispatch = useDispatch();
-    const faded = hasProfile ? '' : 'faded';
 
-    useEffect(() => dispatch(fetchMyPoliticianProfile(token)), [dispatch, token]);
+    useEffect(() => {
+        dispatch(fetchMyPoliticianProfile(token));
+    }, [dispatch, token]);
 
     useEffect(() => {
         if (
@@ -24,34 +25,41 @@ const MyProfile = () => {
             user._id === politicianProfile.user
         ) {
             setProfileOwner(true);
-        }
 
-        if (politicianProfile._id) {
-            setHasProfile(true);
+            if (politicianProfile !== {}) {
+                setHasProfile(true);
+            } else {
+                setHasProfile(false);
+            }
+        } else {
+            setProfileOwner(false);
         }
-    }, [error, politicianProfile, token, user]);
+    }, [user.userType, user._id, error, politicianProfile]);
 
     return (
         <div className="MyProfile">
             {politicianProfile ? (
                 <Fragment>
-                    <Profile politicianProfile={politicianProfile} profileOwner={profileOwner} />
-                    <div className={faded}>
+                    <Profile isAdmin={false} politicianProfile={politicianProfile} profileOwner={profileOwner} />
+                    <div className={hasProfile ? '' : 'faded'}>
                         <Presentation
+                            isAdmin={false}
                             politicianProfile={politicianProfile}
                             profileOwner={profileOwner}
                             hasProfile={hasProfile}
                         />
                     </div>
-                    <div className={faded}>
+                    <div className={hasProfile ? '' : 'faded'}>
                         <Programme
+                            isAdmin={false}
                             politicianProfile={politicianProfile}
                             profileOwner={profileOwner}
                             hasProfile={hasProfile}
                         />
                     </div>
-                    <div className={faded}>
+                    <div className={hasProfile ? '' : 'faded'}>
                         <Team
+                            isAdmin={false}
                             politicianProfile={politicianProfile}
                             profileOwner={profileOwner}
                             hasProfile={hasProfile}

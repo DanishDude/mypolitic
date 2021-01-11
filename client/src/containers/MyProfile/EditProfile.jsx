@@ -30,24 +30,17 @@ const renderField = ({ input, label, placeholder, type, meta: { touched, error, 
 
 let EditProfile = (props) => {
     const { initialize, isAdmin, pristine, profile, onHide, submitting } = props;
-    const [profilePhotoPreview, setProfilePhotoPreview] = useState(placeholder);
+    const [profilePhotoPreview, setProfilePhotoPreview] = useState(profile?.profilePhoto || placeholder);
     const [cities, setCities] = useState([]);
     const [showCities, setShowCities] = useState(false);
     const dispatch = useDispatch();
     const { form, user } = useSelector((state) => state);
 
     useEffect(() => {
-        const initialValues = profile ? profile : {};
-        initialize(initialValues);
-    }, [initialize, profile]);
-
-    useEffect(() => {
-        if (profile?.profilePhoto) {
-            setProfilePhotoPreview(profile.profilePhoto);
-        } else {
-            setProfilePhotoPreview(placeholder);
+        if (profile !== {}) {
+            initialize(profile);
         }
-    }, [profile.profilePhoto]);
+    }, [profile]);
 
     async function getCities(city) {
         const cityList = await citySearch(city);
