@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { getFormInitialValues, getFormValues, Field, reduxForm } from 'redux-form';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { required, maxLength22, maxLength800 } from '../../components/forms/formValidation';
 import { fetchUpdatePoliticianProfile } from '../../actions/politicianProfile';
@@ -188,14 +188,6 @@ let EditProgramme = (props) => {
     );
 };
 
-EditProgramme = reduxForm({
+export default EditProgramme = reduxForm({
     form: 'editProfile',
-    enableReinitialize: true,
 })(EditProgramme);
-
-EditProgramme = connect((state) => ({
-    initialValues: getFormInitialValues('editProfile')(state),
-    values: getFormValues('editProfile')(state),
-}))(EditProgramme);
-
-export default EditProgramme;

@@ -19,7 +19,8 @@ const Politician = (props) => {
     useEffect(() => {
         if (userType === 'admin' || userType === 'superAdmin') {
             setIsAdmin(true);
-            console.log('yoyo');
+        } else {
+            setIsAdmin(false);
         }
 
         dispatch(fetchPoliticianProfile(_id));

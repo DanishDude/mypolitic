@@ -69,7 +69,7 @@ let SearchPolitician = (props) => {
         }
         dispatch(fetchSearchPoliticians(query));
 
-        if (!location.pathname.includes('politicien', '/politiciens')) {
+        if (!location.pathname.includes('mon-profil', 'politicien', '/politiciens')) {
             history.push({
                 pathname: '/politiciens',
                 state: { values },
